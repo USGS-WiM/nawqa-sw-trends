@@ -1,0 +1,1 @@
+# nawqa-sw-trends
