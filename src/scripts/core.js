@@ -72,6 +72,8 @@ require([
     }, "locateButton");
     locate.startup();
 
+    $('#disclaimerModal').modal('show');
+
     //following block forces map size to override problems with default behavior
     $(window).resize(function () {
         if ($("#legendCollapse").hasClass('in')) {
