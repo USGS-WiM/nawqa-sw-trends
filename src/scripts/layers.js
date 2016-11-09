@@ -5,18 +5,14 @@ var allLayers;
 
 require([
     "esri/geometry/Extent",
-    "esri/InfoTemplate",
     "esri/layers/WMSLayerInfo",
     "esri/layers/FeatureLayer",
     'dojo/domReady!'
 ], function(
     Extent,
-    InfoTemplate,
     WMSLayerInfo,
     FeatureLayer
 ) {
-
-    var trendInfoTemplate = new InfoTemplate("${shortName}", "HUC:  ${huc_cd}");
 
     allLayers = [
         {
@@ -31,7 +27,6 @@ require([
                         "opacity": 1.00,
                         "mode": FeatureLayer.MODE_ONDEMAND,
                         "outFields": ["*"],
-                        "infoTemplate": trendInfoTemplate,
                         "visible": true
                     },
                     "wimOptions": {

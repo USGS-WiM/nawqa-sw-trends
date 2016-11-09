@@ -9,6 +9,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/lobipanel/dist/css/lobipanel.min.css" />
     <link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css" />
     <link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css" />
     <!-- endbower -->
@@ -29,8 +30,11 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/jquery-ui-touch-punch-improved/jquery.ui.touch-punch-improved.js"></script>
+    <script src="bower_components/lobipanel/dist/js/lobipanel.min.js"></script>
+    <script src="bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>
     <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
     <script src="bower_components/bootstrap-map-js/dist/js/bootstrapmap.min.js"></script>
     <!-- endbower -->
@@ -228,6 +232,32 @@
             <!--</div>-->
 
             <div id="mapDiv">
+
+                <div id="siteInfoDiv" class="panel panel-defaults siteInfoClass">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4 id="siteInfoPanelHeader">Site Info</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        <div id="siteInfoPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="siteInfoPanelHeader">
+                            <ul class="nav nav-tabs" id="siteInfoTabs">
+                                <li role="presentation" class="active"><a id="siteInfoTab" href="#siteInfoTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Site Info</a></li>
+                                <button id="charts" type="button" class="btn btn-primary"><i class="fa fa-line-chart"></i>&nbsp;Charts</button>
+                                <button id="table" type="button" class="btn btn-primary"><i class="fa fa-table"></i>&nbsp;Trend Results</button>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="siteInfoTabPane">
+                                    <p>
+                                        <b>Site Info text here</b><br/>
+                                        SiteInfo
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="legendElement" class="panel panel-default legendClass">
                     <div id="legendHeading" class=" legendHeading" role="tab">

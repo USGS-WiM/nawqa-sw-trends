@@ -180,7 +180,7 @@ require([
     //end code for adding draggability to infoWindow
 
     on(map, "click", function(evt) {
-        var graphic = new Graphic();
+        /*var graphic = new Graphic();
 
         var feature = graphic;
 
@@ -194,7 +194,66 @@ require([
         map.infoWindow.setFeatures([feature]);
         map.infoWindow.show(evt.mapPoint);
 
-        map.infoWindow.show();
+        map.infoWindow.show();*/
+    });
+
+    // Using Lobipanel: https://github.com/arboshiki/lobipanel
+    $("#siteInfoDiv").lobiPanel({
+        unpin: false,
+        reload: false,
+        minimize: false,
+        close: false,
+        expand: false,
+        editTitle: false,
+        maxWidth: 800,
+        maxHeight: 500
+    });
+
+    $("#siteInfoDiv .dropdown").prepend("<div id='siteInfoClose' title='close'><b>X</b></div>");
+    $("#siteInfoDiv .dropdown").prepend("<div id='siteInfoMin' title='collapse'><b>_</b></div>");
+
+    $("#siteInfoMin").click(function(){
+        $("#siteInfoDiv").css("visibility", "hidden");
+    });
+
+    $("#siteInfoClose").click(function(){
+        $("#siteInfoDiv").css("visibility", "hidden");
+    });
+
+    map.on('layer-add', function (evt) {
+        var layer = evt.layer.id;
+        var actualLayer = evt.layer;
+
+        if (layer == "trendSites") {
+
+            map.getLayer(layer).on('click', function (evt) {
+
+                $("#siteInfoDiv").css("visibility", "visible");
+                var instance = $('#siteInfoDiv').data('lobiPanel');
+                var docHeight = $(document).height();
+                var docWidth = $(document).width();
+                var percentageOfScreen = 0.9;
+                var siteInfoHeight = docHeight*percentageOfScreen
+                var siteInfoWidth = docWidth*percentageOfScreen;
+                if (docHeight < 500) {
+                    $("#siteInfoDiv").height(siteInfoHeight);
+                }
+                if (docWidth < 500) {
+                    $("#siteInfoDiv").width(siteInfoWidth);
+                }
+
+                //var instanceX = docWidth*0.5-$("#siteInfoDiv").width()*0.5;
+                //var instanceY = docHeight*0.5-$("#siteInfoDiv").height()*0.5;
+                var instanceX = evt.x;
+                var instanceY = evt.y;
+
+                instance.setPosition(instanceX, instanceY);
+                if (instance.isPinned() == true) {
+                    instance.unpin();
+                }
+
+            });
+        }
     });
 
     var geocoder = new Geocoder({

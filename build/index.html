@@ -206,6 +206,32 @@
 
             <div id="mapDiv">
 
+                <div id="siteInfoDiv" class="panel panel-defaults siteInfoClass">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4 id="siteInfoPanelHeader">Site Info</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        <div id="siteInfoPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="siteInfoPanelHeader">
+                            <ul class="nav nav-tabs" id="siteInfoTabs">
+                                <li role="presentation" class="active"><a id="siteInfoTab" href="#siteInfoTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Site Info</a></li>
+                                <button id="charts" type="button" class="btn btn-primary"><i class="fa fa-line-chart"></i>&nbsp;Charts</button>
+                                <button id="table" type="button" class="btn btn-primary"><i class="fa fa-table"></i>&nbsp;Trend Results</button>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="siteInfoTabPane">
+                                    <p>
+                                        <b>Site Info text here</b><br/>
+                                        SiteInfo
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="legendElement" class="panel panel-default legendClass">
                     <div id="legendHeading" class=" legendHeading" role="tab">
                         <h4 class="panel-title">
