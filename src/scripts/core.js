@@ -390,6 +390,20 @@ require([
             showAboutModal();
         });
 
+        function showChartModal () {
+            $('#chartModal').modal('show');
+        }
+        $('#charts').click(function(){
+            showChartModal();
+        });
+
+        function showTableModal () {
+            $('#tableModal').modal('show');
+        }
+        $('#table').click(function(){
+            showTableModal();
+        });
+
         $("#html").niceScroll();
         $("#sidebar").niceScroll();
         $("#sidebar").scroll(function () {
