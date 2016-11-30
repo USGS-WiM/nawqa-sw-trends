@@ -35,8 +35,10 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="http://usgs.gov">
-                <img alt="USGS logo" height="38px" src="images/USGS_ID_white.png">
-                <span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;NAWQA SW Trends</span>
+                <span>
+                    <img alt="USGS logo" height="38px" src="images/USGS_ID_white.png">
+                    <span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;NAWQA SW Trends</span>
+                </span>
             </a>
         </div>
 
@@ -61,28 +63,42 @@
 </div>
 
 <div class="modal fade overflow-y-hidden" id="chartModal" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                <h4 class="modal-title">Chart Title Text</h4>
+                <h4 class="modal-title">Charts</h4>
             </div>
             <div class="modal-body">
-                Body Text
+                <span style="width: 100%">
+                    <label style="width: 33%">Monitoring data</label>
+                    <label style="width: 33%">Model diagnostics</label>
+                    <label style="width: 30%">Model predictions</label>
+                </span>
+                <span>
+                    <img style="width: 33%"src="images/chart_examples/boxConcMonth.png"/>
+                    <img style="width: 33%"src="images/chart_examples/boxQTwice.png"/>
+                    <img style="width: 30%"src="images/chart_examples/boxResidMonth.png"/>
+                </span>
+                <span>
+                    <img style="width: 33%"src="images/chart_examples/boxConcMonth.png"/>
+                    <img style="width: 33%"src="images/chart_examples/boxQTwice.png"/>
+                    <img style="width: 30%"src="images/chart_examples/boxResidMonth.png"/>
+                </span>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
 
 <div class="modal fade overflow-y-hidden" id="tableModal" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                <h4 class="modal-title">Table Title Text</h4>
+                <h4 class="modal-title">Trends results</h4>
             </div>
             <div class="modal-body">
-                Body Text
+                Table here
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -154,11 +170,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">x</button>
-                <h4 class="modal-title"><b>Welcome to the NAWQA Surface Water Trends Mapper</b></h4>
+                <h4 class="modal-title"><b>Water-Quality Changes in U.S. Streams and Rivers</b></h4>
             </div>
             <div class="modal-body">
-                <h3>Enter the Map Title</h3>
-                <p>Enter the Map Title text here.</p>
+                <p>The Nation's rivers and streams are a valuable resource, providing drinking water for a growing population, irrigation for crops, habitat for aquatic life, and many recreational opportunities. Since
+                passage of the Clean Water Act in 1972, Federal, State, and local governments have invested billions of dollars to reduce pollution entering streams and rivers. In order to understand the return on
+                these investments, and to more effectively manage and protect the Nation's water resources in the future, we need to know: Has water quality has been changing over time?</p>
+                <p>The U.S. Geological Survey and other Federal, State, and local agencies have conducted long-term stream monitoring to answer this question. For the first time, these data have been
+                assembled into one database to support the most comprehensive assessment conducted to date of water-quality trends in the United States.</p>
+                <p>This mapper shows stream trends in water chemistry (nutrients, pesticides, sediment, carbon, and salinity) and aquatic ecology (fish, macroinvertebrates, and algae) for four time periods: 1972-2012,
+                1982-2012, 1992-2012, and 2002-2012.</p>
                 <form id="disclaimerButtons" id="disclaimer-form" class="form-inline">
                     <!--<button id="otherButton" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> More Info?</button>-->
                     <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Enter The Mapper</button>
@@ -219,6 +240,57 @@
                     <div id="toggle" style="padding: 2px 2px;"></div>
                 </div>
             </div>
+            <!-- panel for constituent and trend selections -->
+            <div class="panel panel-default wim-sidebar-panel">
+                <div class="panel-heading" id="constPanelHeader">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" href="#constPanel" aria-expanded="true" aria-controls="constDropdowns">
+                            Constituent Select
+                        </a>
+                    </h4>
+                </div>
+                <div id="constPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="constPanelHeader">
+                    <div id="constDropdowns" style="padding: 2px 2px;">
+                        <label for="typeSelect">Constituent type:</label>
+                        <span>
+                            <select id="typeSelect">
+                                <option value="Pesticides">Pesticides</option>
+                                <option value="Nutrients">Nutrients</option>
+                                <option value="Aquatic ecology">Aquatic ecology</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div>
+                        <label>Constituent:</label>
+                        <span>
+                            <select id="nutrientsSelect" class="constSelect">
+                                <option>-- select --</option>
+                            </select>
+                        </span>
+                        <span>
+                            <select id="pesticideSelect" class="constSelect">
+                                <option>-- select --</option>
+                            </select>
+                        </span>
+                        <span>
+                            <select id="ecologySelect" class="constSelect">
+                                <option>-- select --</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div style="align-content: center; width: 200px; padding-left: 50px; padding-top: 20px;">
+                        <span><label>Trend type</label><br/>
+                        <input name="trendType" type="radio"> Concentration</span><br/>
+                        <span><input name="trendType" type="radio"> Load</span>
+                    </div>
+                    <div style="align-content: center; width: 200px; padding-left: 50px; padding-top: 20px;">
+                        <label>Trend period</label><br/>
+                        <input name="trendPeriod" type="radio"> 2002-2012 <br/>
+                        <input name="trendPeriod" type="radio"> 1992-2012
+                    </div>
+                </div>
+            </div>
+
             <!-- # closing div tag for accordion style panels -->
             <!--</div>-->
             <div class="identification pull-right">powered by  <a href="http://wim.usgs.gov/" target="_blank">WiM</a></div>
@@ -248,11 +320,8 @@
                                 <button id="table" type="button" class="btn btn-primary"><i class="fa fa-table"></i>&nbsp;Trend Results</button>
                             </ul>
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="siteInfoTabPane">
-                                    <p>
-                                        <b>Site Info text here</b><br/>
-                                        SiteInfo
-                                    </p>
+                                <div role="tabpanel" class="tab-pane active" id="siteInfoTabPane"></br>
+
                                 </div>
                             </div>
                         </div>
