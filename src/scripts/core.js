@@ -13,6 +13,8 @@ var maxLegendDivHeight;
 var dragInfoWindows = true;
 var defaultMapCenter = [-95.6, 38.6];
 
+var constObj;
+
 require([
     'esri/arcgis/utils',
     'esri/map',
@@ -55,6 +57,127 @@ require([
     //bring this line back after experiment////////////////////////////
     //allLayers = mapLayers;
 
+    // Added for handling of ajaxTransport in IE
+    if (!jQuery.support.cors && window.XDomainRequest) {
+        var httpRegEx = /^https?:\/\//i;
+        var getOrPostRegEx = /^get|post$/i;
+        var sameSchemeRegEx = new RegExp('^'+location.protocol, 'i');
+        var xmlRegEx = /\/xml/i;
+
+        /*esri.addProxyRule({
+            urlPrefix: "http://commons.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools",
+            proxyUrl: "http://commons.wim.usgs.gov/resource-proxy/proxy.ashx"
+        });*/
+
+        // ajaxTransport exists in jQuery 1.5+
+        jQuery.ajaxTransport('text html xml json', function(options, userOptions, jqXHR){
+            // XDomainRequests must be: asynchronous, GET or POST methods, HTTP or HTTPS protocol, and same scheme as calling page
+            if (options.crossDomain && options.async && getOrPostRegEx.test(options.type) && httpRegEx.test(userOptions.url) && sameSchemeRegEx.test(userOptions.url)) {
+                var xdr = null;
+                var userType = (userOptions.dataType||'').toLowerCase();
+                return {
+                    send: function(headers, complete){
+                        xdr = new XDomainRequest();
+                        if (/^\d+$/.test(userOptions.timeout)) {
+                            xdr.timeout = userOptions.timeout;
+                        }
+                        xdr.ontimeout = function(){
+                            complete(500, 'timeout');
+                        };
+                        xdr.onload = function(){
+                            var allResponseHeaders = 'Content-Length: ' + xdr.responseText.length + '\r\nContent-Type: ' + xdr.contentType;
+                            var status = {
+                                code: 200,
+                                message: 'success'
+                            };
+                            var responses = {
+                                text: xdr.responseText
+                            };
+
+                            try {
+                                if (userType === 'json') {
+                                    try {
+                                        responses.json = JSON.parse(xdr.responseText);
+                                    } catch(e) {
+                                        status.code = 500;
+                                        status.message = 'parseerror';
+                                        //throw 'Invalid JSON: ' + xdr.responseText;
+                                    }
+                                } else if ((userType === 'xml') || ((userType !== 'text') && xmlRegEx.test(xdr.contentType))) {
+                                    var doc = new ActiveXObject('Microsoft.XMLDOM');
+                                    doc.async = true;
+                                    try {
+                                        doc.loadXML(xdr.responseText);
+                                    } catch(e) {
+                                        doc = undefined;
+                                    }
+                                    if (!doc || !doc.documentElement || doc.getElementsByTagName('parsererror').length) {
+                                        status.code = 500;
+                                        status.message = 'parseerror';
+                                        throw 'Invalid XML: ' + xdr.responseText;
+                                    }
+                                    responses.xml = doc;
+                                }
+                            } catch(parseMessage) {
+                                throw parseMessage;
+                            } finally {
+                                complete(status.code, status.message, responses, allResponseHeaders);
+                            }
+                        };
+                        xdr.onerror = function(){
+                            complete(500, 'error', {
+                                text: xdr.responseText
+                            });
+                        };
+                        xdr.open(options.type, options.url);
+                        //xdr.send(userOptions.data);
+                        xdr.send();
+                    },
+                    abort: function(){
+                        if (xdr) {
+                            xdr.abort();
+                        }
+                    }
+                };
+            }
+        });
+    };
+
+    jQuery.support.cors = true;
+
+    $.ajax({
+        dataType: 'json',
+        type: 'GET',
+        url: 'http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/4/query?where=include_in_mapper_+%3D+%27include%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=Model%2CParameter_name&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
+        headers: {'Accept': '*/*'},
+        success: function (data) {
+            constObj = data;
+            $.each(data.features, function(key, value) {
+                if (value.attributes.Model != null) {
+                    if (value.attributes.Model == 'Ecology kendall') {
+                        $('#ecologySelect')
+                            .append($("<option></option>")
+                                .attr(value.attributes)
+                                .text(value.attributes.Parameter_name));
+                    } else if (value.attributes.Model == 'SEAWAVE-Q') {
+                        $('#pesticideSelect')
+                            .append($("<option></option>")
+                                .attr(value.attributes)
+                                .text(value.attributes.Parameter_name));
+                    } else if (value.attributes.Model == 'WRTDS') {
+                        $('#nutrientsSelect')
+                            .append($("<option></option>")
+                                .attr(value.attributes)
+                                .text(value.attributes.Parameter_name));
+                    }
+                }
+            });
+        },
+        error: function (error) {
+            console.log("Error processing the JSON. The error is:" + error);
+        }
+    });
+
     map = Map('mapDiv', {
         basemap: 'gray',
         //center: [-95.6, 38.6],
@@ -85,6 +208,26 @@ require([
         }
         else {
             $('#legendElement').css('height', 'initial');
+        }
+    });
+
+    var layers_all = ["pestSites","ecoSites","wrtdsSites"];
+
+    $("#typeSelect").on('change', function (event) {
+        var val = event.currentTarget.value;
+        $(".constSelect").hide();
+        $.each(layers_all, function(key,value){
+           map.getLayer(value).setVisibility(false);
+        });
+        if (val == "Nutrients") {
+            $("#nutrientsSelect").show();
+            map.getLayer("wrtdsSites").setVisibility(true);
+        } else if (val == "Pesticides") {
+            $("#pesticideSelect").show();
+            map.getLayer("pestSites").setVisibility(true);
+        } else if (val == "Aquatic ecology") {
+            $("#ecologySelect").show();
+            map.getLayer("ecoSites").setVisibility(true);
         }
     });
 
@@ -224,7 +367,7 @@ require([
         var layer = evt.layer.id;
         var actualLayer = evt.layer;
 
-        if (layer == "trendSites") {
+        if (layer == "pestSites" || layer == "wrtdsSites" || layer == "ecoSites") {
 
             map.getLayer(layer).on('click', function (evt) {
 
@@ -252,7 +395,68 @@ require([
                     instance.unpin();
                 }
 
+                var attr = evt.graphic.attributes;
+
+                $("#siteInfoTabPane").empty();
+
+                if (layer == "ecoSites") {
+                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr.Ecology_site_name + "<br/>" +
+                        "<b>Site number: </b>" + attr.Ecology_site_ID + "<br/>" +
+                        /*"<b>State: </b>" +  + "<br/>" +
+                        "<b>Agency: </b>" +  + "<br/>" +
+                        "<b>Data source: </b>" +  + "<br/>" +*/
+                        "<b>Latitude: </b>" + attr.LatDD + "<br/>" +
+                        "<b>Longitude: </b>" + attr.LngDD + "<br/>"/* +
+                        "<b>Drainage area: </b>" +  + "<br/>" +
+                        "<b>HUC2: </b>" +  + "<br/>" +
+                        "<b>HUC4: </b>" +  + "<br/>" +
+                        "<b>HUC6: </b>" +  + "<br/>" +
+                        "<b>HUC8: </b>" +  + "<br/>" +
+                        "<b>Matched streamgage name: </b>" +  + "<br/>" +
+                        "<b>Matched streamgage number: </b>" +  + "<br/>" +
+                        "<b>Matched streamgage agency: </b>"*/);
+                } else if (layer == "pestSites") {
+                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["AllTrendSites_pest.name"] + "<br/>" +
+                        "<b>Site number: </b>" + attr["AllTrendSites_pest.pstaid"] + "<br/>" +
+                        /*"<b>State: </b>" +  + "<br/>" +*/
+                        "<b>Agency: </b>" + attr["AllTrendSites_pest.agency"] + "<br/>" +
+                        /*"<b>Data source: </b>" +  + "<br/>" +*/
+                        "<b>Latitude: </b>" + attr["AllTrendSites_pest.LAT"] + "<br/>" +
+                        "<b>Longitude: </b>" + attr["AllTrendSites_pest.LONG_"] + "<br/>" +
+                        "<b>Drainage area: </b>" + attr["AllTrendSites_pest.DA"] + "<br/>" +
+                        "<b>trend pct: </b>" + attr["all_pest_trends.trend_pct_yr"] + "<br/>"/* +
+                        "<b>HUC2: </b>" +  + "<br/>" +
+                        "<b>HUC4: </b>" +  + "<br/>" +
+                        "<b>HUC6: </b>" +  + "<br/>" +
+                        "<b>HUC8: </b>" +  + "<br/>" +
+                        "<b>Matched streamgage name: </b>" +  + "<br/>" +
+                        "<b>Matched streamgage number: </b>" +  + "<br/>" +
+                        "<b>Matched streamgage agency: </b>"*/);
+                } else if (layer == "wrtdsSites") {
+                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["wrtds_sites.Station_nm"] + "<br/>" +
+                        "<b>Site number: </b>" + attr["wrtds_sites.Site_no"] + "<br/>" +
+                        "<b>State: </b>" + attr["wrtds_sites.staAbbrev"] + "<br/>" +
+                        "<b>Agency: </b>" + attr["wrtds_sites.agency1"] + "<br/>" +
+                        "<b>Data source: </b>" + attr["wrtds_sites.db_source"] + "<br/>" +
+                        "<b>Latitude: </b>" + attr["wrtds_sites.dec_lat_va"] + "<br/>" +
+                        "<b>Longitude: </b>" + attr["wrtds_sites.dec_long_va"] + "<br/>" +
+                        "<b>Drainage area: </b>" + attr["wrtds_sites.drainSqKm"] + "<br/>" +
+                        /*"<b>HUC2: </b>" +  + "<br/>" +
+                        "<b>HUC4: </b>" +  + "<br/>" +
+                        "<b>HUC6: </b>" +  + "<br/>" +*/
+                        "<b>HUC8: </b>" + attr["wrtds_sites.huc_cd"] + "<br/>"/* +
+                        "<b>Matched streamgage name: </b>" +  + "<br/>" +
+                        "<b>Matched streamgage number: </b>" +  + "<br/>" +
+                        "<b>Matched streamgage agency: </b>"*/);
+                }
+
             });
+        }
+
+        if (layer == "wrtdsSites") {
+            map.getLayer(layer).on('query-limit-exceeded', function(evt) {
+                alert('exceeded');
+            })
         }
     });
 
@@ -500,9 +704,12 @@ require([
 
                 if (layerDetails.wimOptions.layerType === 'agisFeature') {
                     var layer = new FeatureLayer(layerDetails.url, layerDetails.options);
+                    if (layerDetails.wimOptions.renderer !== undefined) {
+                        layer.setRenderer(layerDetails.wimOptions.renderer);
+                    }
                     //check if include in legend is true
                     if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
-                        legendLayers.push({layer:layer, title: layerName});
+                        legendLayers.unshift({layer:layer, title: layerName});
                     }
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
                     //addMapServerLegend(layerName, layerDetails);
@@ -512,7 +719,7 @@ require([
                     var layer = new WMSLayer(layerDetails.url, {resourceInfo: layerDetails.options.resourceInfo, visibleLayers: layerDetails.options.visibleLayers }, layerDetails.options);
                     //check if include in legend is true
                     if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
-                        legendLayers.push({layer:layer, title: layerName});
+                        legendLayers.unshift({layer:layer, title: layerName});
                     }
                     //map.addLayer(layer);
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
@@ -522,8 +729,29 @@ require([
                 else if (layerDetails.wimOptions.layerType === 'agisDynamic') {
                     var layer = new ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
                     //check if include in legend is true
+                    if (layerDetails.visibleLayers) {
+                        layer.setVisibleLayers(layerDetails.visibleLayers);
+                    }
+                    if (layerDetails.wimOptions && layerDetails.wimOptions.layerDefinitions) {
+                        var layerDefs = [];
+                        $.each(layerDetails.wimOptions.layerDefinitions, function (index, def) {
+                            layerDefs[index] = def;
+                        });
+                        layer.setLayerDefinitions(layerDefs);
+                    }
                     if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
-                        legendLayers.push({layer:layer, title: layerName});
+                        legendLayers.unshift({layer:layer, title: layerName});
+                    }
+                    //map.addLayer(layer);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
+                    //addMapServerLegend(layerName, layerDetails);
+                }
+
+                else if (layerDetails.wimOptions.layerType === 'agisImage') {
+                    var layer = new ArcGISImageServiceLayer(layerDetails.url, layerDetails.options);
+                    //check if include in legend is true
+                    if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
+                        legendLayers.unshift({layer:layer, title: layerName});
                     }
                     if (layerDetails.visibleLayers) {
                         layer.setVisibleLayers(layerDetails.visibleLayers);
@@ -548,7 +776,12 @@ require([
             if (exclusiveGroupName) {
 
                 if (!$('#' + camelize(exclusiveGroupName)).length) {
-                    var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '</button> </div>');
+                    var exGroupRoot;
+                    if (exclusiveGroupName == "Data Source") {
+                        var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '<span id="info' + camelize(exclusiveGroupName) + '" title="Data Source identifies the scale, year and emulsion of the imagery that was used to map the wetlands and riparian areas for a given area. It also identifies areas that have Scalable data, which is an interim data product in areas of the nation where standard compliant wetland data is not yet available. Click for more info on Scalable data." class="glyphspan glyphicon glyphicon-question-sign pull-right"></span><span id="opacity' + camelize(exclusiveGroupName) + '" style="padding-right: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></span></button> </div>');
+                    } else {
+                        var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '</button> </div>');
+                    }
 
                     exGroupRoot.click(function(e) {
                         exGroupRoot.find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
@@ -565,23 +798,26 @@ require([
                                     tempLayer.setVisibility(true);
                                 } else if (exGroupRoot.find('i.glyphspan').hasClass('fa-square-o')) {
                                     console.log('removing layer: ',currentLayer[1]);
-                                    map.removeLayer(currentLayer[2]);
+                                    //map.removeLayer(currentLayer[2]);
+                                    var tempLayer = map.getLayer(currentLayer[2].id);
+                                    tempLayer.setVisibility(false);
                                 }
                             }
 
                         });
                     });
 
-                    var exGroupDiv = $('<div id="' + camelize(exclusiveGroupName) + '" class="btn-group-vertical" data-toggle="buttons"></div');
+                    var exGroupDiv = $('<div id="' + camelize(exclusiveGroupName) + '" class="btn-group-vertical" data-toggle="buttons"></div>');
                     $('#toggle').append(exGroupDiv);
+                    console.log('here');
                 }
 
                 //create radio button
                 //var button = $('<input type="radio" name="' + camelize(exclusiveGroupName) + '" value="' + camelize(layerName) + '"checked>' + layerName + '</input></br>');
                 if (layer.visible) {
-                    var button = $('<div id="' + camelize(layerName) + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-dot-circle-o ' + camelize(exclusiveGroupName) + '"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
+                    var button = $('<div id="' + camelize(layerName) + '" class="btn-group-vertical lyrTog radioTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-dot-circle-o ' + camelize(exclusiveGroupName) + '"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
                 } else {
-                    var button = $('<div id="' + camelize(layerName) + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-circle-o ' + camelize(exclusiveGroupName) + '"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
+                    var button = $('<div id="' + camelize(layerName) + '" class="btn-group-vertical lyrTog radioTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-circle-o ' + camelize(exclusiveGroupName) + '"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
                 }
 
                 $('#' + camelize(exclusiveGroupName)).append(button);
@@ -605,11 +841,13 @@ require([
                                     //$('#' + camelize(currentLayer[1])).toggle();
                                 }
                                 else if (currentLayer[1] == newLayer && $("#" + camelize(exclusiveGroupName + " Root")).find('i.glyphspan').hasClass('fa-square-o')) {
-                                    console.log('groud heading not checked');
+                                    console.log('group heading not checked');
                                 }
                                 else {
                                     console.log('removing layer: ',currentLayer[1]);
-                                    map.removeLayer(currentLayer[2]);
+                                    //map.removeLayer(currentLayer[2]);
+                                    var tempLayer = map.getLayer(currentLayer[2].id);
+                                    tempLayer.setVisibility(false);
                                     if ($("#" + currentLayer[1]).find('i.glyphspan').hasClass('fa-dot-circle-o')) {
                                         $("#" + currentLayer[1]).find('i.glyphspan').toggleClass('fa-dot-circle-o fa-circle-o');
                                     }
@@ -622,35 +860,28 @@ require([
             }
 
             //not an exclusive group item
-            else {
+            else if (wimOptions.includeInLayerList) {
 
                 //create layer toggle
                 //var button = $('<div align="left" style="cursor: pointer;padding:5px;"><span class="glyphspan glyphicon glyphicon-check"></span>&nbsp;&nbsp;' + layerName + '</div>');
-                if (layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true && wimOptions.hasZoomto !== undefined && wimOptions.hasZoomto == true) {
-                    //opacity icon and zoomto icon; button selected
-                    var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" data-toggle="buttons"> <button id="' + layer.id + '"type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right opacity"></span><span class="glyphicon glyphicon-search pull-right zoomto"></span></button></div>');
-                } else if (!layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true && wimOptions.hasZoomto !== undefined && wimOptions.hasZoomto == true){
-                    //opacity icon and zoomto icon; button not selected
-                    var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" data-toggle="buttons"> <button id="' + layer.id + '"type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right opacity"></span><span class="glyphicon glyphicon-search pull-right zoomto"></span></button></div>');
+                if ((layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true && wimOptions.moreinfo !== undefined && wimOptions.moreinfo)) {
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="info' + camelize(layerName) + '" title="more info" class="glyphspan glyphicon glyphicon-question-sign pull-right"></span><span id="opacity' + camelize(layerName) + '" style="padding-right: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></span></button></div>');
+                } else if ((!layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true && wimOptions.moreinfo !== undefined && wimOptions.moreinfo)) {
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="info' + camelize(layerName) + '" title="more info" class="glyphspan glyphicon glyphicon-question-sign pull-right"></span><span id="opacity' + camelize(layerName) + '" style="padding-right: 5px" class="glyphspan glyphicon glyphicon-adjust pull-right"></span></button></div>');
                 } else if (layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true) {
-                    //opacity icon only; button selected
-                    var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" data-toggle="buttons"> <button id="' + layer.id + '"type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></div>');
-                } else if (!layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true) {
-                    //opacity icon only; button not selected
-                    var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" data-toggle="buttons"> <button id="' + layer.id + '"type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></div>');
-                } else if (layer.visible && wimOptions.hasOpacitySlider == false && wimOptions.hasZoomto !== undefined && wimOptions.hasZoomto == true){
-                    //zoomto icon only; button selected
-                    var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" data-toggle="buttons"> <button id="' + layer.id + '"type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span class="glyphicon glyphicon-search pull-right zoomto"></span></button></span></div>');
-                } else if (!layer.visible && wimOptions.hasOpacitySlider == false && wimOptions.hasZoomto !== undefined && wimOptions.hasZoomto == true) {
-                    //zoomto icon only; button not selected
-                    var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" data-toggle="buttons"> <button id="' + layer.id + '"type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span class="glyphicon glyphicon-search pull-right zoomto"></span></button></span></div>');
-                } else if(layer.visible) {
-                    //no icons; button selected
-                    var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" data-toggle="buttons"> <button id="' + layer.id + '"type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button></span></div>');
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="info' + camelize(layerName) + '" title="more info" class="glyphspan glyphicon glyphicon-question-sign pull-right"></button></span></div>');
+                } else if ((!layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true)) {
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></span></div>');
+                } else if ((layer.visible && wimOptions.moreinfo !== undefined && wimOptions.moreinfo)) {
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></span></div>');
+                } else if ((!layer.visible && wimOptions.moreinfo !== undefined && wimOptions.moreinfo)) {
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="info' + camelize(layerName) + '" title="more info" class="glyphspan glyphicon glyphicon-question-sign pull-right"></button></span></div>');
+                } else if (layer.visible) {
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button></span></div>');
                 } else {
-                    //no icons; button not selected
-                    var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" data-toggle="buttons"> <button id="' + layer.id + '"type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
                 }
+
 
                 //click listener for regular
                 button.click(function(e) {
@@ -659,10 +890,9 @@ require([
                     $(this).find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
                     $(this).find('button').button('toggle');
 
-                    e.preventDefault();
-                    e.stopPropagation();
 
-                    $('#' + camelize(layerName)).toggle();
+
+                    //$('#' + camelize(layerName)).toggle();
 
                     //layer toggle
                     if (layer.visible) {
@@ -671,11 +901,18 @@ require([
                         layer.setVisibility(true);
                     }
 
+                    if (wimOptions.otherLayersToggled) {
+                        $.each(wimOptions.otherLayersToggled, function (key, value) {
+                            var lyr = map.getLayer(value);
+                            lyr.setVisibility(layer.visible);
+                        });
+                    }
+
                 });
             }
 
             //group heading logic
-            if (showGroupHeading) {
+            if (showGroupHeading !== undefined) {
 
                 //camelize it for divID
                 var groupDivID = camelize(groupHeading);
@@ -683,7 +920,11 @@ require([
                 //check to see if this group already exists
                 if (!$('#' + groupDivID).length) {
                     //if it doesn't add the header
-                    var groupDiv = $('<div id="' + groupDivID + '"><div class="alert alert-info" role="alert"><strong>' + groupHeading + '</strong></div></div>');
+                    if (showGroupHeading) {
+                        var groupDiv = $('<div id="' + groupDivID + '"><div class="alert alert-info" role="alert"><strong>' + groupHeading + '</strong></div></div>');
+                    } else {
+                        var groupDiv = $('<div id="' + groupDivID + '"></div>');
+                    }
                     $('#toggle').append(groupDiv);
                 }
 
@@ -691,13 +932,73 @@ require([
 
                 if (exclusiveGroupName) {
                     //if (!exGroupRoot.length)$("#slider"+camelize(layerName))
-                    $('#' + groupDivID).append(exGroupRoot);
-                    $('#' + groupDivID).append(exGroupDiv);
+                    $('#' + groupDivID).prepend(exGroupRoot);
+                    $('#' + groupDivID).prepend(exGroupDiv);
+                    if (wimOptions.moreinfo !== undefined && wimOptions.moreinfo) {
+                        var id = "#info" + camelize(exclusiveGroupName);
+                        var moreinfo = $(id);
+                        moreinfo.click(function(e) {
+                            window.open(wimOptions.moreinfo, "_blank");
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                    }
+                    if ($("#opacity"+camelize(exclusiveGroupName)).length > 0) {
+                        var id = "#opacity" + camelize(exclusiveGroupName);
+                        var opacity = $(id);
+                        opacity.click(function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            $(".opacitySlider").remove();
+                            var currOpacity = map.getLayer(options.id).opacity;
+                            var slider = $('<div class="opacitySlider"><label id="opacityValue">Opacity: ' + currOpacity + '</label><label class="opacityClose pull-right">X</label><input id="slider" type="range"></div>');
+                            $("body").append(slider);
+                            $("#slider")[0].value = currOpacity * 100;
+                            $(".opacitySlider").css('left', event.clientX - 180);
+                            $(".opacitySlider").css('top', event.clientY - 50);
+
+                            $(".opacitySlider").mouseleave(function () {
+                                $(".opacitySlider").remove();
+                            });
+
+                            $(".opacityClose").click(function () {
+                                $(".opacitySlider").remove();
+                            });
+                            $('#slider').change(function (event) {
+                                //get the value of the slider with this call
+                                var o = ($('#slider')[0].value) / 100;
+                                console.log("o: " + o);
+                                $("#opacityValue").html("Opacity: " + o)
+                                map.getLayer(options.id).setOpacity(o);
+
+                                if (wimOptions.otherLayersToggled) {
+                                    $.each(wimOptions.otherLayersToggled, function (key, value) {
+                                        var lyr = map.getLayer(value);
+                                        lyr.setOpacity(o);
+                                    });
+                                }
+                                //here I am just specifying the element to change with a "made up" attribute (but don't worry, this is in the HTML specs and supported by all browsers).
+                                //var e = '#' + $(this).attr('data-wjs-element');
+                                //$(e).css('opacity', o)
+                            });
+
+                        });
+                    }
                 } else {
                     $('#' + groupDivID).append(button);
-                    //begin opacity slider logic
+                    if (wimOptions.moreinfo !== undefined && wimOptions.moreinfo) {
+                        var id = "#info" + camelize(layerName);
+                        var moreinfo = $(id);
+                        moreinfo.click(function(e) {
+                            window.open(wimOptions.moreinfo, "_blank");
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                    }
                     if ($("#opacity"+camelize(layerName)).length > 0) {
-                        $("#opacity"+camelize(layerName)).hover(function () {
+                        $("#opacity"+camelize(layerName)).click(function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
                             $(".opacitySlider").remove();
                             var currOpacity = map.getLayer(options.id).opacity;
                             var slider = $('<div class="opacitySlider"><label id="opacityValue">Opacity: ' + currOpacity + '</label><label class="opacityClose pull-right">X</label><input id="slider" type="range"></div>');
@@ -720,65 +1021,37 @@ require([
                                 console.log("o: " + o);
                                 $("#opacityValue").html("Opacity: " + o)
                                 map.getLayer(options.id).setOpacity(o);
+
+                                if (wimOptions.otherLayersToggled) {
+                                    $.each(wimOptions.otherLayersToggled, function (key, value) {
+                                        var lyr = map.getLayer(value);
+                                        lyr.setOpacity(o);
+                                    });
+                                }
                                 //here I am just specifying the element to change with a "made up" attribute (but don't worry, this is in the HTML specs and supported by all browsers).
                                 //var e = '#' + $(this).attr('data-wjs-element');
                                 //$(e).css('opacity', o)
                             });
                         });
                     }
-                    //end opacity slider logic
-
-                    //begin zoomto logic (in progress)
-                    $(".zoomto").hover(function (e) {
-
-                        $(".zoomDialog").remove();
-                        var layerToChange = this.parentNode.id;
-                        var zoomDialog = $('<div class="zoomDialog"><label class="zoomClose pull-right">X</label><br><div class="list-group"><a href="#" id="zoomscale" class="list-group-item lgi-zoom zoomscale">Zoom to scale</a> <a id="zoomcenter" href="#" class="list-group-item lgi-zoom zoomcenter">Zoom to center</a><a id="zoomextent" href="#" class="list-group-item lgi-zoom zoomextent">Zoom to extent</a></div></div>');
-
-                        $("body").append(zoomDialog);
-
-                        $(".zoomDialog").css('left', event.clientX-80);
-                        $(".zoomDialog").css('top', event.clientY-5);
-
-                        $(".zoomDialog").mouseleave(function() {
-                            $(".zoomDialog").remove();
-                        });
-
-                        $(".zoomClose").click(function() {
-                            $(".zoomDialog").remove();
-                        });
-
-                        $('#zoomscale').click(function (e) {
-                            //logic to zoom to layer scale
-                            var layerMinScale = map.getLayer(layerToChange).minScale;
-                            map.setScale(layerMinScale);
-                        });
-
-                        $("#zoomcenter").click(function (e){
-                            //logic to zoom to layer center
-                            //var layerCenter = map.getLayer(layerToChange).fullExtent.getCenter();
-                            //map.centerAt(layerCenter);
-                            var dataCenter = new Point(defaultMapCenter, new SpatialReference({wkid:4326}));
-                            map.centerAt(dataCenter);
-
-                        });
-
-                        $("#zoomextent").click(function (e){
-                            //logic to zoom to layer extent
-                            var layerExtent = map.getLayer(layerToChange).fullExtent;
-                            map.setExtent(layerExtent);
-                        });
-                    });
-                    //end zoomto logic
-
                 }
             }
 
             else {
                 //otherwise append
                 $('#toggle').append(button);
+                if (wimOptions.moreinfo !== undefined && wimOptions.moreinfo) {
+                    var id = "#info" + camelize(layerName);
+                    var moreinfo = $(id);
+                    moreinfo.click(function(e) {
+                        alert(e.currentTarget.id);
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
+                }
             }
         }
+
 
 
         //get visible and non visible layer lists
