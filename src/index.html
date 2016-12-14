@@ -40,9 +40,9 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    
+
     <script src="http://js.arcgis.com/3.13/"></script>
-    
+
 
     <!-- build:js scripts/combined.js -->
     <script src="scripts/utilities.js"></script>
@@ -96,22 +96,22 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 <h4 class="modal-title">Charts</h4>
             </div>
-            <div class="modal-body">
-                <span style="width: 100%">
-                    <label style="width: 33%">Monitoring data</label>
-                    <label style="width: 33%">Model diagnostics</label>
-                    <label style="width: 30%">Model predictions</label>
-                </span>
-                <span>
-                    <img style="width: 33%"src="images/chart_examples/boxConcMonth.png"/>
-                    <img style="width: 33%"src="images/chart_examples/boxQTwice.png"/>
-                    <img style="width: 30%"src="images/chart_examples/boxResidMonth.png"/>
-                </span>
-                <span>
-                    <img style="width: 33%"src="images/chart_examples/boxConcMonth.png"/>
-                    <img style="width: 33%"src="images/chart_examples/boxQTwice.png"/>
-                    <img style="width: 30%"src="images/chart_examples/boxResidMonth.png"/>
-                </span>
+            <div class="modal-body charts-modal">
+                <div class="charts-modal-column">
+                    <h1>Monitoring Data</h1>
+                    <img src="images/chart_examples/boxConcMonth.png"/>
+                    <img src="images/chart_examples/boxConcMonth.png"/>
+                </div>
+                <div class="charts-modal-column">
+                    <h1>Model Diagnostics</h1>
+                    <img src="images/chart_examples/boxQTwice.png"/>
+                    <img src="images/chart_examples/boxQTwice.png"/>
+                </div>
+                <div class="charts-modal-column">
+                    <h1>Model Predictions</h1>
+                    <img src="images/chart_examples/boxResidMonth.png"/>
+                    <img src="images/chart_examples/boxResidMonth.png"/>
+                </div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -276,7 +276,7 @@
                         </a>
                     </h4>
                 </div>
-                <div id="constPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="constPanelHeader">
+                <div id="constPanel" class="panel-collapse collapse in constituent-panel" role="tabpanel" aria-labelledby="constPanelHeader">
                     <div id="constDropdowns" style="padding: 2px 2px;">
                         <label for="typeSelect">Constituent type:</label>
                         <span>
@@ -305,15 +305,23 @@
                             </select>
                         </span>
                     </div>
-                    <div style="align-content: center; width: 200px; padding-left: 50px; padding-top: 20px;">
-                        <span><label>Trend type</label><br/>
-                        <input name="trendType" type="radio"> Concentration</span><br/>
-                        <span><input name="trendType" type="radio"> Load</span>
+                    <div style="align-content: center; width: 100%; padding-top: 20px; text-align: left;">
+                        <label>Trend type</label>
+                        <span class="sidebar-radio-wrapper">
+                            <input name="trendType" type="radio"> Concentration
+                        </span>
+                        <span class="sidebar-radio-wrapper">
+                            <input name="trendType" type="radio"> Load
+                        </span>
                     </div>
-                    <div style="align-content: center; width: 200px; padding-left: 50px; padding-top: 20px;">
-                        <label>Trend period</label><br/>
-                        <input name="trendPeriod" type="radio"> 2002-2012 <br/>
-                        <input name="trendPeriod" type="radio"> 1992-2012
+                    <div style="width: 100%; padding-top: 20px; text-align: left;">
+                        <label>Trend period</label>
+                        <span class="sidebar-radio-wrapper">
+                            <input name="trendPeriod" type="radio"> 2002-2012
+                        </span>
+                        <span class="sidebar-radio-wrapper">
+                            <input name="trendPeriod" type="radio"> 1992-2012
+                        </span>
                     </div>
                 </div>
             </div>

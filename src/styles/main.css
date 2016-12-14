@@ -266,11 +266,15 @@ a.lgi-zoom:hover {
     width: 90%;
     height: 90%;
     z-index: 1000000;
+    display: block;
+    margin: 0 auto;
 }
 
 #tableModal {
     width: 90%;
     height: 90%;
+    display: block;
+    margin: 0 auto;
     z-index: 1000000;
 }
 
@@ -376,4 +380,64 @@ input[type="checkbox"], input[type="radio"] {
 
 .zoomClose {
     color: white;
+}
+
+
+/*Additional styles - mitch 12/13/2016*/
+.constituent-panel{
+    box-sizing: border-box;
+    padding: 15px 15px;
+}
+.constituent-panel select{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
+    height: 40px;
+    line-height: 38px;
+}
+.constituent-panel label{
+    display: block;
+    text-align: center;
+}
+.constituent-panel .sidebar-radio-wrapper{
+    display: block;
+    box-sizing: border-box;
+    padding: 4px 0;
+}
+.constituent-panel .sidebar-radio-wrapper input{
+    margin-right: 10px;
+    position: relative;
+    top: -1px;
+}
+#siteInfoMin{
+    display: none;
+}
+#siteInfoClose{
+    box-sizing: border-box;
+    padding: 3px 10px;
+}
+
+.charts-modal{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.charts-modal-column{
+    display: block;
+    -webkit-flex-grow: 2;
+    flex-grow: 2;
+    box-sizing: border-box;
+    padding: 15px;
+    -webkit-flex-wrap: wrap;
+    min-width: 150px;
+    text-align: center;
+}
+.charts-modal-column h1{
+    display: block;
+    box-sizing: border-box;
+    padding: 0 0 15px 0;
+    font-size: 14pt !important;
 }
