@@ -245,7 +245,13 @@ require([
 
     $("#pesticideSelect").on("change", function(event) {
         var val = event.currentTarget.value;
-        var expression = "Pesticide = '" + val + "' AND period = 'P10'";  //********* need to change this to dynamically find 'period' *********
+        var trendPeriod = "";
+        if ($("#trend2").selected) {
+            trendPeriod = "P20";
+        } else if ($("#trend1").selected) {
+            trendPeriod = "P10";
+        }
+        var expression = "Pesticide = '" + val + "' AND period = '" + trendPeriod + "'";  //********* need to change this to dynamically find 'period' *********
         map.getLayer("pestSites").setDefinitionExpression(expression);
         var layerUpdate = on(map.getLayer("pestSites"), 'update-end', function(evt) {
             var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("pestSites").graphics);
