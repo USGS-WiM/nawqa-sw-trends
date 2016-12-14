@@ -154,6 +154,7 @@ body {
 
 #legendDiv {
     overflow-y: auto;
+    width: 300px;
     /*max-height: inherit;*/
 }
 
@@ -291,7 +292,8 @@ a.lgi-zoom:hover {
 .constSelect {
     width: 175px;
 }
-#pesticideSelect, #ecologySelect {
+
+#nutrientsSelect, #ecologySelect, #trend4, #trend3 {
     display: none;
 }
 

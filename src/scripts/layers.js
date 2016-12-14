@@ -20,7 +20,7 @@ require([
     SimpleLineSymbol,
     SimpleMarkerSymbol
 ) {
-//
+
     var defaultSymbol = null;
     renderer = new UniqueValueRenderer(defaultSymbol, "all_pest_trends.trend_int");
 
@@ -61,27 +61,28 @@ require([
     renderer.addValue(-2, underNeg25);
     renderer.addValue(-3, underNeg50);
 
-    allLayers = [
+    allLayers = [//
         {
             "groupHeading": "sites",
             "showGroupHeading": false,
-            "includeInLayerList": true,
+            "includeInLayerList": false,
             "otherLayersToggled": ['pestSites', 'ecoSites', 'wrtdsSites'],
             "layers": {
                 "pest layer": {
-                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/0",
+                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/0",
                     "options": {
                         "id": "pestSites",
                         "opacity": 1.00,
-                        "mode": FeatureLayer.MODE_ONDEMAND,
+                        "mode": FeatureLayer.MODE_SNAPSHOT,
                         "outFields": ["*"],
-                        "visible": false
+                        "defaultDefinitionExpression": "Pesticide = 'Alachlor' AND period = 'P10'",
+                        "visible": true
                     },
                     "wimOptions": {
                         "type": "layer",
                         "layerType": "agisFeature",
-                        "includeInLayerList": true,
-                        "exclusiveGroupName": "sites",
+                        "includeInLayerList": false,
+                        /*"exclusiveGroupName": "sites",*/
                         "hasOpacitySlider": true,
                         "includeLegend": true,
                         "otherLayersToggled": ['ecoSites','wrtdsSites']/*,
@@ -89,38 +90,38 @@ require([
                     }
                 },
                 "Eco Sites layer" : {
-                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/1",
+                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/1",
                     "options": {
                         "id": "ecoSites",
                         "opacity": 1.00,
-                        "mode": FeatureLayer.MODE_ONDEMAND,
+                        "mode": FeatureLayer.MODE_SNAPSHOT,
                         "outFields": ["*"],
                         "visible": false
                     },
                     "wimOptions": {
                         "type": "layer",
                         "layerType": "agisFeature",
-                        "includeInLayerList": true,
-                        "exclusiveGroupName": "sites",
+                        "includeInLayerList": false,
+                        /*"exclusiveGroupName": "sites",*/
                         "hasOpacitySlider": true,
                         "includeLegend" : true,
                         "otherLayersToggled": ['pestSites','wrtdsSites']
                     }
                 },
                 "WRTDS Sites" : {
-                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/2",
+                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/2",
                     "options": {
                         "id": "wrtdsSites",
                         "opacity": 1.00,
-                        "mode": FeatureLayer.MODE_ONDEMAND,
+                        "mode": FeatureLayer.MODE_SNAPSHOT,
                         "outFields": ["wrtds_sites.Station_nm","wrtds_sites.Site_no","wrtds_sites.staAbbrev","wrtds_sites.agency1","wrtds_sites.db_source","wrtds_sites.dec_lat_va","wrtds_sites.dec_long_va","wrtds_sites.drainSqKm","wrtds_sites.huc_cd"],
                         "visible": false
                     },
                     "wimOptions": {
                         "type": "layer",
                         "layerType": "agisFeature",
-                        "includeInLayerList": true,
-                        "exclusiveGroupName": "sites",
+                        "includeInLayerList": false,
+                        /*"exclusiveGroupName": "sites",*/
                         "hasOpacitySlider": true,
                         "includeLegend" : true,
                         "otherLayersToggled": ['pestSites','ecoSites']
