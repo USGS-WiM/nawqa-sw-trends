@@ -278,7 +278,7 @@
                 </div>
                 <div id="constPanel" class="panel-collapse collapse in constituent-panel" role="tabpanel" aria-labelledby="constPanelHeader">
                     <div id="constDropdowns" style="padding: 2px 2px;">
-                        <label for="typeSelect">Constituent type:</label>
+                        <label for="typeSelect">Constituent group:</label>
                         <span>
                             <select id="typeSelect">
                                 <option value="Pesticides">Pesticides</option>
@@ -305,6 +305,7 @@
                             </select>
                         </span>
                     </div>
+
                     <div style="align-content: center; width: 100%; padding-top: 20px; text-align: left;">
                         <label>Trend type</label>
                         <span class="sidebar-radio-wrapper">
@@ -317,12 +318,19 @@
                     <div style="width: 100%; padding-top: 20px; text-align: left;">
                         <label>Trend period</label>
                         <span class="sidebar-radio-wrapper">
-                            <input name="trendPeriod" type="radio"> 2002-2012
+                            <input id="trend4input" name="trendPeriod" type="radio"> 1972-2012
                         </span>
                         <span class="sidebar-radio-wrapper">
-                            <input name="trendPeriod" type="radio"> 1992-2012
+                            <input id="trend3input" name="trendPeriod" type="radio"> 1982-2012
+                        </span>
+                      <span class="sidebar-radio-wrapper">
+                            <input id="trend2input" name="trendPeriod" type="radio"> 1992-2012
+                        </span>
+                        <span class="sidebar-radio-wrapper">
+                            <input id="trend1input" name="trendPeriod" type="radio"> 2002-2012
                         </span>
                     </div>
+                  
                 </div>
             </div>
 

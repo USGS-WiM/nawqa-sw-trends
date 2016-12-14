@@ -26,7 +26,9 @@ require([
     'esri/graphic',
     'esri/geometry/Multipoint',
     'esri/geometry/Point',
+    'esri/graphicsUtils',
     'esri/symbols/PictureMarkerSymbol',
+    'esri/tasks/query',
     'esri/geometry/webMercatorUtils',
     'dojo/dnd/Moveable',
     'dojo/query',
@@ -45,7 +47,9 @@ require([
     Graphic,
     Multipoint,
     Point,
+    graphicsUtils,
     PictureMarkerSymbol,
+    esriQuery,
     webMercatorUtils,
     Moveable,
     query,
@@ -148,7 +152,7 @@ require([
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/4/query?where=include_in_mapper_+%3D+%27include%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=Model%2CParameter_name&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
+        url: 'http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/4/query?where=include_in_mapper_+%3D+%27include%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=Model%2CParameter_name&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             constObj = data;
@@ -172,6 +176,8 @@ require([
                     }
                 }
             });
+            $('#pesticideSelect').selectedIndex = "3";
+            document.getElementById("pesticideSelect").selectedIndex = "3";
         },
         error: function (error) {
             console.log("Error processing the JSON. The error is:" + error);
@@ -179,7 +185,7 @@ require([
     });
 
     map = Map('mapDiv', {
-        basemap: 'gray',
+        basemap: 'topo',
         //center: [-95.6, 38.6],
         center: defaultMapCenter,
         zoom: 5
@@ -221,14 +227,83 @@ require([
         });
         if (val == "Nutrients") {
             $("#nutrientsSelect").show();
+            $("#trendTypes").show();
+            $("#trend4,#trend3").show();
             map.getLayer("wrtdsSites").setVisibility(true);
         } else if (val == "Pesticides") {
             $("#pesticideSelect").show();
+            $("#trendTypes").show();
+            $("#trend4,#trend3").hide();
             map.getLayer("pestSites").setVisibility(true);
         } else if (val == "Aquatic ecology") {
             $("#ecologySelect").show();
+            $("#trendTypes").hide();
+            $("#trend4,#trend3").hide();
             map.getLayer("ecoSites").setVisibility(true);
         }
+    });
+
+    $("#pesticideSelect").on("change", function(event) {
+        var val = event.currentTarget.value;
+        var expression = "Pesticide = '" + val + "' AND period = 'P10'";  //********* need to change this to dynamically find 'period' *********
+        map.getLayer("pestSites").setDefinitionExpression(expression);
+        var layerUpdate = on(map.getLayer("pestSites"), 'update-end', function(evt) {
+            var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("pestSites").graphics);
+            map.setExtent(currentExtent, true);
+            layerUpdate.remove();
+        });
+        /*var extQuery = new esriQuery();
+        extQuery.where = expression;
+        map.getLayer("pestSites").queryExtent(extQuery, function(response) {
+            map.setExtent(response.extent);
+        });*/
+    });
+
+    $("#ecologySelect").on("change", function(event) {
+        var val = event.currentTarget.value;
+        var trendPeriod = "";
+        if ($("#trend2").selected) {
+            trendPeriod = "AND EcoTrendResults_Nyear IN [8,9,10,11]";
+        } else if ($("#trend1").selected) {
+            trendPeriod = "AND EcoTrendResults_Nyear IN [18,19,20]";
+        }
+        var expression = "EcoTrendResults_y = '" + val + "' " + trendPeriod;
+        map.getLayer("ecoSites").setDefinitionExpression(expression);
+        var layerUpdate = on(map.getLayer("ecoSites"), 'update-end', function(evt) {
+            var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("ecoSites").graphics);
+            map.setExtent(currentExtent, true);
+            layerUpdate.remove();
+        });
+    });
+
+    $(".trendPeriod").on("change", function(event) {
+        var val = event.currentTarget.value;
+        if ($("#typeSelect")[0].value == "Pesticides") {
+            var selectVal = $("#pesticideSelect").val();
+            var expression = "Pesticide = '" + selectVal + "' AND period = '" + val + "'";
+            var layerUpdate = on(map.getLayer("pestSites"), 'update-end', function(evt) {
+                var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("pestSites").graphics);
+                map.setExtent(currentExtent, true);
+                layerUpdate.remove();
+            });
+            map.getLayer("pestSites").setDefinitionExpression(expression);
+        } else if ($("#typeSelect")[0].value == "Aquatic ecology") {
+            var trendPeriod = "";
+            if (val == "P10") {
+                trendPeriod = "AND (EcoTrendResults_Nyear  = 8 OR EcoTrendResults_Nyear  = 9 OR EcoTrendResults_Nyear  = 10 OR EcoTrendResults_Nyear  = 11)";
+            } else if (val == "P20") {
+                trendPeriod = "AND (EcoTrendResults_Nyear  = 18 OR EcoTrendResults_Nyear  = 19 OR EcoTrendResults_Nyear  = 20)";
+            }
+            var selectVal = $("#ecologySelect").val();
+            var expression = "EcoTrendResults_y = '" + selectVal + "' " + trendPeriod;
+            var layerUpdate = on(map.getLayer("ecoSites"), 'update-end', function(evt) {
+                var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("ecoSites").graphics);
+                map.setExtent(currentExtent, true);
+                layerUpdate.remove();
+            });
+            map.getLayer("ecoSites").setDefinitionExpression(expression);
+        }
+
     });
 
     //displays map scale on map load
@@ -369,6 +444,10 @@ require([
 
         if (layer == "pestSites" || layer == "wrtdsSites" || layer == "ecoSites") {
 
+            if (layer == "pestSites") {
+                map.getLayer("pestSites").setDefinitionExpression("Pesticide = 'Alachlor' AND period = 'P10'");
+            }
+
             map.getLayer(layer).on('click', function (evt) {
 
                 $("#siteInfoDiv").css("visibility", "visible");
@@ -416,15 +495,15 @@ require([
                         "<b>Matched streamgage number: </b>" +  + "<br/>" +
                         "<b>Matched streamgage agency: </b>"*/);
                 } else if (layer == "pestSites") {
-                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["AllTrendSites_pest.name"] + "<br/>" +
-                        "<b>Site number: </b>" + attr["AllTrendSites_pest.pstaid"] + "<br/>" +
+                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["name"] + "<br/>" +
+                        "<b>Site number: </b>" + attr["pstaid"] + "<br/>" +
                         /*"<b>State: </b>" +  + "<br/>" +*/
-                        "<b>Agency: </b>" + attr["AllTrendSites_pest.agency"] + "<br/>" +
+                        "<b>Agency: </b>" + attr["agency"] + "<br/>" +
                         /*"<b>Data source: </b>" +  + "<br/>" +*/
-                        "<b>Latitude: </b>" + attr["AllTrendSites_pest.LAT"] + "<br/>" +
-                        "<b>Longitude: </b>" + attr["AllTrendSites_pest.LONG_"] + "<br/>" +
-                        "<b>Drainage area: </b>" + attr["AllTrendSites_pest.DA"] + "<br/>" +
-                        "<b>trend pct: </b>" + attr["all_pest_trends.trend_pct_yr"] + "<br/>"/* +
+                        "<b>Latitude: </b>" + attr["LAT"] + "<br/>" +
+                        "<b>Longitude: </b>" + attr["LONG_"] + "<br/>" +
+                        "<b>Drainage area: </b>" + attr["DA"] + "<br/>" +
+                        "<b>trend pct: </b>" + attr["trend_pct_yr"] + "<br/>"/* +
                         "<b>HUC2: </b>" +  + "<br/>" +
                         "<b>HUC4: </b>" +  + "<br/>" +
                         "<b>HUC6: </b>" +  + "<br/>" +
@@ -859,7 +938,7 @@ require([
                 });
             }
 
-            //not an exclusive group item
+            ////not an exclusive group item
             else if (wimOptions.includeInLayerList) {
 
                 //create layer toggle
