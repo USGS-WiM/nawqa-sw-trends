@@ -679,6 +679,15 @@ require([
         $('#aboutNav').click(function(){
             showAboutModal();
         });
+        $('#userGuideNav').click(function(){
+            $('#userGuideModal').modal('show');
+        });
+        $('#faqNav').click(function(){
+            $('#faqModal').modal('show');
+        });
+        $('#learnMoreButton').click(function(){
+            $('#learnMoreModal').modal('show');
+        });
 
         function showChartModal () {
             $('#chartModal').modal('show');

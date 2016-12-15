@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="bower_components/wim-styles/template/css/base.css">
     <!-- endbuild -->
 
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" id="favicon" type="image/ico" href="https://wim.usgs.gov/favicon-wim.png" />
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -74,8 +74,14 @@
             <span id="geosearchButtonText"> Geosearch</span>
         </button>
 
-        <button id="aboutNav" class="btn btn-default navbar-btn pull-right">
-            <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
+        <button id="faqNav" class="pull-right">
+            <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;FAQ</span>
+        </button>
+        <button id="userGuideNav" class="pull-right">
+            <i class="fa fa-info-circle"></i><span class="hidden-xs">&nbsp;&nbsp;User Guide</span>
+        </button>
+        <button id="aboutNav" class="pull-right">
+            <i class="fa fa-check-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
         </button>
         <!-- comment -->
         <!-- legend buttton for navbar. to be removed if we like the in-map legend toggle -->
@@ -191,6 +197,140 @@
     </div> <!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
+<div id="learnMoreModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">Water-Quality Changes in U.S. Streams and Rivers</h4>
+            </div>
+            <div id="aboutModalBody" class="modal-body">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
+                        <p>Since passage of the Clean Water Act in 1972, Federal, State, and local governments have invested billions of dollars to reduce pollution entering streams and rivers. In order to understand the return on these investments, and to more effectively manage and protect the Nation's water resources in the future, we need to know: Has water quality has been changing over time?</p>
+                        <p>Answering that question is one of the major goals of the U.S. Geological Survey’s (USGS) National Water-Quality Assessment project.  To support that goal, they have conducted long-term consistent and comparable monitoring on streams and rivers throughout the Nation since 1992.  Other USGS programs, as well as many other Federal, State, regional, and local monitoring organizations, also have collected long-term water-quality data to support their own assessments of changing water-quality conditions.  For the first time, data from these organizations have been aggregated, screened, standardized, and used to support the most comprehensive assessment of stream-quality trends conducted to date in the United States. Collectively, these trend results will be used to provide insight into how natural features and human activities have contributed to water-quality changes over time in the Nation’s streams and rivers.</p>
+                        <p>Trends in water-quality concentrations and loads and metrics for aquatic ecology (fish, macroinvertebrates, and algae) for evaluated for four time periods: 1972-2012, 1982-2012, 1992-2012, and 2002-2012.  The water-quality and aquatic ecology constituents included in the analysis were:</p>
+                        <b style="display: block; padding: 10px 0 2px 0;">Nutrients</b>
+                        Total nitrogen, Total phosphorus, Nitrate, Ammonia, Orthophosphate
+                        <b style="display: block; padding: 10px 0 2px 0;">Pesticides</b>
+                        Simazine, Prometon, Deethylatrazine, Cyanazine, Chlorpyrifos, Dieldrin, Metolachlor, Malathion, Diazinon, Atrazine, Alachlor, Acetochlor, Fipronil, Fipronil sulfide, Fipronil sulfone, Desulfinylfipronil amide, Desulfinylfipronil, Metribuzin, Trifluralin, EPTC, Tebuthiuron, Molinate, Ethoprophos, Propyzamide, Propanil, Carbaryl, Thiobencarb, Dacthal, Pendimethalin, Fonofos, 2,6-Diethylaniline, Carbofuran, Propargite
+                        <b style="display: block; padding: 10px 0 2px 0;">Sediment</b>
+                        Suspended sediment, Total suspended solids
+                        <b style="display: block; padding: 10px 0 2px 0;">Carbon</b>
+                        Total organic carbon, Dissolved organic carbon, Alkalinity
+                        <b style="display: block; padding: 10px 0 2px 0;">Salinity and major ions</b>
+                        Calcium, Chloride, Magnesium, Potassium, Sodium, Specific conductance, Sulfate, Total dissolved solids
+                        <h3 style="border-bottom: 1px solid rgba(0,0,0,0.4); padding: 15px 0 8px 0; margin-bottom: 8px;">Aquatic Ecology</h3>
+                        <div class="learn-more-aquatic-row"><span><b>Code</b></span><span><b>Metrics</b></span></div>
+                        <h5 style="text-align: center;"><b>Fish</b></h5>
+                        <h6 style="text-align: center;"><b>Community composition</b></h6>
+                        <div class="learn-more-aquatic-row"><span>FishRich</span><span>The total number of different fish species</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishDiv</span><span>Shannon and Weaver diversity</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishLTsim</span><span>Bray-Curtis Similarity value between each year and the start year in the trend period</span></div>
+                        <h6 style="text-align: center;"><b>Assessment Indicator</b></h6>
+                        <div class="learn-more-aquatic-row"><span>FishO/E</span><span>XXXRatio of observed (O) taxa to the modeled number of expected (E) taxa (O/E) or as multi-metric index (MMI) value standardized to O/E unitsX</span></div>
+                        <h6 style="text-align: center;"><b>Tolerance</b></h6>
+                        <div class="learn-more-aquatic-row"><span>FishAmm</span><span>Average community tolerance to ammonia</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishCl</span><span>Average community tolerance to chloride</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishSC</span><span>Average community tolerance to specific conductance</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishDO</span><span>Average community tolerance to dissolved oxygen</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishNitraNitri</span><span>Average community tolerance to nitrite plus nitrate</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishpH</span><span>Average community tolerance to pH</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishPhos</span><span>Average community tolerance to phosphorus</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishSul</span><span>Average community tolerance to sulfate </span></div>
+                        <div class="learn-more-aquatic-row"><span>FishSusSed</span><span>Average community tolerance to suspended sediment</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishTemp</span><span>Average community tolerance to water temperature</span></div>
+                        <h5 style="text-align: center;"><b>Macroinvertebrates</b></h5>
+                        <h6 style="text-align: center;"><b>Community composition</b></h6>
+                        <div class="learn-more-aquatic-row"><span>InvertRich</span><span>The total number of different invertebrate taxa</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertPerEPTr</span><span>Percent taxa richness comprised of individuals belonging to the orders Ephemeroptera (mayflies), Plecoptera (stoneflies), and Trichoptera (caddisflies)</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertPnInr</span><span>Percent of taxa richness comprised of non-insect taxa.</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertDiv</span><span>Shannon Weaver diversity</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertLTsim</span><span>Bray-Curtis Similarity value between each year and the start year in the trend period</span></div>
+                        <h6 style="text-align: center;"><b>Assessment indicator</b></h6>
+                        <div class="learn-more-aquatic-row"><span>InvertO/E</span><span>Ratio of observed (O) taxa to the modeled number of expected (E) taxa (O/E)</span></div>
+                        <h6 style="text-align: center;"><b>Tolerance</b></h6>
+                        <div class="learn-more-aquatic-row"><span>InvertIon</span><span>Average community tolerance to major ions</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertNutr</span><span>Average community tolerance to nutrients</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertDO/Temp</span><span>Average community tolerance to dissolved oxygen and temperature</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertSusSec</span><span>Average community tolerance to suspended sediment</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertFines</span><span>Average community tolerance to fine sediment </span></div>
+                        <h5 style="text-align: center;"><b>Diatoms</b></h5>
+                        <h6 style="text-align: center;"><b>Community composition</b></h6>
+                        <div class="learn-more-aquatic-row"><span>DiaRich</span><span>The total number of different diatom taxa</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaDiv</span><span>Shannon Weaver diversity</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaLTsim</span><span>Bray-Curtis Similarity value between each year and the start year in the trend period</span></div>
+                        <h6 style="text-align: center;"><b>Tolerance</b></h6>
+                        <div class="learn-more-aquatic-row"><span>DiaSenBahlTol</span><span>The number of diatom taxa sensitive to general nutrient and organic enrichment</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaxHighCa</span><span>The number of diatom taxa with a calcium optima of greater than 40 mg L-1</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaLowCl</span><span>The number of diatom taxa with a chloride optima less than 15 mg L-1</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaLowO2</span><span>The number of diatom taxa that are known to tolerate down to 30 percent dissolved oxygen saturation</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaLowTN</span><span>The number of taxa having a total nitrogen optima of less than or equal to 0.2 mg L-1</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaHighTN</span><span>The number of taxa having a total nitrogen optima of greater than or equal to 3 mg L-1</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaLowTP</span><span>The number of taxa having a total phosphorus optima of less than or equal to 10 µ L-1</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaHighTP</span><span>The number of taxa having a total phosphorus optima of more than or equal to 100 µ L-1</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaHighMot</span><span>The number of taxa that are considered highly motile (mobile) distinguished by the presence of an extensive raphe and/or are large in size</span></div>
+                        <p>Trends in the water-quality constituents were evaluated for both concentration and load. Concentration is the amount of the constituent in the stream.  Load is the mass of the constituent transported past the sampling point in a stream during a period of time.  All of the water-quality and aquatic ecology trends reported in this mapper are normalized for climatic variability.  The specific terminology for the water-quality trends is “flow normalized”.  (insert link to relevant FAQ here)</p>
+                        <p>Long-term monitoring data from the following organizations was included in this analysis:</p>
+                        <h6 style="text-align: center;"><b>Contributing monitoring organizations</b></h6>
+                        <p style="font-size: 8pt;">Alabama Department of Environmental Management &#8226; Arkansas Department of Environmental Quality &#8226; California Department of Water Resources &#8226; California Regional Water Board, Region 5, Total Maximum Daily Load &#8226; California Regional Water Quality Control Board &#8226; Westside San Joaquin River Watershed Coalition &#8226; The Rivers of Colorado Water Watch Network &#8226; Colorado Department of Public Health and Environment &#8226; Littleton and Englewood Wastewater Treatment Plant &#8226; Metro Waste Water Reclamation District &#8226; Summit Water Quality Committee &#8226; City of Thornton &#8226; District Department of the Environment &#8226; Delaware Department of Natural Resources and Environmental Control &#8226; Florida Department of Environmental Protection &#8226; Florida Fish and Wildlife Conservation Commission &#8226; Hillsborough County Environmental &#8226; Leon County Public Works &#8226; Loxahatchee River District &#8226; Manatee County Environmental Management Department &#8226; McGlynn Laboratories Incorporated &#8226; Northwest Florida Water Management District &#8226; Orange County Environmental Protection &#8226; Pinellas County Department of Environmental Management &#8226; Seminole County &#8226; Saint John’s Water Management District &#8226; Suwannee River Water Management District &#8226; Southwest Florida Water Management District &#8226; Georgia Department of Natural Resources &#8226; Des Moines Water Works &#8226; Iowa Department of Natural Resources &#8226; Des Moines River Water Quality Network &#8226; Idaho Department of Environmental Quality &#8226; Illinois Environmental Protection Agency &#8226; Indiana Department of Environmental Management &#8226; Marion County Health Department &#8226; Wabash River Enhancement Corporation &#8226; Kansas Department of Health and Environment &#8226; Kentucky Department for Natural Resources and Environmental Protection &#8226; Louisiana Department of Environmental Quality &#8226; Maryland Department of Natural Resources &#8226; Michigan Department of Environmental Quality &#8226; Minnesota Department of Agriculture &#8226; Metropolitan Council Environmental Services &#8226; Minnesota Pollution Control Agency &#8226; Crowder College, Neosho, Missouri &#8226; Montana Department of Environmental Quality &#8226; North Carolina Department of Environment and Natural Resources &#8226; North Dakota Department of Health &#8226; Nebraska Department of Environmental Quality &#8226; New Jersey Department of Environmental Protection &#8226; Nevada Department of Conservation and Natural Resources &#8226; Community Science Institute &#8226; Ohio Environmental Protection Agency &#8226; Heidelberg University, National Center for Water Quality Research &#8226; Oklahoma Water Resources Board &#8226; Oregon Department of Environmental Quality &#8226; Oregon Klamath Tribe Research Station &#8226; Oregon, Portland Water Bureau &#8226; Pennsylvania Department of Environmental Protection &#8226; Ohio River Valley Water Sanitation Commission (ORSANCO) &#8226; South Carolina Department of Health and Environmental Control &#8226; South Dakota Department of Environmental and Natural Resources &#8226; Susquehanna River Basin Commission &#8226; Texas Commission on Environmental Quality &#8226; US Bureau of Reclamation &#8226; US Environmental Protection Agency &#8226; US Geological Survey &#8226; US National Park Service &#8226; Utah Department of Environmental Quality &#8226; Virginia Department of Environmental Quality &#8226; Washington State Department of Ecology &#8226; Wisconsin Department of Natural Resources &#8226; West Virginia Department of Environmental Protection</p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="userGuideModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">User Guide</h4>
+            </div>
+            <div id="aboutModalBody" class="modal-body">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
+                        <p style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>
+                        <p>Application info goes here. Use HTML, and your imagination.</p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
+                        <h3>Data Limitations</h3>
+                        <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
+                        <p>Data disclaimer continues here</p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="faqModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">Frequently Asked Questions</h4>
+            </div>
+            <div id="aboutModalBody" class="modal-body">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
+                        <p style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>
+                        <p>Application info goes here. Use HTML, and your imagination.</p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
+                        <h3>Data Limitations</h3>
+                        <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
+                        <p>Data disclaimer continues here</p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- Disclaimer -->
 <div class="modal fade overflow-y-hidden" id="disclaimerModal">
     <div class="modal-dialog">
@@ -200,16 +340,14 @@
                 <h4 class="modal-title"><b>Water-Quality Changes in U.S. Streams and Rivers</b></h4>
             </div>
             <div class="modal-body">
-                <p>The Nation's rivers and streams are a valuable resource, providing drinking water for a growing population, irrigation for crops, habitat for aquatic life, and many recreational opportunities. Since
-                passage of the Clean Water Act in 1972, Federal, State, and local governments have invested billions of dollars to reduce pollution entering streams and rivers. In order to understand the return on
-                these investments, and to more effectively manage and protect the Nation's water resources in the future, we need to know: Has water quality has been changing over time?</p>
-                <p>The U.S. Geological Survey and other Federal, State, and local agencies have conducted long-term stream monitoring to answer this question. For the first time, these data have been
-                assembled into one database to support the most comprehensive assessment conducted to date of water-quality trends in the United States.</p>
-                <p>This mapper shows stream trends in water chemistry (nutrients, pesticides, sediment, carbon, and salinity) and aquatic ecology (fish, macroinvertebrates, and algae) for four time periods: 1972-2012,
-                1982-2012, 1992-2012, and 2002-2012.</p>
+                <p>The Nation's rivers and streams provide drinking water for a growing population, irrigation for crops, habitat for aquatic life, and many recreational opportunities.</p>
+                <p>The U.S. Geological Survey and other Federal, State, and local agencies have conducted long-term stream monitoring to track how stream quality has changed over time across the Nation.
+This mapper shows stream trends in water chemistry (nutrients, pesticides, sediment, carbon, and salinity) and aquatic ecology (fish, macroinvertebrates, and algae) for four time periods: 1972-2012, 1982-2012, 1992-2012, and 2002-2012.</p>
+                <p>Tracking changes in stream quality and investigating the reasons for these changes is crucial for informing management decisions to protect and sustain our valuable water resources</p>
                 <form id="disclaimerButtons" id="disclaimer-form" class="form-inline">
                     <!--<button id="otherButton" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> More Info?</button>-->
                     <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Enter The Mapper</button>
+                    <button id="learnMoreButton" type="button" class="btn btn-primary pull-right" data-dismiss="modal">Learn More</button>
                 </form>
             </div>
         </div><!-- /.modal-content -->
@@ -330,7 +468,7 @@
                             <input id="trend1input" name="trendPeriod" type="radio" value="P10" checked> 2002-2012
                         </span>
                     </div>
-                  
+
                 </div>
             </div>
 
