@@ -12,34 +12,45 @@ body {
     background-color:#474747;
 }
 
-#aboutNav {
+#aboutNav,
+#userGuideNav,
+#faqNav{
     /*background-color: #474747;*/
     background: 0 0;
+    background-color: transparent !important;
+    font-size: 8pt !important;
     border: none;
-    line-height: 16px;
+    line-height: 16px !important;
     /*padding-top: 0;*/
     /*padding-bottom: 0;*/
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
-    top: 2px;
+    top: 0px !important;
     transition: .2s;
+    padding: 0 5px !important;
     color: rgba(255,255,255,.35);
 }
 
 
-#aboutNav{
+#aboutNav,
+#userGuideNav,
+#faqNav{
     letter-spacing: 2px;
     position: relative; top: 2px;
     transition: 0.2s;
     color: rgba(255,255,255,0.35);
 }
-#aboutNav:hover{
+#aboutNav:hover,
+#userGuideNav:hover,
+#faqNav:hover{
     cursor: pointer;
     color: rgba(255,255,255,1);
     transition: 0.2s;
 }
-#aboutNav:focus{
+#aboutNav:focus,
+#userGuideNav:focus,
+#faqNav:focus{
     outline: none;
 }
 
@@ -263,9 +274,14 @@ a.lgi-zoom:hover {
     padding-top: 60px;
 }
 
+.modal{
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+}
+
 #chartModal {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     z-index: 1000000;
     display: block;
     margin: 0 auto;
@@ -456,4 +472,42 @@ input[type="checkbox"], input[type="radio"] {
 .esriLegendLayer svg{
     height: 30px;
     line-height: 30px;
+}
+
+
+/*Remove powered by esri*/
+.esriControlsBR{
+    display: none !important;
+}
+
+
+
+/*Learn More Modal*/
+.learn-more-modal-table{
+    display: block;
+    width: 100%;
+}
+.learn-more-modal-table-item{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+.learn-more-modal-table-item b{
+    display: block;
+    width: 100%;
+}
+
+.learn-more-aquatic-row{
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    max-width: 350px;
+    margin: 4px auto;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    font-size: 8pt;
+}
+.learn-more-aquatic-row span{
+    width: 50%;
 }
