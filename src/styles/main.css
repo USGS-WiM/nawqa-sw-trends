@@ -264,8 +264,8 @@ a.lgi-zoom:hover {
 }
 
 #chartModal {
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     z-index: 1000000;
     display: block;
     margin: 0 auto;
@@ -412,7 +412,9 @@ input[type="checkbox"], input[type="radio"] {
     position: relative;
     top: -1px;
 }
-#siteInfoMin{
+#siteInfoMin,
+#dropdown-toggle,
+.dropdown-toggle{
     display: none;
 }
 #siteInfoClose{
@@ -425,16 +427,16 @@ input[type="checkbox"], input[type="radio"] {
     display: flex;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-justify-content: center;
+    justify-content: center;
     width: 100%;
 }
 .charts-modal-column{
     display: block;
-    -webkit-flex-grow: 2;
-    flex-grow: 2;
     box-sizing: border-box;
     padding: 15px;
-    -webkit-flex-wrap: wrap;
     min-width: 150px;
+    width: 250px;
     text-align: center;
 }
 .charts-modal-column h1{
@@ -442,4 +444,16 @@ input[type="checkbox"], input[type="radio"] {
     box-sizing: border-box;
     padding: 0 0 15px 0;
     font-size: 14pt !important;
+}
+.charts-modal-column img{
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 25px;
+
+}
+
+.esriLegendLayer svg{
+    height: 30px;
+    line-height: 30px;
 }
