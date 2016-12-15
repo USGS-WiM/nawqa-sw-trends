@@ -152,7 +152,7 @@ require([
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/4/query?where=include_in_mapper_+%3D+%27include%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=Model%2CParameter_name&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
+        url: 'https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/4/query?where=include_in_mapper_+%3D+%27include%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=Model%2CParameter_name&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             constObj = data;
@@ -452,6 +452,7 @@ require([
 
             if (layer == "pestSites") {
                 map.getLayer("pestSites").setDefinitionExpression("Pesticide = 'Alachlor' AND period = 'P10'");
+                map.getLayer("pestSites").setVisibility(true);
             }
 
             map.getLayer(layer).on('click', function (evt) {
@@ -923,7 +924,7 @@ require([
                                     map.addLayer(currentLayer[2]);
                                     var tempLayer = map.getLayer(currentLayer[2].id);
                                     tempLayer.setVisibility(true);
-                                    //$('#' + camelize(currentLayer[1])).toggle();
+                                    ////$('#' + camelize(currentLayer[1])).toggle();
                                 }
                                 else if (currentLayer[1] == newLayer && $("#" + camelize(exclusiveGroupName + " Root")).find('i.glyphspan').hasClass('fa-square-o')) {
                                     console.log('group heading not checked');
