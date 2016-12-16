@@ -176,8 +176,10 @@ require([
                     }
                 }
             });
-            $('#pesticideSelect').selectedIndex = "3";
-            document.getElementById("pesticideSelect").selectedIndex = "3";
+            //$('#typeSelect').selectedIndex = "0"
+            //$('#nutrientsSelect').selectedIndex = "3";
+            document.getElementById("typeSelect").selectedIndex = "1";
+            document.getElementById("nutrientsSelect").selectedIndex = "14";
         },
         error: function (error) {
             console.log("Error processing the JSON. The error is:" + error);
@@ -450,9 +452,9 @@ require([
 
         if (layer == "pestSites" || layer == "wrtdsSites" || layer == "ecoSites") {
 
-            if (layer == "pestSites") {
-                map.getLayer("pestSites").setDefinitionExpression("Pesticide = 'Alachlor' AND period = 'P10'");
-                map.getLayer("pestSites").setVisibility(true);
+            if (layer == "wrtdsSites") {
+                map.getLayer("wrtdsSites").setDefinitionExpression("bootOut_id_unique LIKE '%Total Phosphorus%2002'");
+                map.getLayer("wrtdsSites").setVisibility(true);
             }
 
             map.getLayer(layer).on('click', function (evt) {
