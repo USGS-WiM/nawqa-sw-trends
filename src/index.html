@@ -429,17 +429,17 @@ This mapper shows stream trends in water chemistry (nutrients, pesticides, sedim
                         <label>Constituent:</label>
                         <span>
                             <select id="nutrientsSelect" class="constSelect">
-                                <option>-- select --</option>
+
                             </select>
                         </span>
                         <span>
                             <select id="pesticideSelect" class="constSelect">
-                                <option>-- select --</option>
+
                             </select>
                         </span>
                         <span>
                             <select id="ecologySelect" class="constSelect">
-                                <option>-- select --</option>
+
                             </select>
                         </span>
                     </div>
@@ -447,25 +447,25 @@ This mapper shows stream trends in water chemistry (nutrients, pesticides, sedim
                     <div id="trendTypes" style="align-content: center; width: 100%; padding-top: 20px; text-align: left;">
                         <label>Trend type</label>
                         <span class="sidebar-radio-wrapper">
-                            <input name="trendType" type="radio" checked> Concentration
+                            <input name="trendType" class="trendType" type="radio" value="concentration" checked> Concentration
                         </span>
                         <span class="sidebar-radio-wrapper">
-                            <input name="trendType" type="radio"> Load
+                            <input name="trendType" class="trendType" type="radio" value="load"> Load
                         </span>
                     </div>
                     <div style="width: 100%; padding-top: 20px; text-align: left;">
                         <label>Trend period</label>
                         <span id="trend4" class="sidebar-radio-wrapper">
-                            <input id="trend4input" name="trendPeriod" class="" type="radio" value="P40"> 1972-2012
+                            <input id="trend4input" name="trendPeriod" class="trendPeriod" type="radio" value="P40"> 1972-2012
                         </span>
                         <span id="trend3" class="sidebar-radio-wrapper">
-                            <input id="trend3input" name="trendPeriod" type="radio" value="P30"> 1982-2012
+                            <input id="trend3input" name="trendPeriod" class="trendPeriod" type="radio" value="P30"> 1982-2012
                         </span>
                         <span id="trend2" class="sidebar-radio-wrapper">
-                            <input id="trend2input" name="trendPeriod" type="radio" value="P20"> 1992-2012
+                            <input id="trend2input" name="trendPeriod" class="trendPeriod" type="radio" value="P20"> 1992-2012
                         </span>
                         <span id="trend1" class="sidebar-radio-wrapper">
-                            <input id="trend1input" name="trendPeriod" type="radio" value="P10" checked> 2002-2012
+                            <input id="trend1input" name="trendPeriod" class="trendPeriod" type="radio" value="P10" checked> 2002-2012
                         </span>
                     </div>
 

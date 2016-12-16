@@ -176,10 +176,11 @@ require([
                     }
                 }
             });
-            //$('#typeSelect').selectedIndex = "0"
-            //$('#nutrientsSelect').selectedIndex = "3";
-            document.getElementById("typeSelect").selectedIndex = "1";
-            document.getElementById("nutrientsSelect").selectedIndex = "14";
+            $('#typeSelect').val("Nutrients");
+            $('#nutrientsSelect').val("Total Phosphorus");
+            $('#ecologySelect').val("DiaHighMot");
+            //document.getElementById("typeSelect").selectedIndex = "1";
+            //document.getElementById("nutrientsSelect").selectedIndex = "17";
         },
         error: function (error) {
             console.log("Error processing the JSON. The error is:" + error);
@@ -219,7 +220,7 @@ require([
         }
     });
 
-    var layers_all = ["pestSites","ecoSites","wrtdsSites"];
+    var layers_all = ["pestSites","ecoSites","wrtdsSites","wrtdsFluxSites"];
 
     $("#typeSelect").on('change', function (event) {
         var val = event.currentTarget.value;
@@ -231,34 +232,71 @@ require([
             $("#nutrientsSelect").show();
             $("#trendTypes").show();
             $("#trend4,#trend3").show();
+
             map.getLayer("wrtdsSites").setVisibility(true);
         } else if (val == "Pesticides") {
             $("#pesticideSelect").show();
             $("#trendTypes").show();
             $("#trend4,#trend3").hide();
+            pestSelect();
             map.getLayer("pestSites").setVisibility(true);
         } else if (val == "Aquatic ecology") {
             $("#ecologySelect").show();
             $("#trendTypes").hide();
             $("#trend4,#trend3").hide();
+            ecoSelect();
             map.getLayer("ecoSites").setVisibility(true);
         }
     });
 
+    function pestSelect() {
+        var val = $("#pesticideSelect").val();
+        var trendPeriod = $('input[name=trendPeriod]:checked').val();
+        var expression = "Pesticide = '" + val + "' AND period = '" + trendPeriod + "'";
+        map.getLayer("pestSites").setDefinitionExpression(expression);
+        var graphics = map.getLayer("pestSites").graphics;
+        var layerUpdate = on(map.getLayer("pestSites"), 'update-end', function(evt) {
+            if (graphics.length > 0) {
+                var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                map.setExtent(currentExtent, true);
+                layerUpdate.remove();
+            }
+        });
+    }
+
+    function ecoSelect() {
+        var val = $("#ecologySelect").val();
+        var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
+        var trendPeriod = "";
+        if (trendPeriodVal == "P10") {
+            trendPeriod = "AND (EcoTrendResults_Nyear  = 8 OR EcoTrendResults_Nyear  = 9 OR EcoTrendResults_Nyear  = 10 OR EcoTrendResults_Nyear  = 11)";
+        } else if (trendPeriodVal == "P20") {
+            trendPeriod = "AND (EcoTrendResults_Nyear  = 18 OR EcoTrendResults_Nyear  = 19 OR EcoTrendResults_Nyear  = 20)";
+        }
+        var expression = "EcoTrendResults_y = '" + val + "' " + trendPeriod;
+        map.getLayer("ecoSites").setDefinitionExpression(expression);
+        var graphics = map.getLayer("ecoSites").graphics;
+        var layerUpdate = on(map.getLayer("ecoSites"), 'update-end', function(evt) {
+            if (graphics.length > 0) {
+                var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                map.setExtent(currentExtent, true);
+                layerUpdate.remove();
+            }
+        });
+    }
+
     $("#pesticideSelect").on("change", function(event) {
         var val = event.currentTarget.value;
-        var trendPeriod = "";
-        if ($("#trend2").selected) {
-            trendPeriod = "P20";
-        } else if ($("#trend1").selected) {
-            trendPeriod = "P10";
-        }
-        var expression = "Pesticide = '" + val + "' AND period = '" + trendPeriod + "'";  //********* need to change this to dynamically find 'period' *********
+        var trendPeriod = $('input[name=trendPeriod]:checked').val();
+        var expression = "Pesticide = '" + val + "' AND period = '" + trendPeriod + "'";
         map.getLayer("pestSites").setDefinitionExpression(expression);
+        var graphics = map.getLayer("pestSites").graphics;
         var layerUpdate = on(map.getLayer("pestSites"), 'update-end', function(evt) {
-            var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("pestSites").graphics);
-            map.setExtent(currentExtent, true);
-            layerUpdate.remove();
+            if (graphics.length > 0) {
+                var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                map.setExtent(currentExtent, true);
+                layerUpdate.remove();
+            }
         });
         /*var extQuery = new esriQuery();
         extQuery.where = expression;
@@ -269,20 +307,51 @@ require([
 
     $("#ecologySelect").on("change", function(event) {
         var val = event.currentTarget.value;
+        var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
         var trendPeriod = "";
-        if ($("#trend2").selected) {
-            trendPeriod = "AND EcoTrendResults_Nyear IN [8,9,10,11]";
-        } else if ($("#trend1").selected) {
-            trendPeriod = "AND EcoTrendResults_Nyear IN [18,19,20]";
+        if (trendPeriodVal == "P10") {
+            trendPeriod = "AND (EcoTrendResults_Nyear  = 8 OR EcoTrendResults_Nyear  = 9 OR EcoTrendResults_Nyear  = 10 OR EcoTrendResults_Nyear  = 11)";
+        } else if (trendPeriodVal == "P20") {
+            trendPeriod = "AND (EcoTrendResults_Nyear  = 18 OR EcoTrendResults_Nyear  = 19 OR EcoTrendResults_Nyear  = 20)";
         }
         var expression = "EcoTrendResults_y = '" + val + "' " + trendPeriod;
         map.getLayer("ecoSites").setDefinitionExpression(expression);
+        var graphics = map.getLayer("ecoSites").graphics;
         var layerUpdate = on(map.getLayer("ecoSites"), 'update-end', function(evt) {
-            var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("ecoSites").graphics);
-            map.setExtent(currentExtent, true);
-            layerUpdate.remove();
+            if (graphics.length > 0) {
+                var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                map.setExtent(currentExtent, true);
+                layerUpdate.remove();
+            }
         });
     });
+
+    $("#nutrientsSelect").on("change", function(event) {
+        var val = event.currentTarget.value;
+        var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
+        var trendPeriod = "";
+        if (trendPeriodVal == "P10") {
+            trendPeriod = "2002";
+        } else if (trendPeriodVal == "P20") {
+            trendPeriod = "1992";
+        } else if (trendPeriodVal == "P30") {
+            trendPeriod = "1982";
+        } else if (trendPeriodVal == "P40") {
+            trendPeriod = "1972";
+        }
+        var expression = "id_unique LIKE '%" + val + "%" + trendPeriod + "'";
+        map.getLayer("wrtdsSites").setDefinitionExpression(expression);
+        var graphics = map.getLayer("wrtdsSites").graphics;
+        var layerUpdate = on(map.getLayer("wrtdsSites"), 'update-end', function(evt) {
+            if (graphics.length > 0) {
+                var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                map.setExtent(currentExtent, true);
+                layerUpdate.remove();
+            }
+        });
+    });
+
+
 
     $(".trendPeriod").on("change", function(event) {
         var val = event.currentTarget.value;
@@ -293,7 +362,7 @@ require([
                 var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("pestSites").graphics);
                 map.setExtent(currentExtent, true);
                 layerUpdate.remove();
-            });
+            });//
             map.getLayer("pestSites").setDefinitionExpression(expression);
         } else if ($("#typeSelect")[0].value == "Aquatic ecology") {
             var trendPeriod = "";
@@ -310,6 +379,157 @@ require([
                 layerUpdate.remove();
             });
             map.getLayer("ecoSites").setDefinitionExpression(expression);
+        } else if ($("#typeSelect")[0].value == "Nutrients") {
+            var layer;
+
+            /*$.each(layers_all, function(key,value){
+                map.getLayer(value).setVisibility(false);
+            });*/
+
+            var trendTypeVal = $('input[name=trendType]:checked').val();
+            if (trendTypeVal == "concentration") {
+                layer = map.getLayer("wrtdsSites");
+                layer.setVisibility(true);
+                map.getLayer("wrtdsFluxSites");
+            } else if (trendTypeVal == "load") {
+                layer = map.getLayer("wrtdsFluxSites");
+                layer.setVisibility(true);
+                map.getLayer("wrtdsSites");
+            }
+
+            var trendPeriod = "";
+            if (val == "P10") {
+                trendPeriod = "2002";
+            } else if (val == "P20") {
+                trendPeriod = "1992";
+            } else if (val == "P30") {
+                trendPeriod = "1982";
+            } else if (val == "P40") {
+                trendPeriod = "1972";
+            }
+            var selectVal = $("#nutrientsSelect").val();
+            var expression = "id_unique LIKE '%" + selectVal + "%" + trendPeriod + "'";
+            layer.setDefinitionExpression(expression);
+            var graphics = layer.graphics;
+            var layerUpdate = on(layer, 'update-end', function(evt) {
+                if (graphics.length > 0) {
+                    var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                    map.setExtent(currentExtent, true);
+                    layerUpdate.remove();
+                }
+            });
+            //layer.setVisibility(true);
+
+            //var layer;
+            /*$.each(layers_all, function(key,value){
+                map.getLayer(value).setVisibility(false);
+            });
+            var trendTypeVal = $('input[name=trendType]:checked').val();
+            /*if (trendTypeVal == "concentration") {
+                layer = map.getLayer("wrtdsSites");
+            } else if (trendTypeVal == "load") {
+                layer = map.getLayer("wrtdsFluxSites");
+            }*/
+            /*var trendPeriod = "";
+            if (val == "P10") {
+                trendPeriod = "2002";
+            } else if (val == "P20") {
+                trendPeriod = "1992";
+            } else if (val == "P30") {
+                trendPeriod = "1982";
+            } else if (val == "P40") {
+                trendPeriod = "1972";
+            }
+            var selectVal = $("#nutrientsSelect").val();
+            var expression = "id_unique LIKE '%" + selectVal + "%" + trendPeriod + "'";
+            if (map.getLayer("wrtdsSites").id == "wrtdsSites") {
+                map.getLayer("wrtdsSites").setDefinitionExpression(expression);
+                var graphics = map.getLayer("wrtdsSites").graphics;
+                var newLayerUpdate = on(map.getLayer("wrtdsSites"), 'update-end', function(evt) {
+                    if (graphics.length > 0) {
+                        var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                        map.setExtent(currentExtent, true);
+                        newLayerUpdate.remove();
+                    }
+                });
+                map.getLayer("wrtdsSites").setVisibility(true);
+            } else if (map.getLayer("wrtdsSites").id == "wrtdsFluxSites") {
+                map.getLayer("wrtdsFluxSites").setDefinitionExpression(expression);
+                var graphics = map.getLayer("wrtdsFluxSites").graphics;
+                var newLayerUpdate = on(map.getLayer("wrtdsFluxSites"), 'update-end', function(evt) {
+                    if (graphics.length > 0) {
+                        var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                        map.setExtent(currentExtent, true);
+                        newLayerUpdate.remove();
+                    }
+                });
+                map.getLayer("wrtdsFluxSites").setVisibility(true);
+            }*/
+            //layer.setDefinitionExpression(expression);
+
+        }
+
+    });
+
+    $(".trendType").on("change", function(event) {
+        var val = event.currentTarget.value;
+        if ($("#typeSelect")[0].value == "Pesticides") {
+            /*var selectVal = $("#pesticideSelect").val();
+            var expression = "Pesticide = '" + selectVal + "' AND period = '" + val + "'";
+            var layerUpdate = on(map.getLayer("pestSites"), 'update-end', function(evt) {
+                var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("pestSites").graphics);
+                map.setExtent(currentExtent, true);
+                layerUpdate.remove();
+            });//
+            map.getLayer("pestSites").setDefinitionExpression(expression);*/
+        } else if ($("#typeSelect")[0].value == "Aquatic ecology") {
+            /*var trendPeriod = "";
+            if (val == "P10") {
+                trendPeriod = "AND (EcoTrendResults_Nyear  = 8 OR EcoTrendResults_Nyear  = 9 OR EcoTrendResults_Nyear  = 10 OR EcoTrendResults_Nyear  = 11)";
+            } else if (val == "P20") {
+                trendPeriod = "AND (EcoTrendResults_Nyear  = 18 OR EcoTrendResults_Nyear  = 19 OR EcoTrendResults_Nyear  = 20)";
+            }
+            var selectVal = $("#ecologySelect").val();
+            var expression = "EcoTrendResults_y = '" + selectVal + "' " + trendPeriod;
+            var layerUpdate = on(map.getLayer("ecoSites"), 'update-end', function(evt) {
+                var currentExtent = graphicsUtils.graphicsExtent(map.getLayer("ecoSites").graphics);
+                map.setExtent(currentExtent, true);
+                layerUpdate.remove();
+            });
+            map.getLayer("ecoSites").setDefinitionExpression(expression);*/
+        } else if ($("#typeSelect")[0].value == "Nutrients") {
+            var layer;
+            $.each(layers_all, function(key,value){
+                map.getLayer(value).setVisibility(false);
+            });
+            if (val == "concentration") {
+                layer = map.getLayer("wrtdsSites");
+            } else if (val == "load") {
+                layer = map.getLayer("wrtdsFluxSites");
+            }
+            var trendPeriod = "";
+            var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
+            if (trendPeriodVal == "P10") {
+                trendPeriod = "2002";
+            } else if (trendPeriodVal == "P20") {
+                trendPeriod = "1992";
+            } else if (trendPeriodVal == "P30") {
+                trendPeriod = "1982";
+            } else if (trendPeriodVal == "P40") {
+                trendPeriod = "1972";
+            }
+            var selectVal = $("#nutrientsSelect").val();
+            var expression = "id_unique LIKE '%" + selectVal + "%" + trendPeriod + "'";
+            var graphics = layer.graphics;
+            var layerUpdate = on(layer, 'update-end', function(evt) {
+                if (graphics.length > 0) {
+                    var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                    map.setExtent(currentExtent, true);
+                    layerUpdate.remove();
+                }
+            });
+            layer.setDefinitionExpression(expression);
+            layer.setVisibility(true);
         }
 
     });
@@ -450,10 +670,18 @@ require([
         var layer = evt.layer.id;
         var actualLayer = evt.layer;
 
-        if (layer == "pestSites" || layer == "wrtdsSites" || layer == "ecoSites") {
+        if (layer == "pestSites" || layer == "wrtdsSites" || layer == "ecoSites" || layer == "wrtdsFluxSites") {
 
             if (layer == "wrtdsSites") {
-                map.getLayer("wrtdsSites").setDefinitionExpression("bootOut_id_unique LIKE '%Total Phosphorus%2002'");
+                var graphics = map.getLayer("wrtdsSites").graphics;
+                var layerUpdate = on(map.getLayer("wrtdsSites"), 'update-end', function(evt) {
+                    if (graphics.length > 0) {
+                        var currentExtent = graphicsUtils.graphicsExtent(graphics);
+                        map.setExtent(currentExtent, true);
+                        layerUpdate.remove();
+                    }
+                });
+                map.getLayer("wrtdsSites").setDefinitionExpression("id_unique LIKE '%Total Phosphorus%2002'");
                 map.getLayer("wrtdsSites").setVisibility(true);
             }
 
@@ -520,7 +748,7 @@ require([
                         "<b>Matched streamgage name: </b>" +  + "<br/>" +
                         "<b>Matched streamgage number: </b>" +  + "<br/>" +
                         "<b>Matched streamgage agency: </b>"*/);
-                } else if (layer == "wrtdsSites") {
+                } else if (layer == "wrtdsSites" || layer == "wrtdsFluxSites") {
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["wrtds_sites.Station_nm"] + "<br/>" +
                         "<b>Site number: </b>" + attr["wrtds_sites.Site_no"] + "<br/>" +
                         "<b>State: </b>" + attr["wrtds_sites.staAbbrev"] + "<br/>" +
@@ -541,7 +769,7 @@ require([
             });
         }
 
-        if (layer == "wrtdsSites") {
+        if (layer == "wrtdsSites" || layer == "wrtdsFluxSites") {
             map.getLayer(layer).on('query-limit-exceeded', function(evt) {
                 alert('exceeded');
             })
