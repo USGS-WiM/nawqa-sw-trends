@@ -137,7 +137,28 @@ require([
                     }
                 }
 
-            }
+            }/*,
+            "groupHeading": "nwalt",
+            "showGroupHeading": false,
+            "includeInLayerList": false,
+            "layers": {
+                "lu2012": {
+                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
+                    "options": {
+                        "id": "lu2012",
+                        "opacity": 1.00,
+                        "visible": false
+                    },
+                    "wimOptions": {
+                        "type": "layer",
+                        "layerType": "agisImage",
+                        "includeInLayerList": true,
+                        "hasOpacitySlider": true,
+                        "includeLegend": true
+                    }
+                }
+
+            }*/
         }
     ]
 
