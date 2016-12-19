@@ -554,4 +554,10 @@ input[type="checkbox"], input[type="radio"] {
     font-size: 9.25pt;
     box-sizing: border-box;
     padding: 10px 10px;
+
+}
+.faq-body img{
+    display: block;
+    max-width: 100%;
+    margin: 10px auto;
 }
