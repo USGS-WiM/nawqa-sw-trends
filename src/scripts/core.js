@@ -17,6 +17,7 @@ var constObj;
 
 require([
     'esri/arcgis/utils',
+    'esri/Color',
     'esri/map',
     'esri/dijit/HomeButton',
     'esri/dijit/LocateButton',
@@ -28,6 +29,8 @@ require([
     'esri/geometry/Point',
     'esri/graphicsUtils',
     'esri/symbols/PictureMarkerSymbol',
+    'esri/symbols/SimpleFillSymbol',
+    'esri/symbols/SimpleLineSymbol',
     'esri/tasks/query',
     'esri/geometry/webMercatorUtils',
     'dojo/dnd/Moveable',
@@ -38,6 +41,7 @@ require([
     'dojo/domReady!'
 ], function (
     arcgisUtils,
+    Color,
     Map,
     HomeButton,
     LocateButton,
@@ -49,6 +53,8 @@ require([
     Point,
     graphicsUtils,
     PictureMarkerSymbol,
+    SimpleFillSymbol,
+    SimpleLineSymbol,
     esriQuery,
     webMercatorUtils,
     Moveable,
@@ -179,6 +185,7 @@ require([
             $('#typeSelect').val("Nutrients");
             $('#nutrientsSelect').val("Total Phosphorus");
             $('#ecologySelect').val("DiaHighMot");
+            $('#pesticideSelect').val("Acetochlor")
             //document.getElementById("typeSelect").selectedIndex = "1";
             //document.getElementById("nutrientsSelect").selectedIndex = "17";
         },
@@ -228,6 +235,11 @@ require([
         $.each(layers_all, function(key,value){
            map.getLayer(value).setVisibility(false);
         });
+        if (val == "Pesticides" || val == "Aquatic ecology") {
+            if (!$("#trend1input").checked && !$("#trend2input").checked) {
+                $("#trend1input").prop("checked", true);
+            }
+        }
         if (val == "Nutrients") {
             $("#nutrientsSelect").show();
             $("#trendTypes").show();
@@ -328,6 +340,23 @@ require([
 
     $("#nutrientsSelect").on("change", function(event) {
         var val = event.currentTarget.value;
+        var layer;
+
+        /*$.each(layers_all, function(key,value){
+         map.getLayer(value).setVisibility(false);
+         });*/
+
+        var trendTypeVal = $('input[name=trendType]:checked').val();
+        if (trendTypeVal == "concentration") {
+            layer = map.getLayer("wrtdsSites");
+            layer.setVisibility(true);
+            map.getLayer("wrtdsFluxSites");
+        } else if (trendTypeVal == "load") {
+            layer = map.getLayer("wrtdsFluxSites");
+            layer.setVisibility(true);
+            map.getLayer("wrtdsSites");
+        }
+
         var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
         var trendPeriod = "";
         if (trendPeriodVal == "P10") {
@@ -339,10 +368,10 @@ require([
         } else if (trendPeriodVal == "P40") {
             trendPeriod = "1972";
         }
-        var expression = "id_unique LIKE '%" + val + "%" + trendPeriod + "'";
-        map.getLayer("wrtdsSites").setDefinitionExpression(expression);
-        var graphics = map.getLayer("wrtdsSites").graphics;
-        var layerUpdate = on(map.getLayer("wrtdsSites"), 'update-end', function(evt) {
+        var expression = "wrtds_trends_wm.id_unique LIKE '%" + val + "%" + trendPeriod + "'";
+        layer.setDefinitionExpression(expression);
+        var graphics = layer.graphics;
+        var layerUpdate = on(layer, 'update-end', function(evt) {
             if (graphics.length > 0) {
                 var currentExtent = graphicsUtils.graphicsExtent(graphics);
                 map.setExtent(currentExtent, true);
@@ -408,7 +437,7 @@ require([
                 trendPeriod = "1972";
             }
             var selectVal = $("#nutrientsSelect").val();
-            var expression = "id_unique LIKE '%" + selectVal + "%" + trendPeriod + "'";
+            var expression = "wrtds_trends_wm.id_unique LIKE '%" + selectVal + "%" + trendPeriod + "'";
             layer.setDefinitionExpression(expression);
             var graphics = layer.graphics;
             var layerUpdate = on(layer, 'update-end', function(evt) {
@@ -519,7 +548,7 @@ require([
                 trendPeriod = "1972";
             }
             var selectVal = $("#nutrientsSelect").val();
-            var expression = "id_unique LIKE '%" + selectVal + "%" + trendPeriod + "'";
+            var expression = "wrtds_trends_wm.id_unique LIKE '%" + selectVal + "%" + trendPeriod + "'";
             var graphics = layer.graphics;
             var layerUpdate = on(layer, 'update-end', function(evt) {
                 if (graphics.length > 0) {
@@ -681,11 +710,19 @@ require([
                         layerUpdate.remove();
                     }
                 });
-                map.getLayer("wrtdsSites").setDefinitionExpression("id_unique LIKE '%Total Phosphorus%2002'");
+                map.getLayer("wrtdsSites").setDefinitionExpression("wrtds_trends_wm.id_unique LIKE '%Total Phosphorus%2002'");
                 map.getLayer("wrtdsSites").setVisibility(true);
+
             }
 
             map.getLayer(layer).on('click', function (evt) {
+
+                map.graphics.clear();
+                var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+                    new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+                        new Color([255,0,0]), 2),new Color([255,255,0,0.25]));
+
+                map.graphics.add(new Graphic(evt.mapPoint, symbol));
 
                 $("#siteInfoDiv").css("visibility", "visible");
                 var instance = $('#siteInfoDiv').data('lobiPanel');
@@ -716,13 +753,13 @@ require([
                 $("#siteInfoTabPane").empty();
 
                 if (layer == "ecoSites") {
-                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr.Ecology_site_name + "<br/>" +
-                        "<b>Site number: </b>" + attr.Ecology_site_ID + "<br/>" +
+                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_name + "<br/>" +
+                        "<b>Site number: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_ID + "<br/>" +
                         /*"<b>State: </b>" +  + "<br/>" +
                         "<b>Agency: </b>" +  + "<br/>" +
                         "<b>Data source: </b>" +  + "<br/>" +*/
-                        "<b>Latitude: </b>" + attr.LatDD + "<br/>" +
-                        "<b>Longitude: </b>" + attr.LngDD + "<br/>"/* +
+                        "<b>Latitude: </b>" + attr.EcoSiteSummary_no_headers_csv_LatDD + "<br/>" +
+                        "<b>Longitude: </b>" + attr.EcoSiteSummary_no_headers_csv_LngDD + "<br/>"/* +
                         "<b>Drainage area: </b>" +  + "<br/>" +
                         "<b>HUC2: </b>" +  + "<br/>" +
                         "<b>HUC4: </b>" +  + "<br/>" +
@@ -732,15 +769,15 @@ require([
                         "<b>Matched streamgage number: </b>" +  + "<br/>" +
                         "<b>Matched streamgage agency: </b>"*/);
                 } else if (layer == "pestSites") {
-                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["name"] + "<br/>" +
-                        "<b>Site number: </b>" + attr["pstaid"] + "<br/>" +
-                        /*"<b>State: </b>" +  + "<br/>" +*/
-                        "<b>Agency: </b>" + attr["agency"] + "<br/>" +
+                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["all_pest_trends_wm.Site"] + "<br/>" +
+                        "<b>Site number: </b>" + attr["all_pest_trends_wm.pstaid"] + "<br/>" +
+                         /*"<b>State: </b>" +  + "<br/>" +*/
+                        "<b>Agency: </b>" + attr["pest10yrsites.agency"] + "<br/>" +
                         /*"<b>Data source: </b>" +  + "<br/>" +*/
-                        "<b>Latitude: </b>" + attr["LAT"] + "<br/>" +
-                        "<b>Longitude: </b>" + attr["LONG_"] + "<br/>" +
-                        "<b>Drainage area: </b>" + attr["DA"] + "<br/>" +
-                        "<b>trend pct: </b>" + attr["trend_pct_yr"] + "<br/>"/* +
+                        "<b>Latitude: </b>" + attr["pest10yrsites.LAT"] + "<br/>" +
+                        "<b>Longitude: </b>" + attr["pest10yrsites.LONG_"] + "<br/>" +
+                        "<b>Drainage area: </b>" + attr["pest10yrsites.DA"] + "<br/>"/* +
+                        "<b>trend pct: </b>" + attr["all_pest_trends_wm.trend_pct_yr"] + "<br/>" +
                         "<b>HUC2: </b>" +  + "<br/>" +
                         "<b>HUC4: </b>" +  + "<br/>" +
                         "<b>HUC6: </b>" +  + "<br/>" +

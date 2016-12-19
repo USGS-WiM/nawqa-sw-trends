@@ -51,10 +51,10 @@
             <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;FAQ</span>
         </button>
         <button id="userGuideNav" class="pull-right">
-            <i class="fa fa-info-circle"></i><span class="hidden-xs">&nbsp;&nbsp;User Guide</span>
+            <i class="fa fa-book"></i><span class="hidden-xs">&nbsp;&nbsp;User Guide</span>
         </button>
         <button id="aboutNav" class="pull-right">
-            <i class="fa fa-check-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
+            <i class="fa fa-info-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
         </button>
         <!-- comment -->
         <!-- legend buttton for navbar. to be removed if we like the in-map legend toggle -->
@@ -287,18 +287,89 @@
                 <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
                 <h4 class="modal-title">Frequently Asked Questions</h4>
             </div>
-            <div id="aboutModalBody" class="modal-body">
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
-                        <p style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>
-                        <p>Application info goes here. Use HTML, and your imagination.</p>
-                    </div>
-                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
-                        <h3>Data Limitations</h3>
-                        <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
-                        <p>Data disclaimer continues here</p>
-                    </div>
+            <div class="faq-modal-body">
+                <div class="faq-header" id="faq1header">What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq1body">Publicly available water-quality data for streams and rivers were obtained from NWIS and STORET.  In addition, relevant water-quality records that currently are not being housed in NWIS or STORET were requested from water resource agencies in each state. The final database includes 147 million water-quality records from 468,000 sites and 518 organizations.  These organizations include federal and state agencies, tribes, counties, universities, non-governmental organizations, and other organizations like waste-water treatment facilities. <br/>Ecological data were obtained from BioData.  Flow data were obtained from NWIS; selected non-USGS flow data were obtained from state databases.</div>
+
+                <div class="faq-header" id="faq2header">What constituents were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq2body">
+                    <b>Nutrients</b> — total nitrogen, total phosphorus, nitrate, ammonia, and orthophosphate
+                    <br/><b>Pesticides</b> — 2,6-Diethylaniline, Acetochlor, Alachlor, Atrazine, Carbaryl, Carbofuran, Chlorpyrifos, Cyanazine, Dacthal, Deethylatrazine, Desulfinylfipronil, Desulfinylfipronil amide, Diazinon, Dieldrin, EPTC, Ethoprophos, Fipronil, Fipronil sulfide, Fipronil sulfone, Fonofos, Malathion, Metolachlor, Metribuzin, Molinate, Pendimethalin, Prometon, Propanil, Propargite, Propyzamide, Simazine, Tebuthiuron, Thiobencarb, Trifluralin
+                    <br/><b>Sediment</b> — suspended sediment and total suspended solids
+                    <br/><b>Carbon</b> — dissolved organic carbon and alkalinity
+                    <br/><b>Salinity</b> — specific conductance, total dissolved solids, chloride, sulfate
+                    <br/><b>Aquatic ecology</b> — fish, invertebrates, and algae
                 </div>
+                <div class="faq-header" id="faq3header">What time periods did you assess in your trend analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq3body">1972-2012, 1982-2012, 1992-2012, 2002-2012.  These decadal trend periods allowed us to start our evaluations at the passage of the Clean Water Act in 1972 and the initiation of the National-Water Quality Assessment Program in 1992.  They also allowed us to evaluate trends in recent years, when many management programs have been initiated.</div>
+
+                <div class="faq-header" id="faq4header">Why do your trends only go through 2012? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq4body">As with any water-quality study, there is a lag between sample collection and data release due to laboratory analysis and data quality review, and another lag between data release and the release of study findings due to analysis and interpretation.  However, a much longer lag occurred in this study because we used water-quality data from 518 different organizations.  The data were provided to us in many different formats; data from the different organizations had different nomenclature; and many of the records had incomplete or missing metadata.  Resolving these issues (when even possible) required over three years of effort.  The resulting database is one of the largest water-quality databases ever compiled in the United States, and the trend results allow for evaluation of the collective efforts of major water agencies across the country in a way that has never been possible before.</div>
+
+                <div class="faq-header" id="faq5header">What trend methods did you use? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq5body">We used Weighted Regressions on Time, Discharge, and Season (WRTDS) (Hirsch and DeCicco, 2015) for nutrients, sediment, carbon, and salinity.  We used the seasonal wave model with flow adjustment (SEAWAVE-Q) (Vecchia and others, 2008) for pesticides.  We used a newly developed Kendall-based test for aquatic ecology. </div>
+
+                <div class="faq-header" id="faq6header">How did you decide which sites were suitable for trend analysis? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq6body">
+                    As we began reviewing the compiled water-quality data set, it was immediately clear that there were some sites we could not use for a variety of reasons, such as an insufficient number of samples, missing metadata (see FAQ #8), etc. We set up a series of screening steps to ensure the data we used for trend analysis all met a minimum standard. Our screening steps are described in detail in our forthcoming Scientific Investigations Report. Many important details are documented there, but we provide a very high-level, brief summary here.  The criteria for pesticide and aquatic ecology are slightly more liberal than for the other constituents because of the relative dearth of long-term monitoring for pesticides and aquatic ecology.<br/>
+                    Generally, we screened nutrients, sediment, carbon, and salinity data sets for (1) at least quarterly data in the first two years and last two years of the trend period, (2) at least quarterly sampling in at least 70% of all years, (3) availability of suitable daily flow for the entire period, (4) 10-14% of samples collected at higher flow conditions during each decade, (5) no more than 50% censored data.  Each trend period was screened separately.<br/>
+                    We screened pesticides data sets for (1) at least three quarterly samples in either of the first two years and either of the last two years of the trend period, (2) at least three quarterly samples in at least 50% of all years, (3) no gaps longer than 3 to 5 years (depending on the trend period), (4) availability of suitable daily flow through one year prior to the start of the trend period, (5) at least 10 uncensored concentrations.  Each trend period was screened separately.<br/>
+                    We screened aquatic ecology data sets for (1) data within one year of the start year and one year of the end year of the trend period, (2) data in 50% of years of each decade,  (3) no gaps longer than 4 years, (4) availability of measured or modeled daily flow data through 240 days prior to the first sample.  Each trend period was screened separately.
+                </div>
+
+                <div class="faq-header" id="faq7header">Why did you screen pesticide data differently than other water-quality constituents? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq7body">
+                    The pesticide screening criteria differ from criteria for other constituents for a variety of reasons, some particular to the trend analysis method, others particular to the nature of pesticide concentrations in surface water.<br/>
+                    The method (SEAWAVE-Q; Vecchia and others, 2008, p. 1309) was specifically developed to address a "number of difficulties often found in pesticide data, such as strong seasonality in response to use patterns, high numbers of concentrations below laboratory reporting levels (RLs), complex relations between streamflow and concentration, and intermittent or changing sampling frequencies (both inter-annually and intra-annually)."<br/>
+                    Pesticide concentrations in surface water have a strong seasonal signal depending on the time of application (there may one or more general periods of application depending on the pesticide, some are post-emergent spring applied, others may be pre-emergent applied in the spring and/or fall, other patterns may exist depending on the climate and crop).  For example, in Vecchia and others (2008) figure 1 shows that seasonal variability in atrazine is not closely related to seasonal variability in streamflow.  "Thus, the seasonal hydrologic cycle has little effect on atrazine concentration. Rather, seasonal change in application amounts is the major source of variability. The same generally holds for other pesticides and sites as well. This is in sharp contrast to other more naturally occurring or chemically stable water-quality constituents, such as dissolved major ions or nutrients, whose concentrations tend to be more directly related to streamflow" (Vecchia and others, 2008, p. 1311). SEAWAVE-A specifically models the seasonality in application and a "decay" rate (depending on the properties of the chemical, concentrations decrease at varying rates after the peak application period). Because of these important characteristics of pesticide concentrations is surface water and the features of SEAWAVE-Q, pesticide sites do not require the same screening for highflow samples that are needed for some other constituents/methods.<br/>
+                    SEAWAVE-Q uses maximum likelihood regression and survival analysis and therefore is robust for highly censored constituents.  Generally, only 10 noncensored values are needed for a trend period (provided a sufficient number of censored samples and streamflow data). The default minimum number of censored values in WRTDS is 50.   "If there are too few uncensored observations, the program [WRTDS] will iterate, making the windows wider until the number increases above this minimum... The method has never been tested in situations where there are very few uncensored values" (Hirsch and DeCicco, 2015, p. 46).<br/>
+                    SEAWAVE-Q does not require streamflow on the day of sampling only, but requires long-term streamflow monitoring (at least a year prior to the start of the trend period for the national trends study) in order to calculate and incorporate streamflow anomalies.  Small gaps in the streamflow record can be estimated, but gages discontinued for 30 days or more during a trend analysis period cause issues, such as a gap in the model, or disqualification of the site, depending on the length and timing of the gap.<br/>
+                    SEAWAVE-Q is robust to gaps in the samples, provided the samples meet some criteria to be representative to the trend period.  In the urban pesticide trends study (Ryberg and others, 2010, 7), at least 10 uncensored values were required and "the minimum sampling criteria for a particular site to be considered adequately representative of a particular 9-year trend assessment period were (1) at least 2 years with four or more samples collected during the first 5 years of the assessment period and (2) at least 2 years with four or more samples collected during the last 5 years of the assessment period." Examples are shown in Ryberg and others (2010, figures 2-5) for sites with varying numbers of samples per year and with high degrees of censoring. In the pesticide trends study for major river basins of the US (Ryberg and others, 2015, p. 8), "the minimum sampling criteria for a particular site to be considered adequately representative of a particular 10-year trend period were to have (1) at least 10 uncensored values after recensoring (calculating qlow50 where applicable and recensoring at that level), (2) at least 5 years of samples, (3) 6 or more samples in at least 2 of the first 5 years of the period, and (4) 6 or more samples in at least 2 of the last 5 years of the period."<br/>
+                    These issues have been thoroughly explored and tested in a number of published studies (Vecchia and others, 2008, Sullivan and others, 2009; Ryberg and others, 2010; Ryberg and others, 2014) as well as in numerous unpublished exploratory data analysis exercises refining the seasonality and decay components of the model, testing the effect of gaps in the data, and testing the degree of censoring.<br/>
+                </div>
+
+                <div class="faq-header" id="faq8header">What do you mean by water-quality metadata? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq8body">In many cases, water-quality data did not have enough information for us to unambiguously interpret the value. We use the term metadata to describe information that accompanies the water-quality value itself. Critical metadata includes the site location, the sample date, the water-quality constituent being reported (e.g. nitrate, alkalinity, suspended sediment), the physical medium that was sampled (e.g. water, soil, gas), the reported units (e.g. mg/L or µg/L), whether a sample was filtered or unfiltered, whether a sample is reported in elemental or molecular form (e.g. nitrate as nitrogen or nitrate as nitrate), and number of others. Data without sufficient metadata were excluded from our analyses.</div>
+
+                <div class="faq-header" id="faq9header">Why is my long-term monitoring site missing from your results? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq9body">
+                    There are many reasons why a site with long-term monitoring data could have been excluded from our study.  Generally sites were excluded either because of missing or incomplete metadata, failure to pass one or more of our screening criteria, or poor model fit.  We can work with you to identify the exact reason(s) why a site of interest was excluded.<br/>
+                    It is important to note that although a site may have been excluded from our study because of our specific objectives, data from the site could still be valuable for other studies looking at different trend periods or studies with different objectives altogether.
+                </div>
+
+                <div class="faq-header" id="faq10header">Why are my trend results different from yours at the same site? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq10body">
+                    There are a few reasons why this could be happening.  The most likely reason is that the trend periods are different.  The choice of start and end years can make a big difference.  For example, cigarette smoking in the United States increased in the first part of the 20th century as mass production, advertising, and addiction increased.  After the first Surgeon General’s report in 1964 on the harmful effects of smoking, smoking rates decreased. If we were to determine a trend in cigarette consumption between 1900 and 2002, the result would show an increase.  However, if we were to determine a trend between 1970 and 2002, the result would show a decrease.  The same potential difference can occur with water-quality trends any time the direction of change in concentration or load reverses, or any time the rate of change slows or becomes more rapid.<br/>
+                    <small>Source: (Richard J. Bonnie, Editor; Committee on Reducing Tobacco Use: Strategies, Barriers, and Consequences; Board on Population Health and Public Health Practice; Institute of Medicine, The National Academies Press, 2007. http://www.nap.edu/read/11795/chapter/4#44)</small><br/>
+                    Another common reason for trend results at the same site to be different—even when the trend period is the same—is the use of different trend methods.  Because periodic or random factors like season or streamflow can add noise to a water-quality time series, statistical methods are necessary to separate the signal (the trend) from the noise.  The choice of trend method can affect how much of the noise is removed, which in turn can affect the power of the trend test.  With a robust enough data set, the differences between statistical methods should be minor.  We conducted extensive sensitivity testing to develop a set of screening criteria that would lead us to sites with robust data sets. As a result, any differences between our results and your results for the same trend period should be minor.  There may be rare exceptions; in these situations, we would be happy to work closely with you to determine the cause of any differences.<br/>
+                    One exception to the above that might cause differences in trend results at the same site is the choice of whether or not to flow normalize.  A trend in concentrations or loads that are flow-normalized (or flow-adjusted) is often different from a trend in concentrations or loads that are not flow normalized.   See FAQ #11 for more information on flow normalization.<br/>
+                    In a smaller number of cases, differences in trend results may be related to the characteristics of our respective data sets.  For instance, we may have combined data from two agencies that were sampling at the same location, whereas you only used data from one of the sources.  Or we may have excluded some data that were inadequately documented in our database, whereas you may have included those data because you had adequate documentation locally.  We can work with you to investigate these situations.
+                </div>
+
+                <div class="faq-header" id="faq11header">What is flow normalization and why is it important? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq11body">
+                    Changes in concentration and load over time can be strongly influenced by random and systematic variations in streamflow.  Flow normalization removes the variation in concentration or load that is due to variations in streamflow.  In the case where the flow variability is only random, flow normalization will remove some of the non-trend noise, making the signal (the trend) easier to detect.  In the case where the flow variability is systematic (e.g. where there is a trend in flow), the trend in flow may be causing all or part of the trend in water quality. Flow normalization will remove the part of the water-quality trend that is caused by the trend in flow, leaving behind the trend in water quality that is caused by other factors.  These other factors are usually human actions, like land development, changes in pesticide application, or implementation of best management practices. Removing the influence of the trend in flow improves our ability to evaluate the effects of human actions on water quality.<br/>
+                    In situations where natural changes in flow are affecting year-to-year variability in concentration or load, flow normalization also helps us to avoid mistaking the effects of natural changes in flow for progress in cleaning up water quality.  In the example below showing nitrate loads entering the Gulf of Mexico from the Mississippi River, there were several years when loads dropped below the 1980-1996 baseline used to measure progress in reducing loading to the Gulf of Mexico. We could interpret that to mean we have made substantial progress in reducing loads to the Gulf as a result of our management practices in the watershed.  However, the pattern in load closely follows the pattern in flow, indicating that the low loads occurred in years when streamflow was naturally low.  When we remove that flow-related variability, the pattern in flow normalized loads shows very little change that can be tied to human actions between 1980 and 2010.<br/>
+                    See Hirsch and DeCicco (2015) for more information on flow normalization of nutrients, sediment, salinity, and carbon data and Vecchia and others (2008) for more information on flow normalization of pesticide data.  A forthcoming report will describe the flow-adjustment of ecological trend data.
+                </div>
+
+                <div class="faq-header" id="faq12header">Why don’t you present your trend results with “significant”/”nonsignificant” designations? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq12body">
+                    We used a likelihood-based approach to reporting our results as an alternative to the null-hypothesis significance testing (NHST) approach. This approach has been used previously by the Intergovernmental Panel on Climate Change and is discussed at length in the context of water quality in in Hirsch and others (2015).  The likelihood-based approach gives people more intuitive information on the certainty of a trend estimate, and avoids the arbitrary classifications imposed by selecting an alpha value to assess significance (for example, if the alpha value is selected to be 0.1, trend A with a p-value of 0.099 will be classified as significant while trend B with a p-value of 0.11 will be classified as non-significant. In reality, there is no meaningful difference between these two p-values.)<br/>
+                    As stated in Hirsch and others (2015):  ‘Adopting our terminology, one might say, for example: “it is highly likely that the trend in nitrate between 1990 and 2010 was upward” and this would mean that we believe that there is at least a 95 out of 100 chance that the direction was upward. Similarly in a case where we believe that there is at least a 66 out of 100 chance that the trend was upward we could say that it “is likely that the trend over the 1990 to 2010 period was upward.” We argue here that these types of statements may be more suitable to the types of decisions that need to be made with respect to water quality. It provides decision makers with a formal, rather than subjective, evaluation of decisions to take an action or not, as they consider the tradeoffs involving the risks, costs, and benefits of various outcomes. …  Consider an example where [we have] estimated a positive trend over some period of interest and the results show an upward trend [with at least an 80 out of 100 chance]. If the analyst used only a classical statistical NHST approach, they might report “we cannot reject the null hypothesis of no trend at alpha = 0.1, and furthermore, the two sided p-value in this case is 0.4 [non-significant].” However, using the likelihood descriptors, we could conclude that “it is likely that there is an increasing trend”. The former classical type of statement would typically lead to complacency because it suggests that “we don't have strong proof of a growing problem” while the latter likelihood-style presentation says “we are pretty sure that conditions are not improving, and thus we need to step up our actions if we wish to improve water quality.”’
+                </div>
+
+                <div class="faq-header" id="faq13header">FAQ References <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq13body">
+                    Hirsch, Robert M., Archfield, Stacey A., and DeCicco, Laura A., 2015, A bootstrap method for estimating uncertainty of water quality trends, Environmental Modelling and Software, 73, 148-166, http://www.sciencedirect.com/science/article/pii/S1364815215300220<br/>
+                    Hirsch, R.M., and De Cicco, L.A., 2015, User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval—R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p., http://dx.doi.org/10.3133/tm4A10<br/>
+                    Ryberg, K.R., Vecchia, A.V., Gilliom, R.J., and Martin, J.D., 2014, Pesticide trends in major rivers of the United States, 1992–2010: U.S. Geological Survey Scientific Investigations Report 2014–5135, 63 p., http://dx.doi.org/10.3133/sir20145135.<br/>
+                    Ryberg, K.R., Vecchia, A.V., Martin, J.D., and Gilliom, R.J., 2010, Trends in pesticide concentrations in urban streams in the United States, 1992–2008: U.S. Geological Survey Scientific Investigations Report 2010–5139, 101 p.<br/>
+                    Sullivan, D.J., Vecchia, A.V., Lorenz, D.L., Gilliom, R.J., and Martin, J.D., 2009, Trends in pesticide concentrations in corn-belt streams, 1996–2006: U.S. Geological Survey Scientific Investigations Report 2009–5132, 75 p., http://pubs.usgs.gov/sir/2009/5132/.<br/>
+                    Vecchia, A.V., Martin, J.D., and Gilliom, R.J., 2008, Modeling variability and trends in pesticide concentrations in streams: Journal of the American Water Resources Association, v. 44, no. 5, p. 1308–1324, http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2008.00225.x/pdf
+                </div>
+
+
             </div>
         </div><!-- /.modal-content -->
     </div> <!-- /.modal-dialog -->
@@ -402,17 +473,17 @@ This mapper shows stream trends in water chemistry (nutrients, pesticides, sedim
                         <label>Constituent:</label>
                         <span>
                             <select id="nutrientsSelect" class="constSelect">
-                                <option>-- select --</option>
+
                             </select>
                         </span>
                         <span>
                             <select id="pesticideSelect" class="constSelect">
-                                <option>-- select --</option>
+
                             </select>
                         </span>
                         <span>
                             <select id="ecologySelect" class="constSelect">
-                                <option>-- select --</option>
+
                             </select>
                         </span>
                     </div>
@@ -420,25 +491,25 @@ This mapper shows stream trends in water chemistry (nutrients, pesticides, sedim
                     <div id="trendTypes" style="align-content: center; width: 100%; padding-top: 20px; text-align: left;">
                         <label>Trend type</label>
                         <span class="sidebar-radio-wrapper">
-                            <input name="trendType" type="radio" checked> Concentration
+                            <input name="trendType" class="trendType" type="radio" value="concentration" checked> Concentration
                         </span>
                         <span class="sidebar-radio-wrapper">
-                            <input name="trendType" type="radio"> Load
+                            <input name="trendType" class="trendType" type="radio" value="load"> Load
                         </span>
                     </div>
                     <div style="width: 100%; padding-top: 20px; text-align: left;">
                         <label>Trend period</label>
                         <span id="trend4" class="sidebar-radio-wrapper">
-                            <input id="trend4input" name="trendPeriod" class="" type="radio" value="P40"> 1972-2012
+                            <input id="trend4input" name="trendPeriod" class="trendPeriod" type="radio" value="P40"> 1972-2012
                         </span>
                         <span id="trend3" class="sidebar-radio-wrapper">
-                            <input id="trend3input" name="trendPeriod" type="radio" value="P30"> 1982-2012
+                            <input id="trend3input" name="trendPeriod" class="trendPeriod" type="radio" value="P30"> 1982-2012
                         </span>
                         <span id="trend2" class="sidebar-radio-wrapper">
-                            <input id="trend2input" name="trendPeriod" type="radio" value="P20"> 1992-2012
+                            <input id="trend2input" name="trendPeriod" class="trendPeriod" type="radio" value="P20"> 1992-2012
                         </span>
                         <span id="trend1" class="sidebar-radio-wrapper">
-                            <input id="trend1input" name="trendPeriod" type="radio" value="P10" checked> 2002-2012
+                            <input id="trend1input" name="trendPeriod" class="trendPeriod" type="radio" value="P10" checked> 2002-2012
                         </span>
                     </div>
 
