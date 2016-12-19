@@ -725,6 +725,22 @@ require([
             $('#legendElement').css('height', 'initial');
         });
 
+
+        // FAQ Modal controls.
+        $('#faq1header').click(function(){$('#faq1body').slideToggle(250);});
+        $('#faq2header').click(function(){$('#faq2body').slideToggle(250);});
+        $('#faq3header').click(function(){$('#faq3body').slideToggle(250);});
+        $('#faq4header').click(function(){$('#faq4body').slideToggle(250);});
+        $('#faq5header').click(function(){$('#faq5body').slideToggle(250);});
+        $('#faq6header').click(function(){$('#faq6body').slideToggle(250);});
+        $('#faq7header').click(function(){$('#faq7body').slideToggle(250);});
+        $('#faq8header').click(function(){$('#faq8body').slideToggle(250);});
+        $('#faq9header').click(function(){$('#faq9body').slideToggle(250);});
+        $('#faq10header').click(function(){$('#faq10body').slideToggle(250);});
+        $('#faq11header').click(function(){$('#faq511ody').slideToggle(250);});
+        $('#faq12header').click(function(){$('#faq5b12dy').slideToggle(250);});
+        $('#faq13header').click(function(){$('#faq5bo13y').slideToggle(250);});
+
     });
 
     require([
