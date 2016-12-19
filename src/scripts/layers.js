@@ -135,13 +135,7 @@ require([
                         "hasOpacitySlider": true,
                         "includeLegend" : true
                     }
-                }
-
-            }/*,
-            "groupHeading": "nwalt",
-            "showGroupHeading": false,
-            "includeInLayerList": false,
-            "layers": {
+                },
                 "lu2012": {
                     "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
                     "options": {
@@ -157,8 +151,7 @@ require([
                         "includeLegend": true
                     }
                 }
-
-            }*/
+            }
         }
     ]
 
