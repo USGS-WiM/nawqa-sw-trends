@@ -201,7 +201,7 @@ require([
     }, "locateButton");
     locate.startup();
 
-    $('#disclaimerModal').modal('show');
+    $('#aboutModal').modal('show');
 
     //following block forces map size to override problems with default behavior
     $(window).resize(function () {
@@ -675,6 +675,9 @@ require([
 
         function showAboutModal () {
             $('#aboutModal').modal('show');
+        }
+        function showDisclaimerModal () {
+            $('#disclaimerModal').modal('show');
         }
         $('#aboutNav').click(function(){
             showAboutModal();
