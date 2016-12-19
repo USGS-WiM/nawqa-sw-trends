@@ -167,19 +167,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                <h4 class="modal-title">NAWQA SW Trends</h4>
+                <h4 class="modal-title">Water-Quality Changes in U.S. Streams and Rivers</h4>
             </div>
             <div id="aboutModalBody" class="modal-body">
                 <ul class="nav nav-tabs" id="aboutModalTabs">
-                    <li role="presentation"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the application</a></li>
-                    <li role="presentation" class="active"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
+                    <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About</a></li>
+                    <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
-                        <p style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>
-                        <p>Application info goes here. Use HTML, and your imagination.</p>
+                    <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
+                        <p>The Nation's rivers and streams provide drinking water for a growing population, irrigation for crops, habitat for aquatic life, and many recreational opportunities.</p>
+                        <p>The U.S. Geological Survey and other Federal, State, and local agencies have conducted long-term stream monitoring to track how stream quality has changed over time across the Nation.
+                        This mapper shows stream trends in water chemistry (nutrients, pesticides, sediment, carbon, and salinity) and aquatic ecology (fish, macroinvertebrates, and algae) for four time periods: 1972-2012, 1982-2012, 1992-2012, and 2002-2012.</p>
+                        <p>Tracking changes in stream quality and investigating the reasons for these changes is crucial for informing management decisions to protect and sustain our valuable water resources</p>
                     </div>
-                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
+                    <div role="tabpanel" class="tab-pane" id="disclaimerTabPane"></br>
                         <h3>Data Limitations</h3>
                         <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
                         <p>Data disclaimer continues here</p>
@@ -187,12 +189,12 @@
                 </div>
             </div>
 
-            <div class="modal-footer">
-                <p style="color:black; margin-left:35px;text-align:left">
-                    For more information about the NAWQA SW Trends please contact <a href="http://wim.usgs.gov/" target="_blank"><img src="images/wimvectorxs.png" id="wim_logo"></a>
-                </p>
-                <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
-            </div>
+            <form id="disclaimerButtons" id="disclaimer-form" class="form-inline">
+                <!--<button id="otherButton" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> More Info?</button>-->
+                <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button id="learnMoreButton" type="button" class="btn btn-primary pull-right" data-dismiss="modal">Learn More</button>
+            </form>
+
         </div><!-- /.modal-content -->
     </div> <!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -317,7 +319,7 @@
             <div class="faq-modal-body">
                 <div class="faq-header" id="faq1header">1. What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq1body">
-                    Publicly available water-quality data for streams and rivers were obtained from the U.S. Geological Survey’s National Water Information System (NWIS) database at <a href="https://waterdata.usgs.gov/usa/nwis" target="_blank">https://waterdata.usgs.gov/usa/nwis</a> and the U.S. Environmental Protection Agency’s STOrage and RETrieval (STORET) database at <a href="https://www.epa.gov/waterdata/storage-and-retrieval-and-water-quality-exchange" target="_blank">https://www.epa.gov/waterdata/storage-and-retrieval-and-water-quality-exchange</a>. In addition, relevant water-quality records that currently are not being housed in NWIS or STORET were requested from water resource agencies in each state. The final database includes 147 million water-quality records from 468,000 sites and 518 organizations. These organizations include Ffederal and sState agencies, Ttribes, counties, universities, non-governmental organizations, and other organizations like waste-water treatment facilities.
+                    Publicly available water-quality data for streams and rivers were obtained from the U.S. Geological Survey’s National Water Information System (NWIS) database at <a href="https://waterdata.usgs.gov/usa/nwis" target="_blank">https://waterdata.usgs.gov/usa/nwis</a> and the U.S. Environmental Protection Agency’s STOrage and RETrieval (STORET) database at <a href="https://www.epa.gov/waterdata/storage-and-retrieval-and-water-quality-exchange" target="_blank">https://www.epa.gov/waterdata/storage-and-retrieval-and-water-quality-exchange</a>. In addition, relevant water-quality records that currently are not being housed in NWIS or STORET were requested from water resource agencies in each state. The final database includes 147 million water-quality records from 468,000 sites and 518 organizations. These organizations include Federal and State agencies, Tribes, counties, universities, non-governmental organizations, and other organizations like waste-water treatment facilities.
                     Ecological data were obtained from the U.S. Geological Survey’s BioData database at <a href="https://aquatic.biodata.usgs.gov/">https://aquatic.biodata.usgs.gov/</a>. FloDaily wstreamflow data were obtained from NWIS; selected non-USGS flowstreamflow data were obtained from state databases.
                 </div>
 
@@ -417,28 +419,7 @@
     </div> <!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<!-- Disclaimer -->
-<div class="modal fade overflow-y-hidden" id="disclaimerModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">x</button>
-                <h4 class="modal-title"><b>Water-Quality Changes in U.S. Streams and Rivers</b></h4>
-            </div>
-            <div class="modal-body">
-                <p>The Nation's rivers and streams provide drinking water for a growing population, irrigation for crops, habitat for aquatic life, and many recreational opportunities.</p>
-                <p>The U.S. Geological Survey and other Federal, State, and local agencies have conducted long-term stream monitoring to track how stream quality has changed over time across the Nation.
-This mapper shows stream trends in water chemistry (nutrients, pesticides, sediment, carbon, and salinity) and aquatic ecology (fish, macroinvertebrates, and algae) for four time periods: 1972-2012, 1982-2012, 1992-2012, and 2002-2012.</p>
-                <p>Tracking changes in stream quality and investigating the reasons for these changes is crucial for informing management decisions to protect and sustain our valuable water resources</p>
-                <form id="disclaimerButtons" id="disclaimer-form" class="form-inline">
-                    <!--<button id="otherButton" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> More Info?</button>-->
-                    <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Enter The Mapper</button>
-                    <button id="learnMoreButton" type="button" class="btn btn-primary pull-right" data-dismiss="modal">Learn More</button>
-                </form>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
+
 
 <!-- Begin page content -->
 <div class="container-fluid keepit100">

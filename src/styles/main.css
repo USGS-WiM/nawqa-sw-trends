@@ -318,7 +318,8 @@ a.lgi-zoom:hover {
 }
 
 #disclaimerButtons {
-    padding-top: 20px;
+    box-sizing: border-box;
+    padding: 0 25px 35px 25px;
 }
 
 .navbar-brand {
