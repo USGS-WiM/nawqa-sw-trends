@@ -1004,9 +1004,10 @@ require([
         $('#faq8header').click(function(){$('#faq8body').slideToggle(250);});
         $('#faq9header').click(function(){$('#faq9body').slideToggle(250);});
         $('#faq10header').click(function(){$('#faq10body').slideToggle(250);});
-        $('#faq11header').click(function(){$('#faq511ody').slideToggle(250);});
-        $('#faq12header').click(function(){$('#faq5b12dy').slideToggle(250);});
-        $('#faq13header').click(function(){$('#faq5bo13y').slideToggle(250);});
+        $('#faq11header').click(function(){$('#faq11body').slideToggle(250);});
+        $('#faq12header').click(function(){$('#faq12body').slideToggle(250);});
+        $('#faq13header').click(function(){$('#faq13body').slideToggle(250);});
+        $('#faq14header').click(function(){$('#faq14body').slideToggle(250);});
 
     });
 
