@@ -771,14 +771,28 @@ require([
                         "<b>Matched streamgage number: </b>" +  + "<br/>" +
                         "<b>Matched streamgage agency: </b>"*/);
                 } else if (layer == "pestSites") {
+                    var resultDir = "";
+                    if (attr["all_pest_trends_wm.period"] == "P10") {
+                        resultDir = "results10";
+                    } else if (attr["all_pest_trends_wm.period"] == "P20") {
+                        resultDir = "results20";
+                    }
+                    var pname = attr["all_pest_trends_wm.pname"];
+                    if (pname.length == 4) {
+                        pname = "0" + pname;
+                    }
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["all_pest_trends_wm.Site"] + "<br/>" +
-                        "<b>Site number: </b>" + attr["all_pest_trends_wm.pstaid"] + "<br/>" +
+                        "<b>Site number: </b>" + attr["pest10yrsites.pstaid"] + "<br/>" +
                          /*"<b>State: </b>" +  + "<br/>" +*/
                         "<b>Agency: </b>" + attr["pest10yrsites.agency"] + "<br/>" +
                         /*"<b>Data source: </b>" +  + "<br/>" +*/
                         "<b>Latitude: </b>" + attr["pest10yrsites.LAT"] + "<br/>" +
                         "<b>Longitude: </b>" + attr["pest10yrsites.LONG_"] + "<br/>" +
-                        "<b>Drainage area: </b>" + attr["pest10yrsites.DA"] + "<br/>"/* +
+                        "<b>Drainage area: </b>" + attr["pest10yrsites.DA"] + "<br/>" +
+                        /*"<b>First run charts: </b><a target='_blank' href='https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" +
+                            attr["all_pest_trends_wm.period"] + "_" + attr["pest10yrsites.pstaid"] + "_FirstRun" + pname + ".pdf'>click here</a><br/>"+*/
+                        "<b>Final run charts: </b><a target='_blank' href='https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" +
+                        attr["all_pest_trends_wm.period"] + "_" + attr["pest10yrsites.pstaid"] + "_FinalRun" + pname + ".pdf'>click here</a><br/>" /*+
                         "<b>trend pct: </b>" + attr["all_pest_trends_wm.trend_pct_yr"] + "<br/>" +
                         "<b>HUC2: </b>" +  + "<br/>" +
                         "<b>HUC4: </b>" +  + "<br/>" +
@@ -971,22 +985,40 @@ require([
         function showTableModal () {
             $('#tableModal').modal('show');
 
+            $.ajax({
+                dataType: 'json',
+                type: 'GET',
+                url: 'https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/2/query?where=wrtds_trends_wm.Site_no+%3D+%2705587455%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=wrtds_trends_wm.param_nm%2Cwrtds_trends_wm.id_unique%2Cwrtds_trends_wm.likeC%2C+wrtds_trends_wm.likeF&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=true&resultOffset=&resultRecordCount=&f=json',
+                headers: {'Accept': '*/*'},
+                success: function (data) {
+                    constObj = data;
+                    var data2Return = [];
+                    $.each(data.features, function (key, value) {
+                        data2Return.push([value.attributes["wrtds_trends_wm.param_nm"],value.attributes["wrtds_trends_wm.id_unique"],value.attributes["wrtds_trends_wm.likeC"].toFixed(5),value.attributes["wrtds_trends_wm.likeF"].toFixed(5)])
+                    });
 
+                    var container = document.getElementById('tableDiv');
+                    $("#tableDiv").html("");
+                    var hot = new Handsontable(container, {
+                        data: data2Return,
+                        rowHeaders: true,
+                        colHeaders: true
+                    });
+                    hot.updateSettings({
+                        colHeaders: ["Parameter","id_unique","LikeC","LikeF"]
+                    })
+                },
+                error: function (error) {
+                    console.log("Error processing the JSON. The error is:" + error);
+                }
+            });
 
             var data = [
-                ["", "sample1", "sample2", "sample3", "sample4"],
+                ["", "Ford", "Volvo", "Toyota", "Honda"],
                 ["2016", 10, 11, 12, 13],
                 ["2017", 20, 11, 14, 13],
                 ["2018", 30, 15, 12, 13]
             ];
-
-            var container = document.getElementById('tableDiv');
-            $("#tableDiv").html("");
-            var hot = new Handsontable(container, {
-                data: data,
-                rowHeaders: true,
-                colHeaders: true
-            });
         }
         $('#table').click(function(){
             showTableModal();
