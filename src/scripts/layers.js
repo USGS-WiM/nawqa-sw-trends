@@ -136,7 +136,7 @@ require([
                         "includeLegend" : true
                     }
                 },
-                "lu2012": {
+                "Land Use 2012": {
                     "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
                     "options": {
                         "id": "lu2012",
