@@ -657,3 +657,10 @@ input[type="checkbox"], input[type="radio"] {
 #geosearchNav:hover{
     background-color: rgba(69,116,204, 1) !important;
 }
+
+
+
+/*Legend Adjustments*/
+#legendDiv{
+    min-height: 220px;
+}
