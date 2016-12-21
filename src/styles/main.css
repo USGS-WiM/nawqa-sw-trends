@@ -552,7 +552,7 @@ input[type="checkbox"], input[type="radio"] {
     display: none;
     line-height: 1.6em;
     color: #555555;
-    font-size: 9.25pt;
+    font-size: 10.35pt;
     box-sizing: border-box;
     padding: 10px 10px;
 
@@ -561,4 +561,127 @@ input[type="checkbox"], input[type="radio"] {
     display: block;
     max-width: 100%;
     margin: 10px auto;
+}
+
+
+
+/*Geosearch Form*/
+
+.geosearch-form{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.geosearch-form #geosearch,
+.geosearch-form .checkbox{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+.esriGeocoderContainer{
+    margin: 0 auto 10px auto;
+}
+.geosearch-buttons{
+    margin-top: 25px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+/*User Guide Modal*/
+.user-guide-header{
+    display: block;
+    text-align: center;
+    font-size: 16pt;
+    box-sizing: border-box;
+    padding: 10px 0 25px 0;
+}
+
+.user-guide-item{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.user-guide-item:nth-child(even){
+    background-color: rgba(0,0,0,0.04);
+}
+
+.user-guide-item .user-guide-item-image{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    justify-content: center;
+    width: 180px;
+    min-width: 150px;
+    height: 100px;
+}
+.user-guide-item img{
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+.user-guide-item p{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-grow: 2;
+    flex-grow: 2;
+    padding-left: 15px !important;
+    padding-right: 10px !important;
+    box-sizing: border-box;
+}
+
+
+
+/*Nav Tweaks*/
+#aboutNav,
+#faqNav,
+#userGuideNav{
+    color: rgba(255,255,255,0.8);
+}
+#geosearchNav{
+    background-color: rgba(69,116,204, 0.5) !important;
+    border: none !important;
+}
+#geosearchNav:hover{
+    background-color: rgba(69,116,204, 1) !important;
+}
+
+
+
+/*Legend Adjustments*/
+#legendDiv{
+    min-height: 220px;
+}
+
+
+/*Long title header*/
+.header-longtitle{
+    font-size:16px;
+    display:inline-block;
+    font-weight: lighter;
+    letter-spacing: -0.2px !important;
+    line-height: 20px !important;
+    padding-top: 9px !important;
+}
+.header-longtitle small{
+    display: block;
+    height: 10px;
+    line-height: 10px;
+    font-size: 9pt;
+    letter-spacing: -0.25px;
+}
+.navbar-brand{
+    padding-left: 0 !important;
 }
