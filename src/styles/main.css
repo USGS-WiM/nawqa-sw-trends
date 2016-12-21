@@ -640,3 +640,12 @@ input[type="checkbox"], input[type="radio"] {
     padding-left: 15px !important;
     box-sizing: border-box;
 }
+
+
+
+/*Nav Tweaks*/
+#aboutNav,
+#faqNav,
+#userGuideNav{
+    color: rgba(255,255,255,0.8);
+}
