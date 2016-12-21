@@ -552,7 +552,7 @@ input[type="checkbox"], input[type="radio"] {
     display: none;
     line-height: 1.6em;
     color: #555555;
-    font-size: 9.25pt;
+    font-size: 10.35pt;
     box-sizing: border-box;
     padding: 10px 10px;
 
@@ -663,4 +663,25 @@ input[type="checkbox"], input[type="radio"] {
 /*Legend Adjustments*/
 #legendDiv{
     min-height: 220px;
+}
+
+
+/*Long title header*/
+.header-longtitle{
+    font-size:16px;
+    display:inline-block;
+    font-weight: lighter;
+    letter-spacing: -0.2px !important;
+    line-height: 20px !important;
+    padding-top: 9px !important;
+}
+.header-longtitle small{
+    display: block;
+    height: 10px;
+    line-height: 10px;
+    font-size: 9pt;
+    letter-spacing: -0.25px;
+}
+.navbar-brand{
+    padding-left: 0 !important;
 }
