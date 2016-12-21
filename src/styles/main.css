@@ -638,6 +638,7 @@ input[type="checkbox"], input[type="radio"] {
     -webkit-flex-grow: 2;
     flex-grow: 2;
     padding-left: 15px !important;
+    padding-right: 10px !important;
     box-sizing: border-box;
 }
 
@@ -648,4 +649,11 @@ input[type="checkbox"], input[type="radio"] {
 #faqNav,
 #userGuideNav{
     color: rgba(255,255,255,0.8);
+}
+#geosearchNav{
+    background-color: rgba(69,116,204, 0.5) !important;
+    border: none !important;
+}
+#geosearchNav:hover{
+    background-color: rgba(69,116,204, 1) !important;
 }
