@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NAWQA SW Trends</title>
+    <title>Water-Quality Changes in U.S. Streams and Rivers</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -145,17 +145,17 @@
                 <h4 class="modal-title">Geosearch</h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
+                <div class="form-group geosearch-form">
                     <div id="geosearch"><div id="sapi_searchTextBoxDiv"></div></div>
-                </div>
-                <form id="geosearch-form" class="form-inline">
                     <div class="checkbox">
                         <label>
                             <input id="chkExtent" type="checkbox"> Search in Map Only
                         </label>
                     </div>
-                    <button id="btnGeosearch" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> Go </button>
-                    <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
+                </div>
+                <form id="geosearch-form" class="form-inline geosearch-buttons">
+                    <button id="btnDismiss" type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="btnGeosearch" type="button" class="btn btn-success" data-dismiss="modal"> Search </button>
                 </form>
             </div>
         </div><!-- /.modal-content -->
@@ -175,13 +175,13 @@
                     <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
+                    <div role="tabpanel" class="tab-pane active" id="aboutTabPane">
                         <p>The Nation's rivers and streams provide drinking water for a growing population, irrigation for crops, habitat for aquatic life, and many recreational opportunities.</p>
                         <p>The U.S. Geological Survey and other Federal, State, and local agencies have conducted long-term stream monitoring to track how stream quality has changed over time across the Nation.
                         This mapper shows stream trends in water chemistry (nutrients, pesticides, sediment, carbon, and salinity) and aquatic ecology (fish, macroinvertebrates, and algae) for four time periods: 1972-2012, 1982-2012, 1992-2012, and 2002-2012.</p>
                         <p>Tracking changes in stream quality and investigating the reasons for these changes is crucial for informing management decisions to protect and sustain our valuable water resources</p>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="disclaimerTabPane"></br>
+                    <div role="tabpanel" class="tab-pane" id="disclaimerTabPane">
                         <h3>Data Limitations</h3>
                         <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
                         <p>Data disclaimer continues here</p>
@@ -209,7 +209,7 @@
             </div>
             <div id="aboutModalBody" class="modal-body">
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
+                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane">
                         <p>Since passage of the Clean Water Act in 1972, Federal, State, and local governments have invested billions of dollars to reduce pollution entering streams and rivers. In order to understand the return on these investments, and to more effectively manage and protect the Nation's water resources in the future, we need to know: Has water quality has been changing over time?</p>
                         <p>Answering that question is one of the major goals of the U.S. Geological Survey's (USGS) National Water-Quality Assessment project.  To support that goal, they have conducted long-term consistent and comparable monitoring on streams and rivers throughout the Nation since 1992.  Other USGS programs, as well as many other Federal, State, regional, and local monitoring organizations, also have collected long-term water-quality data to support their own assessments of changing water-quality conditions.  For the first time, data from these organizations have been aggregated, screened, standardized, and used to support the most comprehensive assessment of stream-quality trends conducted to date in the United States. Collectively, these trend results will be used to provide insight into how natural features and human activities have contributed to water-quality changes over time in the Nation's streams and rivers.</p>
                         <p>Trends in water-quality concentrations and loads and metrics for aquatic ecology (fish, macroinvertebrates, and algae) for evaluated for four time periods: 1972-2012, 1982-2012, 1992-2012, and 2002-2012.  The water-quality and aquatic ecology constituents included in the analysis were:</p>
@@ -291,24 +291,97 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                <h4 class="modal-title">User Guide</h4>
+                <h4 class="modal-title">Map Interface User Guide</h4>
             </div>
             <div id="aboutModalBody" class="modal-body">
+                <ul class="nav nav-tabs" id="aboutModalTabs">
+                    <li role="presentation" class="active"><a id="searchTab" href="#searchTabPane" data-toggle="tab"><i class="fa fa-search"></i>&nbsp;Search, Zoom, Print</a></li>
+                    <li role="presentation"><a id="iconTab" href="#iconTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Icons</a></li>
+                    <li role="presentation"><a id="layersTab" href="#layersTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;Layers</a></li>
+                </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
-                        <p style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>
-                        <p>Application info goes here. Use HTML, and your imagination.</p>
+                    <div role="tabpanel" class="tab-pane active" id="searchTabPane">
+                        <span class="user-guide-header">Search, zoom, and print capabilities</span>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/search.png"/></div>
+                            <p>The search option allows the user to search for a location such as a city, state, zip code, or general place name.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/zoom.png"/></div>
+                            <p>The scroll wheel on the mouse can be used to zoom, and in the upper left area of the tool are “+” and “–” icons to zoom in and out, respectively.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/home.png"/></div>
+                            <p>The crosshair button will zoom the map to your location, and the home button will center the US on the map.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/mappoints.png"/></div>
+                            <p>Clicking on an arrow or circle at a site will bring up a window with details about the site, graphs of the original data and model predictions (for some constituents), and a table of the other trend results at the same site. See examples below.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/siteinfo.png"/></div>
+                            <p>Reposition the site info pop-up window with the mouse see the rest of the underlying map if necessary.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/faq.png"/></div>
+                            <p>Additional details about the graphs and columns in the 'trend results' table are available in the FAQs.</p>
+                        </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
-                        <h3>Data Limitations</h3>
-                        <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
-                        <p>Data disclaimer continues here</p>
+                    <div role="tabpanel" class="tab-pane" id="iconTabPane">
+                        <span class="user-guide-header">Icons</span>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/legend.png"/></div>
+                            <p>The explanation box can be collapsed to display more of the mapped area.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/legendfull.png"/></div>
+                            <p>The expanded legend box explains the arrows and circles that appear for each site, displaying the results from the statistical analysis of trends.</p>
+                        </div>
+                        <p>
+                            A likelihood-based approach is used to report these trend results. When the trend is "likely up", the chance of the trend being upward is at least an 85 out of 100. When the trend is "likely down", the chance of the trend being downward is at least an 85 out of 100. When the trend is "somewhat likely up", the chance of the trend being upward is between 70 and 85 out of 100. When the trend is "somewhat likely down", the chance of the trend being downward is between 70 and 85 out of 100. When the trend is "about as likely as not", the chance of the trend being either upward or downward is less than 70 out of 100.
+                        </p>
+                        <p>
+                            This likelihood-based approach is used as an alternative to the null-hypothesis signicance testing (NHST) approach that is often used when reporting water-quality trends. The likelihood-based approach gives people more intuitive information on the certainty of a trend estimate, and avoids the arbitrary classications imposed by selecting an alpha value to assess signicance. For example, in the NHST approach, a trend with a p-value of 0.099 could be classied as signicant while a dierent trend with a p-value of 0.11 could be classied as nonsignicant. In reality, there is no meaningful dierence between these two p-values.
+                        </p>
+                        <p>
+                            Consider an example where the chance of an upward trend in nitrate concentrations at a site is 80 out of 100. Using the NHST approach, the trend would be reported as non-signicant. Using the likelihood-based approach, the trend would be reported as "somewhat likely up". The NHST approach could lead to a false sense of security because it indicates that there isn't strong proof of a growing problem. The likelihood-based approach indicates instead that it is somewhat likely conditions in the stream are not improving, giving people more information to use when making decisions about watershed management.
+                        </p>
+                        <p>
+                            For more information on the likelihood-based approach, please see Hirsch and others (2015), "A bootstrap method for estimating uncertainty of water quality trends”, at <a href="http://dx.doi.org/10.1016/j.envsoft.2015.07.017" target="_blank">http://dx.doi.org/10.1016/j.envsoft.2015.07.017</a>.
+                        </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="layersTabPane">
+                        <span class="user-guide-header">Map Layers</span>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/constituent.png"/></div>
+                            <p>Constituent selector: allows the user to choose a constituent group and then choose a specific constituent from the drop down menus. Based on those selections, the user can then choose to view trends in concentration or load (these are not applicable for aquatic</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/trendtype.png"/></div>
+                            <p>A user can then select a trend type and period. Not all trend periods are available for all constituents.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/trendperiod.png"/></div>
+                            <p>The statistical trend results for the selected constituent, type, and time period will be displayed on the map.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="images/userguide/basemaps.png"/></div>
+                            <p>The "Basemaps" sidebar button displays various map layers that can be selected as background layers.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <form id="disclaimerButtons" id="disclaimer-form" class="form-inline" style="text-align:center;">
+                <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </form>
+
         </div><!-- /.modal-content -->
     </div> <!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+
 <div id="faqModal" class="modal fade"  tabindex="-1" role="dialog" >
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
