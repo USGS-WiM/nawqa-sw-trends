@@ -627,6 +627,9 @@ require([
         $("#siteInfoDiv").css("visibility", "hidden");
     });
 
+    var currentLayer = "";
+    var pestPDFs = "";
+
     map.on('layer-add', function (evt) {
         var layer = evt.layer.id;
         var actualLayer = evt.layer;
@@ -684,6 +687,8 @@ require([
 
                 $("#siteInfoTabPane").empty();
 
+                currentLayer = layer;
+
                 if (layer == "ecoSites") {
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_name + "<br/>" +
                         "<b>Site number: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_ID + "<br/>" +
@@ -715,6 +720,7 @@ require([
                     if (pname.length == 4) {
                         pname = "0" + pname;
                     }
+                    pestPDFs = "https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" + attr["all_pest_trends_wm.period"] + "_" + attr["pest10yrsites.pstaid"] + "_FinalRun" + pname + ".pdf";
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["all_pest_trends_wm.Site"] + "<br/>" +
                         "<b>Site number: </b>" + attr["pest10yrsites.pstaid"] + "<br/>" +
                          /*"<b>State: </b>" +  + "<br/>" +*/
@@ -724,7 +730,7 @@ require([
                         "<b>Longitude: </b>" + attr["pest10yrsites.LONG_"] + "<br/>" +
                         "<b>Drainage area: </b>" + attr["pest10yrsites.DA"] + "<br/>");
                         /*"<b>First run charts: </b><a target='_blank' href='https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" +
-                            attr["all_pest_trends_wm.period"] + "_" + attr["pest10yrsites.pstaid"] + "_FirstRun" + pname + ".pdf'>click here</a><br/>"+*/
+                            attr["all_pest_trends_wm.period"] + "_" + attr["pest10yrsites.pstaid"] + "_FinalRun" + pname + ".pdf'>click here</a><br/>"+*/
                         /*+
                         "<b>trend pct: </b>" + attr["all_pest_trends_wm.trend_pct_yr"] + "<br/>" +
                         "<b>HUC2: </b>" +  + "<br/>" +
@@ -909,7 +915,12 @@ require([
         });
 
         function showChartModal () {
-            $('#chartModal').modal('show');
+            if (currentLayer == "pestSites") {
+                window.open(pestPDFs, "_blank");
+                //alert(pestPDFs);
+            } else {
+                $('#chartModal').modal('show');
+            }
         }
         $('#charts').click(function(){
             showChartModal();
