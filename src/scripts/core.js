@@ -247,6 +247,7 @@ require([
     locate.startup();
 
     $('#aboutModal').modal('show');
+    $('#legendButton').click();
 
     //following block forces map size to override problems with default behavior
     $(window).resize(function () {
@@ -903,9 +904,6 @@ require([
         });
         $('#faqNav').click(function(){
             $('#faqModal').modal('show');
-        });
-        $('#learnMoreButton').click(function(){
-            $('#learnMoreModal').modal('show');
         });
 
         function showChartModal () {
