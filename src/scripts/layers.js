@@ -72,7 +72,7 @@ require([
                     "options": {
                         "id": "pestSites",
                         "opacity": 1.00,
-                        "mode": FeatureLayer.MODE_SNAPSHOT,
+                        "mode": FeatureLayer.MODE_ONDEMAND,
                         "outFields": ["*"],
                         "defaultDefinitionExpression": "Pesticide = 'Alachlor' AND period = 'P10'",
                         "visible": false
@@ -90,7 +90,7 @@ require([
                     "options": {
                         "id": "ecoSites",
                         "opacity": 1.00,
-                        "mode": FeatureLayer.MODE_SNAPSHOT,
+                        "mode": FeatureLayer.MODE_ONDEMAND,
                         "outFields": ["*"],
                         "visible": false
                     },
@@ -107,7 +107,7 @@ require([
                     "options": {
                         "id": "wrtdsSites",
                         "opacity": 1.00,
-                        "mode": FeatureLayer.MODE_SNAPSHOT,
+                        "mode": FeatureLayer.MODE_ONDEMAND,
                         "outFields": ["wrtds_sites.Station_nm","wrtds_sites.Site_no","wrtds_sites.staAbbrev","wrtds_sites.agency1","wrtds_sites.db_source","wrtds_sites.dec_lat_va","wrtds_sites.dec_long_va","wrtds_sites.drainSqKm","wrtds_sites.huc_cd"],
                         "visible": false
                     },
@@ -124,7 +124,7 @@ require([
                     "options": {
                         "id": "wrtdsFluxSites",
                         "opacity": 1.00,
-                        "mode": FeatureLayer.MODE_SNAPSHOT,
+                        "mode": FeatureLayer.MODE_ONDEMAND,
                         "outFields": ["wrtds_sites.Station_nm","wrtds_sites.Site_no","wrtds_sites.staAbbrev","wrtds_sites.agency1","wrtds_sites.db_source","wrtds_sites.dec_lat_va","wrtds_sites.dec_long_va","wrtds_sites.drainSqKm","wrtds_sites.huc_cd"],
                         "visible": false
                     },
@@ -136,17 +136,82 @@ require([
                         "includeLegend" : true
                     }
                 },
-                "Land Use 2012": {
+                "2012": {
                     "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
                     "options": {
                         "id": "lu2012",
-                        "opacity": 1.00,
+                        "opacity": 0.5,
                         "visible": false
                     },
                     "wimOptions": {
                         "type": "layer",
                         "layerType": "agisImage",
                         "includeInLayerList": true,
+                        "exclusiveGroupName":"Land use",
+                        "hasOpacitySlider": true,
+                        "includeLegend": true
+                    }
+                },
+                "2002": {
+                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2002_100515_test/ImageServer",
+                    "options": {
+                        "id": "lu2002",
+                        "opacity": 0.5,
+                        "visible": false
+                    },
+                    "wimOptions": {
+                        "type": "layer",
+                        "layerType": "agisImage",
+                        "includeInLayerList": true,
+                        "exclusiveGroupName":"Land use",
+                        "hasOpacitySlider": true,
+                        "includeLegend": true
+                    }
+                },
+                "1992": {
+                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1992_100515_test/ImageServer",
+                    "options": {
+                        "id": "lu1992",
+                        "opacity": 0.5,
+                        "visible": false
+                    },
+                    "wimOptions": {
+                        "type": "layer",
+                        "layerType": "agisImage",
+                        "includeInLayerList": true,
+                        "exclusiveGroupName":"Land use",
+                        "hasOpacitySlider": true,
+                        "includeLegend": true
+                    }
+                },
+                "1982": {
+                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1982_100515_test/ImageServer",
+                    "options": {
+                        "id": "lu1982",
+                        "opacity": 0.5,
+                        "visible": false
+                    },
+                    "wimOptions": {
+                        "type": "layer",
+                        "layerType": "agisImage",
+                        "includeInLayerList": true,
+                        "exclusiveGroupName":"Land use",
+                        "hasOpacitySlider": true,
+                        "includeLegend": true
+                    }
+                },
+                "1974": {
+                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1974_100515_test/ImageServer",
+                    "options": {
+                        "id": "lu1974",
+                        "opacity": 0.5,
+                        "visible": false
+                    },
+                    "wimOptions": {
+                        "type": "layer",
+                        "layerType": "agisImage",
+                        "includeInLayerList": true,
+                        "exclusiveGroupName":"Land use",
                         "hasOpacitySlider": true,
                         "includeLegend": true
                     }

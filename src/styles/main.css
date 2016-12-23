@@ -313,7 +313,7 @@ a.lgi-zoom:hover {
     width: 175px;
 }
 
-#pesticideSelect, #ecologySelect {
+#carbonSelect,#majorIonsSelect,#salinitySelect,#sedimentSelect,#pesticideSelect,#algaeSelect,#fishSelect,#macroinvertSelect {
     display: none;
 }
 
@@ -467,7 +467,6 @@ input[type="checkbox"], input[type="radio"] {
     width: 100%;
     height: auto;
     margin-bottom: 25px;
-
 }
 
 .esriLegendLayer svg{
@@ -480,7 +479,6 @@ input[type="checkbox"], input[type="radio"] {
 .esriControlsBR{
     display: none !important;
 }
-
 
 
 /*Learn More Modal*/
