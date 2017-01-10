@@ -17,6 +17,7 @@ var constObj;
 
 var currentConstType = "";
 var currentSiteNo = "";
+var currentConst = "Total Phosphorous";
 
 require([
     'esri/arcgis/utils',
@@ -280,6 +281,8 @@ require([
         var selectVal = event.currentTarget[event.currentTarget.selectedIndex].attributes["select"].value
         $(selectVal).show();
 
+        currentConst = val;
+
         if (val == "Nutrients" || val == "Carbon" || val == "Major ions" || val == "Salinity" || val == "Sediment") {
             $("#trendTypes").show();
             $("#trend4,#trend3").show();
@@ -288,10 +291,12 @@ require([
         } else if (val == "Pesticides") {
             $("#trendTypes").show();
             $("#trend4,#trend3").hide();
+            $("#load").prop('disabled', false);
             pestSelect();
         } else if (val == "Algae" || val == "Fish" || val == "Macroinvertebrates") {
             $("#trendTypes").hide();
             $("#trend4,#trend3").hide();
+            $("#load").prop('disabled', false);
             ecoSelect();
             map.getLayer("ecoSites").setVisibility(true);
         }
@@ -299,6 +304,7 @@ require([
 
     function pestSelect() {
         var val = $("#pesticideSelect").val();
+        currentConst = val;
         var trendPeriod = $('input[name=trendPeriod]:checked').val();
         var expression = "Pesticide = '" + val + "' AND period = '" + trendPeriod + "'";
         map.getLayer("pestSites").setDefinitionExpression(expression);
@@ -308,6 +314,7 @@ require([
     function ecoSelect() {
         var val = "";
         var selectVal = $($("#typeSelect")[0][$("#typeSelect")[0].selectedIndex].attributes["select"].value).val();
+        currentConst = selectVal;
         var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
         var trendPeriod = "";
         if (trendPeriodVal == "P10") {
@@ -324,6 +331,7 @@ require([
     function wrtdsSelect() {
         var val = "";
         var typeSelectVal = $("#typeSelect").val()
+        currentConst = typeSelectVal;
         if (typeSelectVal == "Nutrients") {
             val = $("#nutrientsSelect").val();
         } else if (typeSelectVal == "Carbon") {
@@ -335,6 +343,14 @@ require([
         } else if (typeSelectVal == "Sediment") {
             val = $("#sedimentSelect").val();
         }
+
+        if (val == "Specific conductance") {
+            $("#load").prop('disabled', true);
+            $('input:radio[name=trendType]')[0].checked = true;
+        } else {
+            $("#load").prop('disabled', false);
+        }
+
         var trendTypeVal = $('input[name=trendType]:checked').val();
         var layer;
         if (trendTypeVal == "concentration") {
@@ -362,6 +378,7 @@ require([
 
     $("#pesticideSelect").on("change", function(event) {
         var val = event.currentTarget.value;
+        currentConst = val;
         var trendPeriod = $('input[name=trendPeriod]:checked').val();
         var expression = "Pesticide = '" + val + "' AND period = '" + trendPeriod + "'";
         map.getLayer("pestSites").setDefinitionExpression(expression);
@@ -369,6 +386,7 @@ require([
 
     $(".ecoSelect").on("change", function(event) {
         var val = event.currentTarget.value;
+        currentConst = val;
         var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
         var trendPeriod = "";
         if (trendPeriodVal == "P10") {
@@ -382,7 +400,15 @@ require([
 
     $(".wrtdsSelect").on("change", function(event) {
         var val = event.currentTarget.value;
+        currentConst = val;
         var layer;
+
+        if (val == "Specific conductance") {
+            $("#load").prop('disabled', true);
+            $('input:radio[name=trendType]')[0].checked = true;
+        } else {
+            $("#load").prop('disabled', false);
+        }
 
         var trendTypeVal = $('input[name=trendType]:checked').val();
         if (trendTypeVal == "concentration") {
@@ -415,10 +441,12 @@ require([
         var selectVal = $($("#typeSelect")[0][$("#typeSelect")[0].selectedIndex].attributes["select"].value).val();
         if ($("#typeSelect")[0].value == "Pesticides") {
             var selectVal = $("#pesticideSelect").val();
+            currentConst = selectVal;
             var expression = "Pesticide = '" + selectVal + "' AND period = '" + val + "'";
             map.getLayer("pestSites").setDefinitionExpression(expression);
         } else if ($("#typeSelect")[0].value == "Algae" || $("#typeSelect")[0].value == "Fish" || $("#typeSelect")[0].value == "Macroinvertebrates") {
             var trendPeriod = "";
+            currentConst = selectVal;
             if (val == "P10") {
                 trendPeriod = "AND (EcoTrendResults_Nyear  = 8 OR EcoTrendResults_Nyear  = 9 OR EcoTrendResults_Nyear  = 10 OR EcoTrendResults_Nyear  = 11)";
             } else if (val == "P20") {
@@ -429,7 +457,6 @@ require([
             map.getLayer("ecoSites").setDefinitionExpression(expression);
         } else if ($("#typeSelect")[0].value == "Nutrients" || $("#typeSelect")[0].value == "Carbon" || $("#typeSelect")[0].value == "Major ions" || $("#typeSelect")[0].value == "Salinity" || $("#typeSelect")[0].value == "Sediment") {
             var layer;
-
             var trendTypeVal = $('input[name=trendType]:checked').val();
             if (trendTypeVal == "concentration") {
                 layer = map.getLayer("wrtdsSites");
@@ -452,6 +479,7 @@ require([
                 trendPeriod = "1972";
             }
             var selectVal = $($("#typeSelect")[0][$("#typeSelect")[0].selectedIndex].attributes["select"].value).val();
+            currentConst = val;
             var expression = "wrtds_trends_wm.id_unique LIKE '%" + selectVal + "%" + trendPeriod + "'";
             layer.setDefinitionExpression(expression);
         }
@@ -489,6 +517,7 @@ require([
 
             var typeSelectVal = $("#typeSelect").val()
             //var val = $($("#typeSelect")[0][$("#typeSelect")[0].selectedIndex].attributes["select"].value)[0].value;
+            currentConst = selectVal;
             var expression = "wrtds_trends_wm.id_unique LIKE '%" + selectVal + "%" + trendPeriod + "'";
             layer.setDefinitionExpression(expression);
             layer.setVisibility(true);
@@ -690,7 +719,10 @@ require([
 
                 currentLayer = layer;
 
+
+
                 if (layer == "ecoSites") {
+                    currentSiteNo = attr.EcoSiteSummary_no_headers_csv_Ecology_site_ID;
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_name + "<br/>" +
                         "<b>Site number: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_ID + "<br/>" +
                         /*"<b>State: </b>" +  + "<br/>" +
@@ -707,6 +739,7 @@ require([
                         "<b>Matched streamgage number: </b>" +  + "<br/>" +
                         "<b>Matched streamgage agency: </b>"*/);
                 } else if (layer == "pestSites") {
+                    currentSiteNo = attr["pest10yrsites.pstaid"];
                     $("#siteInfoTabPane #charts").click(function (evt) {
                         console.log("event" + evt.toString());
                         //<a target='_blank' href='https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" + attr["all_pest_trends_wm.period"] + "_" + attr["pest10yrsites.pstaid"] + "_FirstRun" + pname + ".pdf'>click here</a>
@@ -742,6 +775,7 @@ require([
                         "<b>Matched streamgage number: </b>" +  + "<br/>" +
                         "<b>Matched streamgage agency: </b>"*/
                 } else if (layer == "wrtdsSites" || layer == "wrtdsFluxSites") {
+                    currentSiteNo = attr["wrtds_sites.Site_no"];
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["wrtds_sites.Station_nm"] + "<br/>" +
                         "<b>Site number: </b>" + attr["wrtds_sites.Site_no"] + "<br/>" +
                         "<b>State: </b>" + attr["wrtds_sites.staAbbrev"] + "<br/>" +
@@ -917,6 +951,83 @@ require([
                 window.open(pestPDFs, "_blank");
                 //alert(pestPDFs);
             } else {
+                var jossoSessionId = "";
+                $.ajax({
+                    dataType: 'json',
+                    type: 'GET',
+                    url: 'https://services.wim.usgs.gov/proxies/sbProxy/Default.aspx?q=sessionid',
+                    headers: {'Accept': '*/*'},
+                    success: function (data) {
+                        var jossoObj = data;
+                        var qTerm = currentConst + "_" + currentSiteNo;
+                        var newQTerm = qTerm.replace(" ","%20");
+                        var url = "https://www.sciencebase.gov/catalog/items?s=Search&q="+ newQTerm + "&format=json&josso=" + jossoObj.jossoSessionId;
+                        console.log(url);
+                        $.ajax({
+                            dataType: 'json',
+                            type: 'GET',
+                            url: url,
+                            headers: {'Accept': '*/*'},
+                            success: function (data) {
+                                var itemData = data;
+                                console.log(itemData);
+                                //get folder id and then call this for with josso session id to get plot urls
+                                if (itemData.items.length > 0) {
+                                    var url = "https://www.sciencebase.gov/catalog/item/" + itemData.items[0].id + "?format=json&josso=" + jossoObj.jossoSessionId;
+                                    $.ajax({
+                                        dataType: 'json',
+                                        type: 'GET',
+                                        url: url,
+                                        headers: {'Accept': '*/*'},
+                                        success: function (data) {
+                                            var pngUrlData = data;
+                                            $.each(pngUrlData.files, function (key, value) {
+                                                console.log(value.url);
+                                                switch(value.name) {
+                                                    case "plotConcTime.png":
+                                                        $("#pConc").attr("src", value.url);
+                                                        break;
+                                                    case "boxConcMonth.png":
+                                                        $("#bConc").attr("src", value.url);
+                                                        break;
+                                                    case "plotConcPred.png":
+                                                        $("#pConcPred").attr("src", value.url);
+                                                        break;
+                                                    case "plotFluxPred.png":
+                                                        $("#pFluxPred").attr("src", value.url);
+                                                        break;
+                                                    case "plotConcHistBoot.png":
+                                                        $("#pConcHistBoot").attr("src", value.url);
+                                                        break;
+                                                    case "plotFluxHistBoot.png":
+                                                        $("#pFluxHistBoot").attr("src", value.url);
+                                                        break;
+                                                    default:
+                                                }
+                                            });
+                                            console.log(pngUrlData);
+                                        },
+                                        error: function (error) {
+                                            console.log("Error processing the JSON. The error is:" + error);
+                                        }
+                                    });
+                                }
+                            },
+                            error: function (error) {
+                                console.log("Error processing the JSON. The error is:" + error);
+                            }
+                        });
+                    },
+                    error: function (error) {
+                        console.log("Error processing the JSON. The error is:" + error);
+                    }
+                });
+                $("#pConc").attr("src", "");
+                $("#bConc").attr("src", "");
+                $("#pConcPred").attr("src", "");
+                $("#pFluxPred").attr("src", "");
+                $("#pConcHistBoot").attr("src", "");
+                $("#pFluxHistBoot").attr("src", "");
                 $('#chartModal').modal('show');
             }
         }
@@ -955,12 +1066,6 @@ require([
                 }
             });
 
-            var data = [
-                ["", "Ford", "Volvo", "Toyota", "Honda"],
-                ["2016", 10, 11, 12, 13],
-                ["2017", 20, 11, 14, 13],
-                ["2018", 30, 15, 12, 13]
-            ];
         }
         $('#table').click(function(){
             showTableModal();
