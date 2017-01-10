@@ -38,10 +38,14 @@
     <script src="bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>
     <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
     <script src="bower_components/bootstrap-map-js/dist/js/bootstrapmap.min.js"></script>
-    <script src="bower_components/handsontable/dist/handsontable.full.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
+    <!-- build:js scripts/handsontable.js -->
+    <!-- bower:js -->
+    <script src="bower_components/handsontable/dist/handsontable.full.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
 
     <script src="http://js.arcgis.com/3.13/"></script>
 
@@ -110,18 +114,18 @@
             <div class="modal-body charts-modal">
                 <div class="charts-modal-column">
                     <h1>Monitoring Data</h1>
-                    <img src="images/chart_examples/boxConcMonth.png"/>
-                    <img src="images/chart_examples/boxConcMonth.png"/>
+                    <img id="pConc" src=""/>
+                    <img id="bConc" src=""/>
                 </div>
                 <div class="charts-modal-column">
                     <h1>Model Diagnostics</h1>
-                    <img src="images/chart_examples/boxQTwice.png"/>
-                    <img src="images/chart_examples/boxQTwice.png"/>
+                    <img id="pConcPred" src=""/>
+                    <img id="pFluxPred" src=""/>
                 </div>
                 <div class="charts-modal-column">
                     <h1>Model Predictions</h1>
-                    <img src="images/chart_examples/boxResidMonth.png"/>
-                    <img src="images/chart_examples/boxResidMonth.png"/>
+                    <img id="pConcHistBoot" src=""/>
+                    <img id="pFluxHistBoot" src=""/>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -617,10 +621,10 @@
                     <div id="trendTypes" style="align-content: center; width: 100%; padding-top: 20px; text-align: left;">
                         <label>Trend type</label>
                         <span class="sidebar-radio-wrapper">
-                            <input name="trendType" class="trendType" type="radio" value="concentration" checked> Concentration
+                            <input id="cocentration" name="trendType" class="trendType" type="radio" value="concentration" checked> Concentration
                         </span>
                         <span class="sidebar-radio-wrapper">
-                            <input name="trendType" class="trendType" type="radio" value="load"> Load
+                            <input id="load" name="trendType" class="trendType" type="radio" value="load"> Load
                         </span>
                     </div>
                     <div style="width: 100%; padding-top: 20px; text-align: left;">
