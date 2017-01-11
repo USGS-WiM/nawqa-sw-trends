@@ -272,6 +272,9 @@ a.lgi-zoom:hover {
 
 .modal-dialog {
     padding-top: 60px;
+    padding-top: 0;
+    margin-bottom: 55px !important;
+
 }
 
 .modal{

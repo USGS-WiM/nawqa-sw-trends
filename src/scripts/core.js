@@ -1173,6 +1173,15 @@ require([
         $('#faq12header').click(function(){$('#faq12body').slideToggle(250);});
         $('#faq13header').click(function(){$('#faq13body').slideToggle(250);});
         $('#faq14header').click(function(){$('#faq14body').slideToggle(250);});
+        $('#faq15header').click(function(){$('#faq15body').slideToggle(250);});
+        $('#faq16header').click(function(){$('#faq16body').slideToggle(250);});
+        $('#faq17header').click(function(){$('#faq17body').slideToggle(250);});
+        $('#faq18header').click(function(){$('#faq18body').slideToggle(250);});
+        $('#faq19header').click(function(){$('#faq19body').slideToggle(250);});
+        $('#faq20header').click(function(){$('#faq20body').slideToggle(250);});
+        $('#faq21header').click(function(){$('#faq21body').slideToggle(250);});
+        $('#faq22header').click(function(){$('#faq22body').slideToggle(250);});
+        $('#faq23header').click(function(){$('#faq23body').slideToggle(250);});
 
     });
 
