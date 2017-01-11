@@ -1047,7 +1047,7 @@ require([
             var wrtdsCall = $.ajax({
                 dataType: 'json',
                 type: 'GET',
-                url: 'https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/2/query?where=wrtds_trends_wm_new.Site_no+%3D+%27' + currentSiteNo + '%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=wrtds_trends_wm_new.param_nm%2Cwrtds_trends_wm_new.id_unique%2Cwrtds_trends_wm_new.likeC%2C+wrtds_trends_wm_new.likeF&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=true&resultOffset=&resultRecordCount=&f=json',
+                url: 'https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/2/query?where=wrtds_trends_wm_new.Site_no+%3D+%27' + currentSiteNo + '%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=wrtds_trends_wm_new.param_nm%2Cwrtds_trends_wm_new.id_unique%2Cwrtds_trends_wm_new.likeC%2C+wrtds_trends_wm_new.likeF%2Cwrtds_trends_wm_new.trend_pct_C%2Cwrtds_trends_wm_new.trend_pct_F&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=true&resultOffset=&resultRecordCount=&f=json',
                 headers: {'Accept': '*/*'}
             });
 
@@ -1075,15 +1075,15 @@ require([
                         var trendYearArray = value.attributes["wrtds_trends_wm_new.id_unique"].split("_");
                         var trendYear = trendYearArray[trendYearArray.length-1];
                         data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
-                            "Concentration",// (flow normalized)", //Type
+                            "Concentration (flow normalized)", //Type
                             trendYear+"-2012", //Trend period
-                            value.attributes["wrtds_trends_wm_new.likeC"].toFixed(5),
-                            ""]) //Trend likelihoodd
+                            value.attributes["wrtds_trends_wm_new.likeC"].toFixed(5), //Trend likelihood
+                            value.attributes["wrtds_trends_wm_new.trend_pct_C"].toFixed(2)]) //Trend, in percent
                         data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
-                            "Load",// (flow normalized)", //Type
+                            "Load (flow normalized)", //Type
                             trendYear+"-2012", //Trend period
-                            value.attributes["wrtds_trends_wm_new.likeF"].toFixed(5),
-                            ""]) //Trend likelihood
+                            value.attributes["wrtds_trends_wm_new.likeF"].toFixed(5), //Trend likelihood
+                            value.attributes["wrtds_trends_wm_new.trend_pct_F"].toFixed(2)]) //Trend, in percent
                     });
 
                     //handling Pesticide data
@@ -1095,12 +1095,12 @@ require([
                             trendPeriod = "2002-2012";
                         }
                         data2Return.push([value.attributes["all_pest_trends_wm.Pesticide"], //Constituent
-                            "Concentration",// (flow normalized)", //Type
+                            "Concentration (flow normalized)", //Type
                             trendPeriod, //Trend period
                             value.attributes["all_pest_trends_wm.likelihood"].toFixed(5), //Trend likelihood
                             (value.attributes["all_pest_trends_wm.trend_pct_yr"].toFixed(2))]); //Trend, in percent
                         data2Return.push([value.attributes["all_pest_trends_wm.Pesticide"], //Constituent
-                            "Load",// (flow normalized)", //Type
+                            "Load (flow normalized)", //Type
                             trendPeriod, //Trend period
                             value.attributes["all_pest_trends_wm.likelihood"].toFixed(5), //Trend likelihood
                             (value.attributes["all_pest_trends_wm.trend_pct_yr"].toFixed(2))]); //Trend, in percent
@@ -1123,7 +1123,16 @@ require([
                         colHeaders: true
                     });
                     hot.updateSettings({
-                        colHeaders: ["Constituent","Type","Trend period","Trend likelihood","Trend, in percent"]
+                        colHeaders: ["Constituent",
+                            "Type","Trend period",
+                            "Trend likelihood",
+                            "Trend, in percent",
+                            "Lower confidence interval on the trend, in percent",
+                            "Upper confidence interval on the trend, in percent",
+                            "Trend, in original units",
+                            "Lower confidence interval on the trend, in orginal units",
+                            "Upper confidence interval on the trend, in original units",
+                            "Reported confidence interval"]
                     })
                 })
                 .fail(function() {
