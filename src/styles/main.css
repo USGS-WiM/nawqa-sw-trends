@@ -686,3 +686,38 @@ input[type="checkbox"], input[type="radio"] {
 .navbar-brand{
     padding-left: 0 !important;
 }
+
+
+
+.abouttab-inner{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.abouttab-inner p{
+    display: inline-block;
+    -webkit-flex-grow: 2;
+    flex-grow: 2;
+    width: 300px;
+    box-sizing: border-box;
+    padding: 0 25px;
+}
+
+.abouttab-inner p small{
+    font-size: 8pt;
+    display: block;
+    padding-top: 15px;
+}
+.abouttab-inner .image{
+    display: inline;
+    padding-right: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+
+}
+
+.abouttab-inner img{
+    width: 100%;
+
+}
