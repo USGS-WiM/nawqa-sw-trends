@@ -699,7 +699,7 @@ input[type="checkbox"], input[type="radio"] {
     display: inline-block;
     -webkit-flex-grow: 2;
     flex-grow: 2;
-    width: 100px;
+    width: 300px;
     box-sizing: border-box;
     padding: 0 25px;
 }
@@ -713,6 +713,7 @@ input[type="checkbox"], input[type="radio"] {
     display: inline;
     padding-right: 15px;
     max-width: 300px;
+    margin: 0 auto;
 
 }
 

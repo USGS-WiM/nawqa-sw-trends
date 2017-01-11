@@ -1119,6 +1119,10 @@ require([
         $('#faq22header').click(function(){$('#faq22body').slideToggle(250);});
         $('#faq23header').click(function(){$('#faq23body').slideToggle(250);});
 
+        $('.fullsize').click(function(){
+            window.open($(this).attr('src'));
+        });
+
     });
 
     require([
