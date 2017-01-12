@@ -450,8 +450,6 @@ require([
         layer.setDefinitionExpression(expression);
     });
 
-
-
     $(".trendPeriod").on("change", function(event) {
         $("#siteInfoDiv").css("visibility", "hidden");
         var val = event.currentTarget.value;
@@ -804,7 +802,7 @@ require([
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["wrtds_sites.Station_nm"] + "<br/>" +
                         "<b>Site number: </b>" + attr["wrtds_sites.Site_no"] + "<br/>" +
                         "<b>State: </b>" + attr["wrtds_sites.staAbbrev"] + "<br/>" +
-                        "<b>Agency: </b>" + attr["wrtds_sites.agency1"] + "<br/>" +
+                        "<b>Agency: </b>" + attr["wrtds_trends_wm_new.agency_1_full"] + "<br/>" +
                         "<b>Data source: </b>" + attr["wrtds_sites.db_source"] + "<br/>" +
                         "<b>Latitude: </b>" + attr["wrtds_sites.dec_lat_va"] + "<br/>" +
                         "<b>Longitude: </b>" + attr["wrtds_sites.dec_long_va"] + "<br/>" +
