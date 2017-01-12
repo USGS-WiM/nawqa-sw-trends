@@ -740,9 +740,9 @@ require([
                     currentSiteNo = attr.EcoSiteSummary_no_headers_csv_Ecology_site_ID;
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_name + "<br/>" +
                         "<b>Site number: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_ID + "<br/>" +
-                        /*"<b>State: </b>" +  + "<br/>" +
-                        "<b>Agency: </b>" +  + "<br/>" +
-                        "<b>Data source: </b>" +  + "<br/>" +*/
+                        /*"<b>State: </b>" +  + "<br/>" +*/
+                        "<b>Agency: </b>USGS<br/>" +
+                        "<b>Data source: </b>BioData<br/>" +
                         "<b>Latitude: </b>" + attr.EcoSiteSummary_no_headers_csv_LatDD + "<br/>" +
                         "<b>Longitude: </b>" + attr.EcoSiteSummary_no_headers_csv_LngDD + "<br/>"/* +
                         "<b>Drainage area: </b>" +  + "<br/>" +
@@ -774,7 +774,7 @@ require([
                         "<b>Site number: </b>" + attr["pest10yrsites.pstaid"] + "<br/>" +
                          /*"<b>State: </b>" +  + "<br/>" +*/
                         "<b>Agency: </b>" + attr["pest10yrsites.agency"] + "<br/>" +
-                        /*"<b>Data source: </b>" +  + "<br/>" +*/
+                        "<b>Data source: </b>NWIS<br/>" +
                         "<b>Latitude: </b>" + attr["pest10yrsites.LAT"] + "<br/>" +
                         "<b>Longitude: </b>" + attr["pest10yrsites.LONG_"] + "<br/>" +
                         "<b>Drainage area: </b>" + attr["pest10yrsites.DA"] + " (km<sup>2</sup>)<br/>");
@@ -1182,7 +1182,7 @@ require([
                         data2Return.push([
                             value.attributes["EcoTrendResults_y"], //Constituent
                             "Metric (climate normalized)", //Type
-                            value.attributes["EcoTrendResults_firstYear"]+"-2012", //Trend period
+                            trendPeriodFixer(value.attributes["EcoTrendResults_firstYear"])+"-2012", //Trend period
                             value.attributes["EcoTrendResults_likelihood"].toFixed(5), //Trend likelihood
                             value.attributes["EcoTrendResults_Per_ChangeR"].toFixed(2), //trend, in percent
                             "n/a", //lower confidence interval, in percent
@@ -1226,7 +1226,28 @@ require([
                     alert('there was a problem');
                 });
 
+            function trendPeriodFixer(startYear) {
+
+                var startYrNum = Number(startYear);
+                var validTrendStarts = [1972,1982,1992,2002];
+
+                var distance = 50;
+                var index = 0;
+                for(var i = 0; i < validTrendStarts.length; i++){
+                    var cdistance = Math.abs(validTrendStarts[i] - startYrNum);
+                    if(cdistance < distance){
+                        index = i;
+                        distance = cdistance;
+                    }
+                }
+                var theNumber = validTrendStarts[index];
+                var fixedYear = theNumber.toString();
+
+                return fixedYear;
+
+            }
         }
+
         $('#table').click(function(){
             showTableModal();
         });
