@@ -298,6 +298,11 @@ a.lgi-zoom:hover {
     z-index: 1000000;
 }
 
+.handsontable table thead th {
+    white-space: pre-line;
+    max-width: 250px; /* enter here your max header width */
+}
+
 .siteInfoClass {
     position:absolute;
     width:365px;
