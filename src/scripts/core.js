@@ -366,16 +366,21 @@ require([
 
         var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
         var trendPeriod = "";
+        var trendPeriod2 = "";
         if (trendPeriodVal == "P10") {
             trendPeriod = "2002";
+            trendPeriod2 = "2003"
         } else if (trendPeriodVal == "P20") {
             trendPeriod = "1992";
+            trendPeriod2 = "1993"
         } else if (trendPeriodVal == "P30") {
             trendPeriod = "1982";
+            trendPeriod2 = "1983"
         } else if (trendPeriodVal == "P40") {
             trendPeriod = "1972";
+            trendPeriod2 = "1973"
         }
-        var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod + "'";
+        var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod + "%' OR wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod2 + "%'";
         layer.setDefinitionExpression(expression);
     }
 
@@ -427,16 +432,21 @@ require([
 
         var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
         var trendPeriod = "";
+        var trendPeriod2 = "";
         if (trendPeriodVal == "P10") {
             trendPeriod = "2002";
+            trendPeriod2 = "2003"
         } else if (trendPeriodVal == "P20") {
             trendPeriod = "1992";
+            trendPeriod2 = "1993"
         } else if (trendPeriodVal == "P30") {
             trendPeriod = "1982";
+            trendPeriod2 = "1983"
         } else if (trendPeriodVal == "P40") {
             trendPeriod = "1972";
+            trendPeriod2 = "1973"
         }
-        var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod + "'";
+        var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod + "%' OR wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod2 + "%'";
         layer.setDefinitionExpression(expression);
     });
 
@@ -683,7 +693,7 @@ require([
                         layerUpdate.remove();
                     }
                 });*/
-                map.getLayer("wrtdsSites").setDefinitionExpression("wrtds_trends_wm_new.id_unique LIKE '%Total Phosphorus%2002'");
+                map.getLayer("wrtdsSites").setDefinitionExpression("wrtds_trends_wm_new.id_unique LIKE '%Total Phosphorus%2002' OR wrtds_trends_wm_new.id_unique LIKE '%Total Phosphorus%2003'");
                 map.getLayer("wrtdsSites").setVisibility(true);
 
             }
