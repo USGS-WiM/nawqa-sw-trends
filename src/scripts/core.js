@@ -36,6 +36,7 @@ require([
     'esri/symbols/PictureMarkerSymbol',
     'esri/symbols/SimpleFillSymbol',
     'esri/symbols/SimpleLineSymbol',
+    'esri/symbols/SimpleMarkerSymbol',
     'esri/tasks/query',
     'esri/geometry/webMercatorUtils',
     'dojo/dnd/Moveable',
@@ -61,6 +62,7 @@ require([
     PictureMarkerSymbol,
     SimpleFillSymbol,
     SimpleLineSymbol,
+    SimpleMarkerSymbol,
     esriQuery,
     webMercatorUtils,
     Moveable,
@@ -175,19 +177,19 @@ require([
                             .append($("<option></option>")
                                 .attr(value.attributes)
                                 .text(value.attributes.Parameter_name));
-                    } else if (value.attributes.Tentative____Parameter_group == 'Algae') {
+                    } else if (value.attributes.Tentative____Parameter_group == 'Algae') { //Eco group
                         $('#algaeSelect')
-                            .append($("<option></option>")
+                            .append($("<option title='" + value.attributes.eco_desc + "'></option>")
                                 .attr(value.attributes)
                                 .text(value.attributes.Parameter_name));
-                    } else if (value.attributes.Tentative____Parameter_group == 'Fish') {
+                    } else if (value.attributes.Tentative____Parameter_group == 'Fish') { //Eco group
                         $('#fishSelect')
-                            .append($("<option></option>")
+                            .append($("<option title='" + value.attributes.eco_desc + "'></option>")
                                 .attr(value.attributes)
                                 .text(value.attributes.Parameter_name));
-                    } else if (value.attributes.Tentative____Parameter_group == 'Macroinvertebrates') {
+                    } else if (value.attributes.Tentative____Parameter_group == 'Macroinvertebrates') { //Eco group
                         $('#macroinvertSelect')
-                            .append($("<option></option>")
+                            .append($("<option title='" + value.attributes.eco_desc + "'></option>")
                                 .attr(value.attributes)
                                 .text(value.attributes.Parameter_name));
                     } else if (value.attributes.Tentative____Parameter_group == 'Carbon') {
@@ -222,6 +224,11 @@ require([
             $('#nutrientsSelect').val("Total Phosphorus");
             $('#ecologySelect').val("DiaHighMot");
             $('#pesticideSelect').val("Acetochlor")
+
+            $('#algaeSelect')[0].title = $('#algaeSelect')[0][0].title;
+            $('#fishSelect')[0].title = $('#fishSelect')[0][0].title;
+            $('#macroinvertSelect')[0].title = $('#macroinvertSelect')[0][0].title;
+
             //document.getElementById("typeSelect").selectedIndex = "1";
             //document.getElementById("nutrientsSelect").selectedIndex = "17";
         },
@@ -269,6 +276,7 @@ require([
     $("#typeSelect").on('change', function (event) {
 
         $("#siteInfoDiv").css("visibility", "hidden");
+        map.graphics.clear();
 
         var val = event.currentTarget.value;
         $(".constSelect").hide();
@@ -386,6 +394,7 @@ require([
 
     $("#pesticideSelect").on("change", function(event) {
         $("#siteInfoDiv").css("visibility", "hidden");
+        map.graphics.clear();
         var val = event.currentTarget.value;
         currentConst = val;
         var trendPeriod = $('input[name=trendPeriod]:checked').val();
@@ -395,7 +404,11 @@ require([
 
     $(".ecoSelect").on("change", function(event) {
         $("#siteInfoDiv").css("visibility", "hidden");
+        map.graphics.clear();
         var val = event.currentTarget.value;
+
+        event.currentTarget.title = event.currentTarget[event.currentTarget.selectedIndex].title
+
         currentConst = val;
         var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
         var trendPeriod = "";
@@ -410,7 +423,9 @@ require([
 
     $(".wrtdsSelect").on("change", function(event) {
         $("#siteInfoDiv").css("visibility", "hidden");
+        map.graphics.clear();
         var val = event.currentTarget.value;
+
         currentConst = val;
         var layer;
 
@@ -452,6 +467,7 @@ require([
 
     $(".trendPeriod").on("change", function(event) {
         $("#siteInfoDiv").css("visibility", "hidden");
+        map.graphics.clear();
         var val = event.currentTarget.value;
         var selectVal = $($("#typeSelect")[0][$("#typeSelect")[0].selectedIndex].attributes["select"].value).val();
         if ($("#typeSelect")[0].value == "Pesticides") {
@@ -503,6 +519,7 @@ require([
 
     $(".trendType").on("change", function(event) {
         $("#siteInfoDiv").css("visibility", "hidden");
+        map.graphics.clear();
         var val = event.currentTarget.value;
         var selectVal = $($("#typeSelect")[0][$("#typeSelect")[0].selectedIndex].attributes["select"].value).val();
         if ($("#typeSelect")[0].value == "Pesticides") {
@@ -671,6 +688,7 @@ require([
 
     $("#siteInfoClose").click(function(){
         $("#siteInfoDiv").css("visibility", "hidden");
+        map.graphics.clear();
     });
 
     var currentLayer = "";
@@ -699,11 +717,23 @@ require([
             map.getLayer(layer).on('click', function (evt) {
 
                 map.graphics.clear();
-                var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                    new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-                        new Color([255,0,0]), 2),new Color([255,255,0,0.25]));
+                var symbol = new SimpleMarkerSymbol();
+                symbol.setStyle(SimpleMarkerSymbol.STYLE_SQUARE);
+                symbol.setColor(new Color([0,0,0,0.0]));
+                symbol.setSize("20");
+                var outline = new SimpleLineSymbol(
+                    SimpleLineSymbol.STYLE_SOLID,
+                    new Color([0,255,255]),
+                    2
+                );
+                symbol.setOutline(outline);
 
-                map.graphics.add(new Graphic(evt.mapPoint, symbol));
+                var pt = new Point(evt.mapPoint.x,evt.mapPoint.y,map.spatialReference)
+                var newGraphic = new Graphic(evt.graphic.geometry, symbol);
+
+                //newGraphic.setSymbol(symbol);
+                //map.graphics.add(evt.graphic)
+                map.graphics.add(newGraphic);
 
                 if (layer == "ecoSites") {
                     $("#charts").hide();
@@ -806,11 +836,11 @@ require([
                         "<b>Data source: </b>" + attr["wrtds_sites.db_source"] + "<br/>" +
                         "<b>Latitude: </b>" + attr["wrtds_sites.dec_lat_va"] + "<br/>" +
                         "<b>Longitude: </b>" + attr["wrtds_sites.dec_long_va"] + "<br/>" +
-                        "<b>Drainage area: </b>" + attr["wrtds_sites.drainSqKm"] + " (km<sup>2</sup>)<br/>" +
+                        "<b>Drainage area: </b>" + attr["wrtds_sites.drainSqKm"] + " (km<sup>2</sup>)<br/>"
                         /*"<b>HUC2: </b>" +  + "<br/>" +
                         "<b>HUC4: </b>" +  + "<br/>" +
-                        "<b>HUC6: </b>" +  + "<br/>" +*/
-                        "<b>HUC8: </b>" + attr["wrtds_sites.huc_cd"] + "<br/>"/* +
+                        "<b>HUC6: </b>" +  + "<br/>" +
+                        "<b>HUC8: </b>" + attr["wrtds_sites.huc_cd"] + "<br/>" +
                         "<b>Matched streamgage name: </b>" +  + "<br/>" +
                         "<b>Matched streamgage number: </b>" +  + "<br/>" +
                         "<b>Matched streamgage agency: </b>"*/);
@@ -1111,7 +1141,8 @@ require([
                 'EcoTrendResults_firstYear%2C' +
                 'EcoTrendResults_likelihood%2C' +
                 'EcoTrendResults_Per_ChangeR%2C' +
-                'trend_orig_period' +
+                'trend_orig_period%2C' +
+                'code_desc' +
                 '&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
                 headers: {'Accept': '*/*'}
             });
@@ -1188,7 +1219,7 @@ require([
                     //handling Ecology data
                     $.each(ecoData[0].features, function (key, value) {
                         data2Return.push([
-                            value.attributes["EcoTrendResults_y"], //Constituent
+                            value.attributes["code_desc"], //Constituent... used to be EcoTrendResults_y
                             "Metric (climate normalized)", //Type
                             trendPeriodFixer(value.attributes["EcoTrendResults_firstYear"])+"-2012", //Trend period
                             value.attributes["EcoTrendResults_likelihood"].toFixed(5), //Trend likelihood
@@ -1224,7 +1255,7 @@ require([
                             "Upper confidence interval on the trend, in original units",
                             "Reported confidence interval"
                         ],
-                        colWidths: [100, 110, 80, 80, 80, 125, 125, 100, 125, 125, 100],
+                        colWidths: [200, 110, 80, 80, 80, 125, 125, 100, 125, 125, 100],
                         readOnly: true,
                         columnSorting: true,
                         sortIndicator: true
@@ -1311,6 +1342,66 @@ require([
         $('.fullsize').click(function(){
             window.open($(this).attr('src'));
         });
+
+        /*function printMap() {
+
+            var printParams = new esri.tasks.PrintParameters();
+            printParams.map = map;
+
+            var template = new esri.tasks.PrintTemplate();
+            template.exportOptions = {
+                width: 500,
+                height: 400,
+                dpi: 300
+            };
+            template.format = "PDF";
+            template.layout = "Letter ANSI A Landscape 2";
+            template.preserveScale = false;
+            var legendLayer = new esri.tasks.LegendLayer();
+            legendLayer.layerId = "networkLocations";
+            var legendLayers = [];
+            legendLayers.push(legendLayer);
+            //legendLayer.subLayerIds = [*];
+
+            var d = new Date();
+            var date = d.getDate();
+            var month = d.getMonth() + 1;
+            var year = d.getFullYear();
+
+            template.layoutOptions = {
+                "titleText": "Decadal Change for " + currConst + " in Groundwater from 1988-2001 to 2002-2012",
+                "legendLayers": [legendLayer]
+            };
+            printParams.template = template;
+
+            var printMap = new esri.tasks.PrintTask("https://gis.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
+            printMap.execute(printParams, printDone, printError);
+
+            map.getLayer("moLayer").setVisibility(true);
+            map.graphics.setVisibility(true);
+            if (setItBack == true) {
+                map.infoWindow.show();
+            }
+
+            map.setCursor("wait");
+
+            function printDone(event) {
+                //alert(event.url);
+                window.open(event.url, "_blank");
+                //window.open(event.url, "test.pdf");
+                map.setCursor("default");
+
+                //("#moreInfoText").append("<a id='link' download='test' href='" + event.url + "'></a>");
+                //$("#link")[0].click();
+
+                $("#printStatus").hide();
+            }
+
+            function printError(event) {
+                alert(event.error);
+                $("#printStatus").hide();
+            }
+        }*/
 
     });
 
