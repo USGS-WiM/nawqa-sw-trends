@@ -306,7 +306,7 @@ a.lgi-zoom:hover {
 .siteInfoClass {
     position:absolute;
     width:420px;
-    height:350px;
+    height:300px;
     z-index:2;
     color: black;
     background-color: rgb(255,255,255);
@@ -315,6 +315,25 @@ a.lgi-zoom:hover {
     /*min-width: 150px;*/
     border-radius: 4px;
     visibility: hidden;
+}
+
+option.tooltip {
+    position: relative;
+}
+
+option.tooltip span {
+    display: none;
+}
+
+option.tooltip:hover span, option.tooltip:focus span {
+    display:block;
+    position:absolute;
+    top:1em;
+    left:1.5em;
+    padding: 0.2em 0.6em;
+    border:1px solid #996633;
+    background-color:#FFFF66;
+    color:#000;
 }
 
 .constSelect {
