@@ -10,6 +10,7 @@ var map;
 var allLayers;
 var maxLegendHeight;
 var maxLegendDivHeight;
+var printCount = 0;
 var dragInfoWindows = true;
 var defaultMapCenter = [-95.6, 38.6];
 
@@ -37,6 +38,10 @@ require([
     'esri/symbols/SimpleFillSymbol',
     'esri/symbols/SimpleLineSymbol',
     'esri/symbols/SimpleMarkerSymbol',
+    'esri/tasks/LegendLayer',
+    'esri/tasks/PrintTask',
+    'esri/tasks/PrintParameters',
+    'esri/tasks/PrintTemplate',
     'esri/tasks/query',
     'esri/geometry/webMercatorUtils',
     'dojo/dnd/Moveable',
@@ -63,6 +68,10 @@ require([
     SimpleFillSymbol,
     SimpleLineSymbol,
     SimpleMarkerSymbol,
+    LegendLayer,
+    PrintTask,
+    PrintParameters,
+    PrintTemplate,
     esriQuery,
     webMercatorUtils,
     Moveable,
@@ -269,6 +278,35 @@ require([
         else {
             $('#legendElement').css('height', 'initial');
         }
+    });
+
+    $('#printExecuteButton').click(function (e) {
+        e.preventDefault();
+        $(this).button('loading');
+        printMap();
+    });
+
+    function showPrintModal() {
+        $('#printModal').modal('show');
+    }
+
+    $('#printNavButton').click(function(){
+        var trendPeriodVal = $("input:radio[name='trendPeriod']:checked").val();
+
+        var trendPeriod = "";
+        if (trendPeriodVal == "P10") {
+            trendPeriod = "2002";
+        } else if (trendPeriodVal == "P20") {
+            trendPeriod = "1992";
+        } else if (trendPeriodVal == "P30") {
+            trendPeriod = "1982";
+        } else if (trendPeriodVal == "P40") {
+            trendPeriod = "1972";
+        }
+
+        var printTitle = "Trend results for " + currentConst + " in surface water for " + trendPeriod + "-2012";
+        $("#printTitle").text(printTitle);
+        showPrintModal();
     });
 
     var layers_all = ["pestSites","ecoSites","wrtdsSites","wrtdsFluxSites"];
@@ -1343,67 +1381,74 @@ require([
             window.open($(this).attr('src'));
         });
 
-        /*function printMap() {
-
-            var printParams = new esri.tasks.PrintParameters();
-            printParams.map = map;
-
-            var template = new esri.tasks.PrintTemplate();
-            template.exportOptions = {
-                width: 500,
-                height: 400,
-                dpi: 300
-            };
-            template.format = "PDF";
-            template.layout = "Letter ANSI A Landscape 2";
-            template.preserveScale = false;
-            var legendLayer = new esri.tasks.LegendLayer();
-            legendLayer.layerId = "networkLocations";
-            var legendLayers = [];
-            legendLayers.push(legendLayer);
-            //legendLayer.subLayerIds = [*];
-
-            var d = new Date();
-            var date = d.getDate();
-            var month = d.getMonth() + 1;
-            var year = d.getFullYear();
-
-            template.layoutOptions = {
-                "titleText": "Decadal Change for " + currConst + " in Groundwater from 1988-2001 to 2002-2012",
-                "legendLayers": [legendLayer]
-            };
-            printParams.template = template;
-
-            var printMap = new esri.tasks.PrintTask("https://gis.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
-            printMap.execute(printParams, printDone, printError);
-
-            map.getLayer("moLayer").setVisibility(true);
-            map.graphics.setVisibility(true);
-            if (setItBack == true) {
-                map.infoWindow.show();
-            }
-
-            map.setCursor("wait");
-
-            function printDone(event) {
-                //alert(event.url);
-                window.open(event.url, "_blank");
-                //window.open(event.url, "test.pdf");
-                map.setCursor("default");
-
-                //("#moreInfoText").append("<a id='link' download='test' href='" + event.url + "'></a>");
-                //$("#link")[0].click();
-
-                $("#printStatus").hide();
-            }
-
-            function printError(event) {
-                alert(event.error);
-                $("#printStatus").hide();
-            }
-        }*/
-
     });
+
+    function printMap() {
+
+        var printParams = new PrintParameters();
+        printParams.map = map;
+
+        var template = new PrintTemplate();
+        template.exportOptions = {
+            width: 500,
+            height: 400,
+            dpi: 300
+        };
+        template.format = "PDF";
+        template.layout = "Letter ANSI A Landscape sw-trends";
+        template.preserveScale = false;
+        var trendsLegendLayer = new LegendLayer();
+        trendsLegendLayer.layerId = "1";
+        //legendLayer.subLayerIds = [*];
+
+        var legendLayers = [];
+        legendLayers.push(trendsLegendLayer);
+
+        var trendPeriodVal = $("input:radio[name='trendPeriod']:checked").val();
+
+        var trendPeriod = "";
+        if (trendPeriodVal == "P10") {
+            trendPeriod = "2002";
+        } else if (trendPeriodVal == "P20") {
+            trendPeriod = "1992";
+        } else if (trendPeriodVal == "P30") {
+            trendPeriod = "1982";
+        } else if (trendPeriodVal == "P40") {
+            trendPeriod = "1972";
+        }
+
+        var printTitle = "Trend results for " + currentConst + " in surface water for " + trendPeriod + "-2012";
+
+        template.layoutOptions = {
+            "titleText": printTitle,
+            "authorText" : "NAWQA",
+            "copyrightText": "This page was produced by the nawqa-sw-trends mapper"/*,
+            "LegendLayers": legendLayers*/
+        }
+
+        var docTitle = template.layoutOptions.titleText;
+
+        printParams.template = template;
+        var printMap = new PrintTask("https://gis.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
+        printMap.execute(printParams, printDone, printError);
+
+        function printDone(event) {
+            //alert(event.url);
+            //window.open(event.url, "_blank");
+            printCount++;
+            //var printJob = $('<a href="'+ event.url +'" target="_blank">Printout ' + printCount + ' </a>');
+            var printJob = $('<p><label>' + printCount + ': </label>&nbsp;&nbsp;<a href="'+ event.url +'" target="_blank">' + docTitle +' </a></p>');
+            //$("#print-form").append(printJob);
+            $("#printJobsDiv").find("p.toRemove").remove();
+            $("#printModalBody").append(printJob);
+            $("#printTitle").val("");
+            $("#printExecuteButton").button('reset');
+        }
+
+        function printError(event) {
+            alert("Sorry, an unclear print error occurred. Please try refreshing the application to fix the problem");
+        }
+    }
 
     require([
         'esri/dijit/Legend',
