@@ -1191,9 +1191,14 @@ require([
         $('#faq21header').click(function(){$('#faq21body').slideToggle(250);});
         $('#faq22header').click(function(){$('#faq22body').slideToggle(250);});
         $('#faq23header').click(function(){$('#faq23body').slideToggle(250);});
+        $('#faq24header').click(function(){$('#faq24body').slideToggle(250);});
+        $('#faq25header').click(function(){$('#faq25body').slideToggle(250);});
+        $('#faq26header').click(function(){$('#faq26body').slideToggle(250);});
 
         $('.fullsize').click(function(){
-            window.open($(this).attr('src'));
+            var data = "<img src='"+$(this).attr('src')+"'/>";
+            myWindow = window.open("data:text/html," + encodeURIComponent(data),"_blank");
+            myWindow.focus();
         });
 
     });
