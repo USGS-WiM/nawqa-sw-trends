@@ -1048,6 +1048,7 @@ require([
                 //alert(pestPDFs);
             } else {
                 var jossoSessionId = "";
+                $(".charts-model-loading").show();
                 $.ajax({
                     dataType: 'json',
                     type: 'GET',
@@ -1102,6 +1103,7 @@ require([
                                                 }
                                             });
                                             console.log(pngUrlData);
+                                            $(".charts-model-loading").hide();
                                         },
                                         error: function (error) {
                                             console.log("Error processing the JSON. The error is:" + error);
