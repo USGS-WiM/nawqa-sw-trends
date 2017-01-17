@@ -268,7 +268,7 @@ require([
 
     //following block forces map size to override problems with default behavior
     $(window).resize(function () {
-        if ($("#legendCollapse").hasClass('in')) {
+        /*if ($("#legendCollapse").hasClass('in')) {
             maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
             $('#legendElement').css('height', maxLegendHeight);
             $('#legendElement').css('max-height', maxLegendHeight);
@@ -277,7 +277,7 @@ require([
         }
         else {
             $('#legendElement').css('height', 'initial');
-        }
+        }*/
     });
 
     $('#printExecuteButton').click(function (e) {
@@ -1286,6 +1286,10 @@ require([
                         colHeaders: true,
                         manualColumnResize: true
                     });
+                    var colHeadersforCSV = [["Constituent","Type","Trend period","Trend likelihood","Trend, in percent","Lower confidence interval on the trend, in percent",
+                            "Upper confidence interval on the trend, in percent","Trend, in original units","Lower confidence interval on the trend, in orginal units",
+                            "Upper confidence interval on the trend, in original units","Reported confidence interval"]];
+
                     hot.updateSettings({
                         colHeaders: [
                             "Constituent",
@@ -1305,6 +1309,26 @@ require([
                         columnSorting: true,
                         sortIndicator: true
                     })
+
+                    $(".download-table-btn").on('click', function(event) {
+                        console.log('clicked');
+                        var csvContent = "data:text/csv;charset=utf-8,";
+                        var colHeaders = [];
+                        colHeadersforCSV.forEach(function(infoArray, index){
+
+                            var dataString = infoArray.join("\",\"");
+                            csvContent += index < data2Return.length ? dataString+ "\n" : dataString;
+
+                        });
+                        data2Return.forEach(function(infoArray, index){
+
+                            var dataString = infoArray.join(",");
+                            csvContent += index < data2Return.length ? dataString+ "\n" : dataString;
+
+                        });
+                        var encodedUri = encodeURI(csvContent);
+                        window.open(encodedUri);
+                    });
                 })
                 .fail(function() {
                     alert('there was a problem');
