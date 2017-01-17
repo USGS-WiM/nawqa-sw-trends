@@ -1317,7 +1317,8 @@ require([
                         colHeadersforCSV.forEach(function(infoArray, index){
 
                             var dataString = infoArray.join("\",\"");
-                            csvContent += index < data2Return.length ? dataString+ "\n" : dataString;
+                            if (index == 0) {csvContent += "\"";}
+                            csvContent += index < data2Return.length ? dataString+ "\"\n" : dataString;
 
                         });
                         data2Return.forEach(function(infoArray, index){
