@@ -1300,7 +1300,7 @@ require([
                             "Lower confidence interval on the trend, in percent",
                             "Upper confidence interval on the trend, in percent",
                             "Trend, in original units",
-                            "Lower confidence interval on the trend, in orginal units",
+                            "Lower confidence interval on the trend, in original units",
                             "Upper confidence interval on the trend, in original units",
                             "Reported confidence interval"
                         ],
@@ -1317,18 +1317,21 @@ require([
                         colHeadersforCSV.forEach(function(infoArray, index){
 
                             var dataString = infoArray.join("\",\"");
-                            if (index == 0) {csvContent += "\"";}
-                            csvContent += index < data2Return.length ? dataString+ "\"\n" : dataString;
+                            csvContent += index < data2Return.length ?  "\"" + dataString+ "\"\r\n" : dataString;
 
                         });
                         data2Return.forEach(function(infoArray, index){
 
                             var dataString = infoArray.join(",");
-                            csvContent += index < data2Return.length ? dataString+ "\n" : dataString;
+                            csvContent += index < data2Return.length ? dataString+ "\r\n" : dataString;
 
                         });
                         var encodedUri = encodeURI(csvContent);
-                        window.open(encodedUri);
+                        var link = document.createElement("a");
+                        link.setAttribute("href", encodedUri);
+                        link.setAttribute("download", "trend_results.csv");
+                        document.body.appendChild(link); // Required for FF
+                        link.click();
                     });
                 })
                 .fail(function() {
