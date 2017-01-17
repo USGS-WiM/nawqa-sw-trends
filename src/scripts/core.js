@@ -304,7 +304,12 @@ require([
             trendPeriod = "1972";
         }
 
-        var printTitle = "Trend results for " + currentConst + " in surface water for " + trendPeriod + "-2012";
+        var trendTypeVal = $('input[name=trendType]:checked').val();
+        trendTypeVal = trendTypeVal.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+            return letter.toUpperCase();
+        });
+
+        var printTitle = trendTypeVal + " trend results for " + currentConst + " in surface water for " + trendPeriod + "-2012";
         $("#printTitle").text(printTitle);
         showPrintModal();
     });
@@ -1422,7 +1427,12 @@ require([
             trendPeriod = "1972";
         }
 
-        var printTitle = "Trend results for " + currentConst + " in surface water for " + trendPeriod + "-2012";
+        var trendTypeVal = $('input[name=trendType]:checked').val();
+        trendTypeVal = trendTypeVal.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+            return letter.toUpperCase();
+        });
+
+        var printTitle = trendTypeVal + " trend results for " + currentConst + " in surface water for " + trendPeriod + "-2012";
 
         template.layoutOptions = {
             "titleText": printTitle,
