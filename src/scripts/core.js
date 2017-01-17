@@ -1029,14 +1029,14 @@ require([
         function showAboutModal () {
             $('#aboutModal').modal('show');
         }
-        function showDisclaimerModal () {
-            $('#disclaimerModal').modal('show');
-        }
         $('#aboutNav').click(function(){
             showAboutModal();
         });
         $('#userGuideNav').click(function(){
             $('#userGuideModal').modal('show');
+        });
+        $('#trendResultHelp').click(function(){
+            $('#trendResultsHelpBox').slideToggle(200);
         });
         $('#faqNav').click(function(){
             $('#faqModal').modal('show');
