@@ -74,7 +74,6 @@ require([
                         "opacity": 1.00,
                         "mode": FeatureLayer.MODE_SNAPSHOT,
                         "outFields": ["*"],
-                        "defaultDefinitionExpression": "Pesticide = 'Alachlor' AND period = 'P10'",
                         "visible": false
                     },
                     "wimOptions": {
