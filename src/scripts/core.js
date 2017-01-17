@@ -1387,7 +1387,7 @@ require([
 
         $('.fullsize').click(function(){
             var data = "<img src='"+$(this).attr('src')+"'/>";
-            myWindow = window.open("data:text/html," + encodeURIComponent(data),"_blank");
+            var myWindow = window.open("data:text/html," + encodeURIComponent(data),"_blank");
             myWindow.focus();
         });
 
@@ -1412,7 +1412,7 @@ require([
         //legendLayer.subLayerIds = [*];
 
         var legendLayers = [];
-        legendLayers.push(trendsLegendLayer);
+        //legendLayers.push(trendsLegendLayer);
 
         var trendPeriodVal = $("input:radio[name='trendPeriod']:checked").val();
 
@@ -1437,8 +1437,8 @@ require([
         template.layoutOptions = {
             "titleText": printTitle,
             "authorText" : "NAWQA",
-            "copyrightText": "This page was produced by the nawqa-sw-trends mapper"/*,
-            "LegendLayers": legendLayers*/
+            "copyrightText": "This page was produced by the nawqa-sw-trends mapper",
+            "legendLayers": legendLayers
         }
 
         var docTitle = template.layoutOptions.titleText;

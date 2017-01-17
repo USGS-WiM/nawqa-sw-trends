@@ -84,6 +84,12 @@
                 <h4 class="modal-title">Graphs</h4>
             </div>
             <div class="modal-body charts-modal">
+
+                <div class="charts-model-loading">
+                    <img src="images/loader.gif"/>
+                    <span>Loading...</span>
+                </div>
+
                 <div class="charts-modal-column">
                     <h1>Monitoring Data</h1>
                     <img class="fullsize" id="pConc" src=""/>
@@ -109,7 +115,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                <h4 class="modal-title">Trends results</h4>
+                <h4 class="modal-title">Trend results <button class="btn btn-primary download-table-btn">Download</button></h4>
             </div>
             <div class="modal-body">
                 <div id="tableDiv">Loading...</div>
@@ -153,7 +159,7 @@
             <div id="printModalBody" class="modal-body">
 
                 <form id="print-title-form" class="form-group">
-                    <h3>Document for printing:</h3>
+                    <h3>Document ready for printing:</h3>
                     <label id="printTitle" for="printTitle">Title </label><br/><br/>
                     <!--</form>
 
@@ -179,14 +185,14 @@
                 <ul class="nav nav-tabs" id="aboutModalTabs">
                     <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About</a></li>
                     <li role="presentation"><a id="learnMoreTab" href="#learnMoreTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Learn More</a></li>
-                    <li role="presentation"><a id="waterResourcesTab" href="#waterResourcesTabPane" data-toggle="tab"><i class="fa fa-tint"></i>&nbsp;Other Resources</a></li>
                     <li role="presentation"><a id="partnerTab" href="#partnerTabPane" data-toggle="tab"><i class="fa fa-id-card-o"></i>&nbsp;Partner Agencies</a></li>
+                    <li role="presentation"><a id="waterResourcesTab" href="#waterResourcesTabPane" data-toggle="tab"><i class="fa fa-tint"></i>&nbsp;Other Resources</a></li>
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="aboutTabPane">
                         <div class="abouttab-inner">
                             <div class="image">
-                                <img src="images/about_photo.png"/>
+                                <img src="images/about_photo.png" class="fullsize"/>
                             </div>
                             <p>
                                 This mapper provides results from the largest-ever assessment of water-quality changes in the Nation's streams and rivers. More than 185 million water-quality records from over 600 Federal, State, Tribal, and local organizations were screened as part of this assessment.
@@ -332,46 +338,46 @@
             <div id="aboutModalBody" class="modal-body">
                 <ul class="nav nav-tabs" id="aboutModalTabs">
                     <li role="presentation" class="active"><a id="searchTab" href="#searchTabPane" data-toggle="tab"><i class="fa fa-search"></i>&nbsp;Search, Zoom, Print</a></li>
-                    <li role="presentation"><a id="iconTab" href="#iconTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Icons</a></li>
-                    <li role="presentation"><a id="layersTab" href="#layersTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;Layers</a></li>
+                    <li role="presentation"><a id="iconTab" href="#iconTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Legend</a></li>
+                    <li role="presentation"><a id="layersTab" href="#layersTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;Map selection options</a></li>
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="searchTabPane">
                         <span class="user-guide-header">Search, zoom, and print capabilities</span>
                         <div class="user-guide-item">
+                            <p><b>Searching</b>The search option allows the user to search for a location such as a city, state, zip code, or general place name.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/search.png"/></div>
-                            <p>The search option allows the user to search for a location such as a city, state, zip code, or general place name.</p>
                         </div>
                         <div class="user-guide-item">
+                            <p><b>Navigating the map</b>The scroll wheel on the mouse can be used to zoom, and in the upper left area of the tool are "+" and "–" icons to zoom in and out, respectively.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/zoom.png"/></div>
-                            <p>The scroll wheel on the mouse can be used to zoom, and in the upper left area of the tool are "+" and "–" icons to zoom in and out, respectively.</p>
                         </div>
                         <div class="user-guide-item">
+                            <p><b>Home Location</b>The crosshair button will zoom the map to your location, and the home button will center the US on the map.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/home.png"/></div>
-                            <p>The crosshair button will zoom the map to your location, and the home button will center the US on the map.</p>
                         </div>
                         <div class="user-guide-item">
+                            <p><b>Opening a site</b>Clicking on an arrow or circle at a site will bring up a window with details about the site, graphs of the original data and model predictions (for some constituents), and a table of the other trend results at the same site. See examples below.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/mappoints.png"/></div>
-                            <p>Clicking on an arrow or circle at a site will bring up a window with details about the site, graphs of the original data and model predictions (for some constituents), and a table of the other trend results at the same site. See examples below.</p>
                         </div>
                         <div class="user-guide-item">
+                            <p><b>Moving site window</b>Reposition the site info pop-up window with the mouse see the rest of the underlying map if necessary.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/siteinfo.png"/></div>
-                            <p>Reposition the site info pop-up window with the mouse see the rest of the underlying map if necessary.</p>
                         </div>
                         <div class="user-guide-item">
+                            <p><b>More site details</b>Additional details about the graphs and columns in the 'trend results' table are available in the FAQs.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/faq.png"/></div>
-                            <p>Additional details about the graphs and columns in the 'trend results' table are available in the FAQs.</p>
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="iconTabPane">
-                        <span class="user-guide-header">Icons</span>
+                        <span class="user-guide-header">Legend</span>
                         <div class="user-guide-item">
+                            <p><b>Legend display</b>The legend box can be collapsed to display more of the mapped area.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/legend.png"/></div>
-                            <p>The explanation box can be collapsed to display more of the mapped area.</p>
                         </div>
                         <div class="user-guide-item">
+                            <p><b>Using the legend</b>The expanded legend box explains the arrows and circles that appear for each site, displaying the results from the statistical analysis of trends.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/legendfull.png"/></div>
-                            <p>The expanded legend box explains the arrows and circles that appear for each site, displaying the results from the statistical analysis of trends.</p>
                         </div>
                         <p>
                             A likelihood-based approach is used to report these trend results. When the trend is "likely up", the chance of the trend being upward is at least an 85 out of 100. When the trend is "likely down", the chance of the trend being downward is at least an 85 out of 100. When the trend is "somewhat likely up", the chance of the trend being upward is between 70 and 85 out of 100. When the trend is "somewhat likely down", the chance of the trend being downward is between 70 and 85 out of 100. When the trend is "about as likely as not", the chance of the trend being either upward or downward is less than 70 out of 100.
@@ -380,29 +386,29 @@
                             This likelihood-based approach is used as an alternative to the null-hypothesis signicance testing (NHST) approach that is often used when reporting water-quality trends. The likelihood-based approach gives people more intuitive information on the certainty of a trend estimate, and avoids the arbitrary classications imposed by selecting an alpha value to assess signicance. For example, in the NHST approach, a trend with a p-value of 0.099 could be classied as signicant while a dierent trend with a p-value of 0.11 could be classied as nonsignicant. In reality, there is no meaningful dierence between these two p-values.
                         </p>
                         <p>
-                            Consider an example where the chance of an upward trend in nitrate concentrations at a site is 80 out of 100. Using the NHST approach, the trend would be reported as non-signicant. Using the likelihood-based approach, the trend would be reported as "somewhat likely up". The NHST approach could lead to a false sense of security because it indicates that there isn't strong proof of a growing problem. The likelihood-based approach indicates instead that it is somewhat likely conditions in the stream are not improving, giving people more information to use when making decisions about watershed management.
+                            Consider an example where the chance of an upward trend in nitrate concentrations at a site is 80 out of 100. Using the NHST approach, the trend would be reported as nonsignicant. Using the likelihood-based approach, the trend would be reported as "somewhat likely up". The NHST approach could lead to a false sense of security because it indicates that there isn't strong proof of a growing problem. The likelihood-based approach indicates instead that it is somewhat likely conditions in the stream are not improving, giving people more information to use when making decisions about watershed management.
                         </p>
                         <p>
                             For more information on the likelihood-based approach, please see Hirsch and others (2015), "A bootstrap method for estimating uncertainty of water quality trends", at <a href="http://dx.doi.org/10.1016/j.envsoft.2015.07.017" target="_blank">http://dx.doi.org/10.1016/j.envsoft.2015.07.017</a>.
                         </p>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="layersTabPane">
-                        <span class="user-guide-header">Map Layers</span>
+                        <span class="user-guide-header">Map selection options</span>
                         <div class="user-guide-item">
+                            <p><b>Selecting Layers</b>Constituent selector: allows the user to choose a constituent group and then choose a specific constituent from the drop down menus. Based on those selections, the user can then choose to view trends in concentration or load (these are not applicable for aquatic</p>
                             <div class="user-guide-item-image"><img src="images/userguide/constituent.png"/></div>
-                            <p>Constituent selector: allows the user to choose a constituent group and then choose a specific constituent from the drop down menus. Based on those selections, the user can then choose to view trends in concentration or load (these are not applicable for aquatic</p>
                         </div>
                         <div class="user-guide-item">
+                            <p><b>Selecting a trend type</b>A user can then select a trend type and period. Not all trend periods are available for all constituents.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/trendtype.png"/></div>
-                            <p>A user can then select a trend type and period. Not all trend periods are available for all constituents.</p>
                         </div>
                         <div class="user-guide-item">
+                            <p><b>Viewing trend results</b>The statistical trend results for the selected constituent, type, and time period will be displayed on the map.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/trendperiod.png"/></div>
-                            <p>The statistical trend results for the selected constituent, type, and time period will be displayed on the map.</p>
                         </div>
                         <div class="user-guide-item">
+                            <p><b>Change base map style</b>The "Basemaps" sidebar button displays various map layers that can be selected as background layers.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/basemaps.png"/></div>
-                            <p>The "Basemaps" sidebar button displays various map layers that can be selected as background layers.</p>
                         </div>
                     </div>
                 </div>
@@ -429,54 +435,61 @@
                 <h4 style="margin-bottom: 15px; font-weight: 600;">Study methods</h4>
                 <div class="faq-header" id="faq1header">1. What is the purpose of this study? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq1body">
-                    The purpose of this study is to determine if the quality of the Nation's streams and rivers has become better, worse, or stayed the same since 1972. Evaluating trends in surface-water quality is one component of a larger effort to understand the quality of the Nation's water resources, and how those conditions are changing over time.
+                    The purpose of this study is to determine if the quality of the Nation’s streams and rivers has become better, worse, or stayed the same since 1972. Evaluating trends in surface-water quality is one component of a larger effort to understand the quality of the Nation’s water resources, and how those conditions are changing over time.
                 </div>
 
-                <div class="faq-header" id="faq2header">2. Why evaluate changes in water quality? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-header" id="faq2header">2. Where can I get more information on this study? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq2body">
-                    The Nation's rivers and streams are a valuable resource, providing drinking water for a growing population, irrigation for crops, habitat for aquatic life, and many recreational opportunities. But pollution from urban and agricultural areas continues to pose a threat to water quality. Since passage of the Clean Water Act in 1972, <a href="https://www.ers.usda.gov/data-products/farm-income-and-wealth-statistics.aspx" target="_blank">Federal, State, and local governments have invested billions of dollars to reduce pollution entering streams and rivers</a>. Yet recently, <a href="https://www.epa.gov/national-aquatic-resource-surveys/national-rivers-and-streams-assessment-2008-2009-results" target="_blank">the U.S. Environmental Protection Agency reported that more than half of the Nation's stream miles have ecosystems in poor condition</a>. In order to understand the return on these investments, and to more effectively manage and protect the Nation's water resources in the future, we need to know how and why water quality has been changing over time.
+                    More information on data sources, preparation and screening; statistical methods; and results is available in Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water-Quality Trends in the Nation’s Rivers and Streams 1972-2012—Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-xxxx, xxx p.  More information on the overall study is available at <a href="https://water.usgs.gov/nawqa/swtrends/" target="_blank">https://water.usgs.gov/nawqa/swtrends/</a>.
                 </div>
 
-                <div class="faq-header" id="faq3header">3. Who completed this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-header" id="faq3header">3. Why evaluate changes in water quality? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq3body">
-                    The U.S. Geological Survey's National Water-Quality Assessment (NAWQA) Project conducted this study, using data collected by the U.S. Geological Survey and by many partner monitoring organizations across the United States (see FAQ #4).
+                    The Nation's rivers and streams are a valuable resource, providing drinking water for a growing population, irrigation for crops, habitat for aquatic life, and many recreational opportunities. But pollution from urban and agricultural areas continues to pose a threat to water quality. Since passage of the Clean Water Act in 1972, Federal, State, and local governments have invested billions of dollars to reduce pollution entering streams and rivers. Yet recently, the U.S. Environmental Protection Agency reported that more than half of the Nation's stream miles have ecosystems in poor condition. In order to understand the return on these investments, and to more effectively manage and protect the Nation's water resources in the future, we need to know how and why water quality has been changing over time.
                 </div>
 
-                <div class="faq-header" id="faq4header">4. What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-header" id="faq4header">4. Who completed this study? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq4body">
+                    The U.S. Geological Survey’s National Water-Quality Assessment (NAWQA) Project conducted this study, using data collected by the U.S. Geological Survey and by many partner monitoring organizations across the United States (see FAQ #5).
+                </div>
+
+                <div class="faq-header" id="faq5header">5. What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq5body">
                     Publicly available water-quality data for streams and rivers were obtained from the U.S. Geological Survey's National Water Information System (NWIS) database at <a href="https://waterdata.usgs.gov/usa/nwis" target="_blank">https://waterdata.usgs.gov/usa/nwis</a> and the U.S. Environmental Protection Agency's STOrage and RETrieval (STORET) database at <a href="https://www.epa.gov/waterdata/storage-and-retrieval-and-water-quality-exchange" target="_blank">https://www.epa.gov/waterdata/storage-and-retrieval-and-water-quality-exchange</a>.  In addition, relevant water-quality records that currently are not being housed in NWIS or STORET were requested from water resource agencies in each state. Ultimately, we screened more than 185 million water-quality records from nearly 480,000 sites and more than 600 organizations.  These organizations include Federal and State agencies, Tribes, counties, universities, non-governmental organizations, and other organizations like waste-water treatment facilities.
                     <br/>Ecological data were obtained from the U.S. Geological Survey's BioData database at <a href="https://aquatic.biodata.usgs.gov" target="_blank">https://aquatic.biodata.usgs.gov/</a>.  Daily streamflow data were obtained from NWIS; selected non-USGS streamflow data were obtained from state databases.
                 </div>
 
-                <div class="faq-header" id="faq5header">5. What constituents were included in your analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq5body">
+                <div class="faq-header" id="faq6header">6. What constituents were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq6body">
                     <b>Nutrients</b> - total nitrogen, total phosphorus, nitrate, ammonia, and orthophosphate
                     <br/><b>Pesticides</b> - 2,6-Diethylaniline, Acetochlor, Alachlor, Atrazine, Carbaryl, Carbofuran, Chlorpyrifos, Cyanazine, Dacthal, Deethylatrazine, Desulfinylfipronil, Desulfinylfipronil amide, Diazinon, Dieldrin, EPTC, Ethoprophos, Fipronil, Fipronil sulfide, Fipronil sulfone, Fonofos, Malathion, Metolachlor, Metribuzin, Molinate, Pendimethalin, Prometon, Propanil, Propargite, Propyzamide, Simazine, Tebuthiuron, Thiobencarb, Trifluralin
                     <br/><b>Sediment</b> - suspended sediment and total suspended solids
                     <br/><b>Carbon</b> - dissolved organic carbon and alkalinity
                     <br/><b>Salinity</b> - specific conductance, total dissolved solids, chloride, sulfate
-                    <br/><b>Aquatic ecology</b> - fish, invertebrates, and algae
+                    <br/><b>Aquatic ecology</b> - metrics for fish, invertebrates, and algae (diatoms)
                 </div>
 
-                <div class="faq-header" id="faq6header">6. What time periods did you assess in your trend analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq6body">1972-2012, 1982-2012, 1992-2012, 2002-2012.  These decadal trend periods allowed us to start our evaluations at the passage of the Clean Water Act in 1972 and the initiation of the National-Water Quality Assessment Program in 1992.  They also allowed us to evaluate trends in recent years, when many management programs have been initiated.</div>
-
-                <div class="faq-header" id="faq7header">7. Why do your trends only extend through 2012? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-header" id="faq7header">7. What time periods did you assess in your trend analyses? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq7body">
-                    As with any water-quality study, there is a lag between sample collection and data release due to laboratory analysis and data quality review, and another lag between data release and the release of study findings due to analysis and interpretation.  However, a much longer lag occurred in this study because we used water-quality data from 518 different organizations.  The data were provided to us in many different formats; data from the different organizations had different nomenclature; and many of the records had incomplete or missing metadata (Sprague and others, 2017).  Resolving these issues (when even possible) required over three years of effort.  In the end, this study provides results from the largest-ever assessment of water-quality changes in the Nation's streams and rivers.
+                    1972-2012, 1982-2012, 1992-2012, 2002-2012.  These decadal trend periods allowed us to start our evaluations at the passage of the Clean Water Act in 1972 and the initiation of the National-Water Quality Assessment Program in 1992.  They also allowed us to evaluate trends in recent years, when many management programs have been initiated.
+                </div>
+
+                <div class="faq-header" id="faq8header">8. Why do your trends only extend through 2012? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq8body">
+                    As with any water-quality study, there is a lag between sample collection and data release due to laboratory analysis and data quality review, and another lag between data release and the release of study findings due to analysis and interpretation.  However, a much longer lag occurred in this study because we used water-quality data from 518 different organizations.  The data were provided to us in many different formats; data from the different organizations had different nomenclature; and many of the records had incomplete or missing metadata (Sprague and others, 2017).  Resolving these issues (when even possible) required over three years of effort.  In the end, this study provides results from the largest-ever assessment of water-quality changes in the Nation’s streams and rivers.
                 </div>
 
 
                 <h4 style="margin-bottom: 15px; font-weight: 600;">Features of the Mapper</h4>
 
 
-                <div class="faq-header" id="faq8header">8. Where can I find help for navigating this mapper? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq8body">
-                        An explanation of the arrows and icons on the map and what they mean can be found by clicking the User Guide button on the main Navigation Bar.  There you will also find a description of how to activate map layers, and a description of the search, zoom, and print capabilities.
+                <div class="faq-header" id="faq9header">9. Where can I find help for navigating this mapper? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq9body">
+                    An explanation of the arrows and icons on the map and what they mean can be found here.  A description of how to activate map layers can be found here. A description of the search, zoom, and print capabilities can be found here.
                 </div>
 
-                <div class="faq-header" id="faq9header">9. Are the data used in your trend analyses available for download? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq9body">
+                <div class="faq-header" id="faq10header">10. Are the data used in your trend analyses available for download? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq10body">
                     Yes, you can download the data that were suitable for long-term trend analysis (see FAQ #11) and the associated metadata through the following U.S. Geological Survey data releases:<br/><br/>
                     De Cicco, L.A., Sprague, L.A., Murphy, J.C., Riskin, M.L., Falcone, J.A., Stets, E.G., Oelsner, G.P.,  and Johnson, H.M., 2017, Water-quality and streamflow datasets used in the Weighted Regressions on Time, Discharge, and Season (WRTDS) models to determine trends in the Nation's rivers and streams, 1972-2012: U.S. Geological Survey data release, http://dx.doi.org/10.5066/F7KW5D4H.
                     https://www.sciencebase.gov/catalog/item/57c44124e4b0f2f0cebc8a2a and DOI is http://dx.doi.org/10.5066/F7KW5D4H.
@@ -492,21 +505,21 @@
                 <h4 style="margin-bottom: 15px; font-weight: 600;">Study methods</h4>
 
 
-                <div class="faq-header" id="faq10header">10. What trend methods did you use? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq10body">
+                <div class="faq-header" id="faq11header">11. What trend methods did you use? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq11body">
                     We used Weighted Regressions on Time, Discharge, and Season (WRTDS) (Hirsch and De Cicco, 2015) for nutrients, sediment, carbon, and salinity.  We used the seasonal wave model with streamflow adjustment (SEAWAVE-Q) (Vecchia and others, 2008) for pesticides.  We used a newly developed Kendall-based test for aquatic ecology (Oelsner and others, 2017).
                 </div>
 
-                <div class="faq-header" id="faq11header">11. How did you decide which sites were suitable for trend analysis? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq11body">
+                <div class="faq-header" id="faq12header">12. How did you decide which sites were suitable for trend analysis? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq12body">
                     As we began reviewing the compiled water-quality data set, it was immediately clear that there were some sites we could not use for a variety of reasons, such as an insufficient number of samples or missing metadata (see FAQ #13). We set up a series of screening steps to ensure the data we used for trend analysis all met a minimum standard. Our screening steps are described in detail in Oelsner and others, 2017. A brief summary of our screening steps is provided here.  The criteria for aquatic ecology are slightly more liberal than for the other constituents because of the relative dearth of long-term monitoring for aquatic ecology.
                     <br/>Generally, we screened nutrients, sediment, carbon, and salinity data sets for (1) at least quarterly data in the first two years and last two years of the trend period, (2) at least quarterly sampling in at least 70% of all years, (3) availability of suitable daily streamflow for the entire period, (4) 10-14% of samples collected at moderate to high streamflow conditions during each decade, (5) no more than 50% censored data.  Each trend period was screened separately.
                     <br/>We screened pesticides data sets for (1) at least three quarterly samples in either of the first two years and either of the last two years of the trend period, (2) at least three quarterly samples in at least 50% of all years, (3) no gaps longer than 3 to 5 years (depending on the trend period), (4) availability of suitable daily streamflow through one year prior to the start of the trend period, (5) at least 10 uncensored concentrations.  Each trend period was screened separately.
                     <br/>We screened aquatic ecology data sets for (1) data within one year of the start year and one year of the end year of the trend period, (2) data in 50% of years of each decade,  (3) no gaps longer than 4 years, (4) availability of measured or modeled daily streamflow data through 240 days prior to the first sample.  Each trend period was screened separately.
                 </div>
 
-                <div class="faq-header" id="faq12header">12. Why did you screen pesticide data differently than other water-quality constituents? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq12body">
+                <div class="faq-header" id="faq13header">13. Why did you screen pesticide data differently than other water-quality constituents? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq13body">
                     The pesticide screening criteria differ from criteria for other constituents for a variety of reasons, some particular to the trend analysis method, others particular to the nature of pesticide concentrations in surface water.
                     <br/>The method (SEAWAVE-Q; Vecchia and others, 2008) was specifically developed to address a number of difficulties often found in pesticide data, such as strong seasonality in response to use patterns, high numbers of concentrations below laboratory reporting levels (RLs), complex relations between streamflow and concentration, and intermittent or changing sampling frequencies (both inter-annually and intra-annually).
                     <br/>Pesticide concentrations in surface water have a strong seasonal signal depending on the time of application (there may be one or more general periods of application depending on the pesticide, some are post-emergent spring applied, others may be pre-emergent applied in the spring and/or fall, other patterns may exist depending on the climate and crop).  The seasonal variability in pesticide concentrations often is not closely related to seasonal variability in streamflow but is more closely related to the seasonal change in application amounts. This is in sharp contrast to other water-quality constituents such as dissolved major ions or nutrients, whose concentrations tend to be more directly related to streamflow (Vecchia and others, 2008). SEAWAVE-Q specifically models the seasonality in application and a "decay" rate (depending on the properties of the chemical, concentrations decrease at varying rates after the peak application period). Because of these important characteristics of pesticide concentrations in surface water and the features of SEAWAVE-Q, pesticide sites do not require the same screening for high streamflow samples that are needed for some other constituents/methods.
@@ -516,20 +529,32 @@
                     <br/>These issues have been thoroughly explored and tested in a number of published studies (Vecchia and others, 2008, Sullivan and others, 2009; Ryberg and others, 2010; Ryberg and others, 2014) as well as in numerous unpublished exploratory data analysis exercises refining the seasonality and decay components of the model, testing the effect of gaps in the data, and testing the degree of censoring.
                 </div>
 
-                <div class="faq-header" id="faq13header">13. What do you mean by water-quality metadata? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq13body">
+                <div class="faq-header" id="faq14header">14. What do you mean by water-quality metadata? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq14body">
                     In many cases, water-quality data did not have enough information for us to unambiguously interpret the value. We use the term metadata to describe information that accompanies the water-quality value itself. Critical metadata includes the site location, the sample date, the water-quality constituent being reported (e.g. nitrate, alkalinity, suspended sediment), the physical medium that was sampled (e.g. water, soil, gas), the reported units (e.g. mg/L or µg/L), whether a sample was filtered or unfiltered, whether a sample is reported in elemental or molecular form (e.g. nitrate as nitrogen or nitrate as nitrate), and number of others. Data without sufficient metadata were excluded from our analyses.  See Sprague and others (2017) for more detail.
                 </div>
 
 
-                <div class="faq-header" id="faq14header">14. Why is my organization's long-term monitoring site missing from your results? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq14body">
+                <div class="faq-header" id="faq15header">15. What do the aquatic ecology metrics describe? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq15body">
+                    Metrics of <u>community composition</u> describe various elements of the aquatic community present in each sample. Collectively, those chosen for this study describe the total number of different organisms found, how evenly their counts are distributed, how counts within groups are distributed relative to other groups, and how similar the contents of each sample is relative to the starting year in the trend-period. A detectable trend indicates that changes in community composition have occurred; however, meaning of the directional response is metric specific. For example, a decreasing trend in similarity among samples indicates that community composition changed relative to the first year. In this case, a decreasing trend simply indicates that change occurred; it does not mean anything about what elements within the community changed. In contrast, a decreasing trend in the relative percent of the number of different types of mayflies, stoneflies, and caddisflies indicates that fewer distinguishable types of organisms within these groups were present at the end the trend-period relative to the rest of the community.
+                    <br/><br/>
+                    <u>Tolerance</u> metrics describe the average sensitivity of the different types of organisms found in a sample to specific water-quality stressors or conditions. An increasing trend in any of the fish or macroinvertebrates tolerance metrics may indicate that the different types of organisms found in a sample are changing over the trend period and that these changes overall are increasing community tolerance to the specific water-quality stressor. In this case, sensitive organisms are being replaced by more tolerant organisms. Conversely, a decreasing trend indicates tolerant organisms are being replaced by more sensitive organisms, and overall the community is becoming more sensitive to the potential water-quality stressor. Tolerance measures selected for diatoms (a major group of algae) provide slightly different information as a result of how they are calculated. Metrics for fish and macroinvertebrates are expressed as average community tolerance and are calculated from individual tolerance values associated with each different organism type found in a sample. In the case for diatoms, metrics either represent the number of different types of cells that are known to be sensitive to nutrient or organic enrichment, or the number of different types of cells known to tolerate a particular water-quality constituent above or below a particular concentration value. In either case, a decreasing or increasing trend indicates that different types of organisms associated with the measure are being lost or gained over the trend period.
+                    <br/><br/>
+                    <u>Assessment indicators</u> measure elements of the aquatic community relative to an expected condition derived from comparable least-disturbed or reference locations. Herein, the ratio of the different types of organisms found in a sample to the different types of organisms expected in the sample is used as a measure of how different the observed community is from the expected community. In general, a decreasing trend indicates that the different types of organisms found in a sample that match what was expected are decreasing over the trend period, whereas an increasing trend indicates the opposite.
+                    <br/><br/>
+                    See Oelsner and others (2017) and citations within for more information on these aquatic ecology metrics.
+                </div>
+
+
+                <div class="faq-header" id="faq16header">16. Why is my organization's long-term monitoring site missing from your results? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq16body">
                     There are many reasons why a site with long-term monitoring data could have been excluded from our study.  Generally sites were excluded either because of missing or incomplete metadata, failure to pass one or more of our screening criteria, or poor model fit during trend analysis.
                     <br/>It is important to note that although a site may have been excluded from our study because of our specific objectives, data from the site could still be valuable for other studies looking at different trend periods or studies with different objectives altogether.
                 </div>
 
-                <div class="faq-header" id="faq15header">15. What is flow normalization and why is it important? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq15body">
+                <div class="faq-header" id="faq17header">17. What is flow normalization and why is it important? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq17body">
                     Changes in concentration and load over time can be strongly influenced by random and systematic variations in streamflow.  Flow normalization removes the variation in concentration or load that is due to variations in streamflow.  In the case where the streamflow variability is only random, flow normalization will remove some of the non-trend noise, making the signal (the trend) easier to detect.  In the case where the streamflow variability is systematic (e.g. where there is a trend in streamflow), the trend in streamflow may be causing all or part of the trend in water quality. Flow normalization will remove the part of the water-quality trend that is caused by the trend in streamflow, leaving behind the trend in water quality that is caused by other factors.  These other factors are usually human actions, like land development, changes in pesticide application, or implementation of best management practices. Removing the influence of the trend in streamflow improves our ability to evaluate the effects of human actions on water quality.
                     <br/>In situations where natural changes in streamflow are affecting year-to-year variability in concentration or load, flow normalization also helps us to avoid mistaking the effects of natural changes in streamflow for progress in cleaning up water quality.  In the example below showing nitrate loads entering the Gulf of Mexico from the Mississippi River, there were several years when loads dropped below the 1980-1996 baseline used to measure progress in reducing loading to the Gulf of Mexico. We could interpret that to mean we have made substantial progress in reducing loads to the Gulf as a result of our management practices in the watershed.  However, the pattern in load closely follows the pattern in streamflow, indicating that the low loads occurred in years when streamflow was naturally low.  When we remove that streamflow-related variability, the pattern in flow normalized loads shows relatively little change that can be tied to human actions between 1980 and 2010.
                     <br/><img src="images/faq/faq-12.png"/>
@@ -541,21 +566,27 @@
                 <h4 style="margin-bottom: 15px; font-weight: 600;">Study results</h4>
 
 
-                <div class="faq-header" id="faq16header">16. What do the designations in the map legends mean? And why don't you present your trend results with "significant"/"nonsignificant" designations? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq16body">
+                <div class="faq-header" id="faq18header">18. What do the designations in the map legends mean? And why don't you present your trend results with "significant"/"nonsignificant" designations? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq18body">
                     A likelihood-based approach is used to report these trend results. When the trend is "likely up", the chance of the trend being upward is at least an 85 out of 100. When the trend is "likely down", the chance of the trend being downward is at least an 85 out of 100. When the trend is "somewhat likely up", the chance of the trend being upward is between 70 and 85 out of 100. When the trend is "somewhat likely down", the chance of the trend being downward is between 70 and 85 out of 100. When the trend is "about as likely as not", the chance of the trend being either upward or downward is less than 70 out of 100.
                     <br/>This likelihood-based approach is used as an alternative to the null-hypothesis significance testing (NHST) approach that is often used when reporting water-quality trends. The likelihood-based approach gives people more intuitive information on the certainty of a trend estimate, and avoids the arbitrary classifications imposed by selecting an alpha value to assess significance. For example, in the NHST approach, a trend with a p-value of 0.099 could be classified as significant while a different trend with a p-value of 0.11 could be classified as nonsignificant. In reality, there is no meaningful difference between these two p-values.
                     <br/>Consider an example where the chance of an upward trend in nitrate concentrations at a site is 80 out of 100. Using the NHST approach, the trend would be reported as non-significant. Using the likelihood-based approach, the trend would be reported as "somewhat likely up". The NHST approach could lead to a false sense of security because it indicates that there isn't strong proof of a growing problem. The likelihood-based approach indicates instead that it is somewhat likely conditions in the stream are not improving, giving people more information to use when making decisions about watershed management.
                     <br/>The likelihood values used for nutrients, sediment, salinity, major ions, and carbon trends are based on the posterior mean estimate of the probability of an increasing or decreasing trend, as determined through bootstrap replicates. See Hirsch and others (2015) for more information on the bootstrapping process.  The likelihood values used for pesticides and aquatic ecology trends are based on the p-value from the associated trend tests, calculated as (1-(p-value/2)).  See Vecchia and others (2008) and Oelsner and others (2017) for more information on the determination of the p-value in the trend tests for pesticide and aquatic ecology data, respectively.
                 </div>
 
-                <div class="faq-header" id="faq17header">17. Is it correct that the concentration trend and the load trend are the same for pesticides? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq17body">
+
+                <div class="faq-header" id="faq19header">19. Why are results for all constituents not available for every site? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq19body">
+                    Monitoring varies among sites.  Some sites are only monitored for one constituent; some are monitored for many constituents.  The duration and regularity of monitoring also varies among sites.  Some sites are only monitored for a short period of time; some are monitored for decades.  The amount and type of data available at each site affects our ability to conduct trend analysis. For example, a pesticide data record needed at least 10 uncensored concentrations to conduct trend analysis; many sites did not meet this criterion due to low concentrations of pesticides in some areas of the country. See FAQ #12 for more detail on data screening.
+                </div>
+
+                <div class="faq-header" id="faq20header">20. Is it correct that the concentration trend and the load trend are the same for pesticides? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq20body">
                     Yes.  Using the SEAWAVE-Q model for pesticides, the trend in flow-normalized annual load cannot be different mathematically from the trend in flow-normalized annual concentration when there is no trend in flow.  This is a computational constraint of the SEAWAVE-Q model.  A different model – Weighted Regressions on Time, Discharge, and Season (WRTDS) – was used for the other water-quality constituents (see FAQ #10).  One attribute of the WRTDS model is that it allows the trend in flow-normalized concentration to be different in magnitude or opposite in direction from trends in flow-normalized load (Hirsch and De Cicco, 2015). For example, if there were large decreases in point source inputs of a pollutant but increases in nonpoint sources associated with high-flow events, then we might see a downward trend in concentration but an upward trend in flux.  But the WRTDS model was not used with pesticides, because SEAWAVE-Q was specifically developed to address a number of difficulties often found in pesticide data, such as strong seasonality in response to use patterns, high numbers of concentrations below laboratory reporting levels, complex relations between streamflow and concentration, and intermittent or changing sampling frequencies (Vecchia and others, 2008) (see FAQ #12).
                 </div>
 
-                <div class="faq-header" id="faq18header">18. What is shown on the graphs for each site? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq18body">
+                <div class="faq-header" id="faq21header">21. What is shown on the graphs for each site? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq21body">
                     For nutrients, sediment, salinity, major ions, and carbon (from Hirsch and De Cicco, 2015):
                     <ul>
                         <li>The first graph shows a time series plot of the observed concentration values as a function of time, for the entire period for which data are available in a public database (see FAQ #4). In some cases, this period may exceed the trend period. The convention for showing a censored value (a value reported as below a laboratory detection limit) is the use of a line segment, rather than a simple point, for these observations.</li>
@@ -577,8 +608,8 @@
                     There are no graphs available for aquatic ecology trends.
                 </div>
 
-                <div class="faq-header" id="faq19header">19. Could my organization's trend results be different from yours at the same site? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq19body">
+                <div class="faq-header" id="faq22header">22. Could my organization's trend results be different from yours at the same site? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq22body">
                     Yes, and there are a few reasons why this could be happening.  The most likely reason is that the trend periods are different.  The choice of start and end years can make a big difference.  For example, cigarette smoking in the United States increased in the first part of the 20th century as mass production, advertising, and addiction increased.  After the first Surgeon General's report in 1964 on the harmful effects of smoking, smoking rates decreased. If we were to determine a trend in cigarette consumption between 1900 and 2002, the result would show an increase.  However, if we were to determine a trend between 1970 and 2002, the result would show a decrease.  The same potential difference can occur with water-quality trends any time the direction of change in concentration or load reverses, or any time the rate of change slows or becomes more rapid.
                     <br/><img src="images/faq/faq-11.png"/>
                     <br/>Another common reason for trend results at the same site to be different—even when the trend period is the same—is the use of different trend methods.  Because periodic or random factors like season or streamflow can add noise to a water-quality time series, statistical methods are necessary to separate the signal (the trend) from the noise.  The choice of trend method can affect how much of the noise is removed, which in turn can affect the power of the trend test.  With a robust enough data set, the differences between statistical methods should be minor.  We conducted extensive sensitivity testing to develop a set of screening criteria that would lead us to sites with robust data sets. As a result, any differences between our results and your results for the same trend period should be minor, although there may be rare exceptions.
@@ -586,8 +617,8 @@
                     <br/>In a smaller number of cases, differences in trend results may be related to the characteristics of our respective data sets.  For instance, we may have combined data from two agencies that were sampling at the same location, whereas you only used data from one of the sources.  Or we may have excluded some data that were inadequately documented in our database, whereas you may have included those data because you had adequate documentation locally.
                 </div>
 
-                <div class="faq-header" id="faq20header">20. Where can I learn more about other NAWQA water-quality assessments? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq20body">
+                <div class="faq-header" id="faq23header">23. Where can I learn more about other NAWQA water-quality assessments? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq23body">
                     Access <a href="http://water.usgs.gov/nawqa" target="_blank">http://water.usgs.gov/nawqa</a> for information about the USGS NAWQA Project and its on-going work to monitor the Nation's water resources.
                 </div>
 
@@ -595,8 +626,14 @@
                 <h4 style="margin-bottom: 15px; font-weight: 600;">Citations</h4>
 
 
-                <div class="faq-header" id="faq21header">21. Who can I contact for more information on this mapper? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq21body">
+                <div class="faq-header" id="faq24header">24. How should this mapper be cited? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq24body">
+                    All of the results in the mapper are presented in Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water-Quality Trends in the Nation’s Rivers and Streams 1972-2012—Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-xxxx, xxx p.  That citation can be used when referencing the results presented in the mapper.
+                </div>
+
+
+                <div class="faq-header" id="faq25header">25. Who can I contact for more information on this mapper? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq25body">
                     For questions related to the study methods and results, you can contact:
                     <br/>Lori Sprague
                     <br/>Coordinator, NAWQA Surface-Water Trend Studies
@@ -608,14 +645,16 @@
                     <br/>Email: hvraga@usgs.gov
                 </div>
 
-                <div class="faq-header" id="faq23header">23. FAQ Citations <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq23body">
-                    Hirsch, Robert M., Archfield, Stacey A., and DeCicco, Laura A., 2015, A bootstrap method for estimating uncertainty of water quality trends, Environmental Modelling and Software, 73, 148-166, http://www.sciencedirect.com/science/article/pii/S1364815215300220<br/>
-                    Hirsch, R.M., and De Cicco, L.A., 2015, User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval-R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p., http://dx.doi.org/10.3133/tm4A10<br/>
-                    Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water- Quality Trends in the Nation's Rivers and Streams 1972-2012-Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-xxxx, xxx p.<br/>
-                    Ryberg, K.R., Vecchia, A.V., Gilliom, R.J., and Martin, J.D., 2014, Pesticide trends in major rivers of the United States, 1992–2010: U.S. Geological Survey Scientific Investigations Report 2014–5135, 63 p., http://dx.doi.org/10.3133/sir20145135.<br/>
-                    Ryberg, K.R., Vecchia, A.V., Martin, J.D., and Gilliom, R.J., 2010, Trends in pesticide concentrations in urban streams in the United States, 1992–2008: U.S. Geological Survey Scientific Investigations Report 2010–5139, 101 p.<br/>
-                    Sullivan, D.J., Vecchia, A.V., Lorenz, D.L., Gilliom, R.J., and Martin, J.D., 2009, Trends in pesticide concentrations in corn-belt streams, 1996–2006: U.S. Geological Survey Scientific Investigations Report 2009–5132, 75 p., http://pubs.usgs.gov/sir/2009/5132/.<br/>
+                <div class="faq-header" id="faq26header">26. FAQ Citations <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq26body">
+                    Hirsch, Robert M., Archfield, Stacey A., and DeCicco, Laura A., 2015, A bootstrap method for estimating uncertainty of water quality trends, Environmental Modelling and Software, 73, 148-166, http://www.sciencedirect.com/science/article/pii/S1364815215300220<br/><br/>
+                    Hirsch, R.M., and De Cicco, L.A., 2015, User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval-R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p., http://dx.doi.org/10.3133/tm4A10<br/><br/>
+                    Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water- Quality Trends in the Nation's Rivers and Streams 1972-2012-Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-xxxx, xxx p.<br/><br/>
+                    Ryberg, K.R., Vecchia, A.V., Gilliom, R.J., and Martin, J.D., 2014, Pesticide trends in major rivers of the United States, 1992–2010: U.S. Geological Survey Scientific Investigations Report 2014–5135, 63 p., http://dx.doi.org/10.3133/sir20145135.<br/><br/>
+                    Ryberg, K.R., and Vecchia, A.V., 2013, seawaveQ—An R package providing a model and utilities for analyzing trends in chemical concentrations in streams with a seasonal wave (seawave) and adjustment for streamflow (Q) and other ancillary variables: U.S. Geological Survey Open-File Report 2013–1255, 13 p., with 3 appendixes, http://dx.doi.org/10.3133/ofr20131255.<br/><br/>
+                    Ryberg, K.R., Vecchia, A.V., Martin, J.D., and Gilliom, R.J., 2010, Trends in pesticide concentrations in urban streams in the United States, 1992–2008: U.S. Geological Survey Scientific Investigations Report 2010–5139, 101 p.<br/><br/>
+                    Sprague, L.A., Oelsner, G.P, and Argue, D.M., 2017, Challenges with secondary use of multi-source water-quality data in the United States: Water Research, v. 110, p. 252–261. https://dx.doi.org/10.1016/j.watres.2016.12.024.<br/><br/>
+                    Sullivan, D.J., Vecchia, A.V., Lorenz, D.L., Gilliom, R.J., and Martin, J.D., 2009, Trends in pesticide concentrations in corn-belt streams, 1996–2006: U.S. Geological Survey Scientific Investigations Report 2009–5132, 75 p., http://pubs.usgs.gov/sir/2009/5132/.<br/><br/>
                     Vecchia, A.V., Martin, J.D., and Gilliom, R.J., 2008, Modeling variability and trends in pesticide concentrations in streams: Journal of the American Water Resources Association, v. 44, no. 5, p. 1308–1324, http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2008.00225.x/pdf
                 </div>
 
@@ -806,12 +845,11 @@
                         <div id="siteInfoPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="siteInfoPanelHeader">
                             <ul class="nav nav-tabs" id="siteInfoTabs">
                                 <li role="presentation" class="active"><a id="siteInfoTab" href="#siteInfoTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Site Information</a></li>
-                          
                                 <button id="charts" type="button" class="btn btn-primary"><i class="fa fa-line-chart"></i>Graphs</button>
                                 <button id="table" type="button" class="btn btn-primary"><i class="fa fa-table"></i>&nbsp;Trend Results</button>
                             </ul>
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="siteInfoTabPane"><br/>
+                                <div role="tabpanel" class="tab-pane active" id="siteInfoTabPane"></br>
 
                                 </div>
                             </div>
