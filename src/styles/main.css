@@ -82,6 +82,9 @@ body {
     }
 }
 
+#sidebar{
+    overflow: auto !important;
+}
 .basemapThumb {
     border:1px solid #ffffff;
     border-radius: 5px;
@@ -841,9 +844,17 @@ input[type="checkbox"], input[type="radio"] {
     position: relative;
     top: 3px;
 }
-.ht_master{
-    overflow-x: scroll !important;
+
+/*.ht_master{
+    overflow: auto !important;
 }
 .handsontable{
-    overflow-x: scroll !important;
+    overflow: auto !important;
 }
+.innerBorderTop{
+    overflow: auto !important;
+}*/
+
+/*.ht__selection--columns{
+    overflow: auto !important;
+}*/
