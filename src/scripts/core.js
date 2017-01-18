@@ -1277,9 +1277,10 @@ require([
                             "Not available" //reported confidence interval
                         ]);
                     });
+                    
+                    $("#tableDiv").html("");
 
                     var container = document.getElementById('tableDiv');
-                    $("#tableDiv").html("");
                     var hot = new Handsontable(container, {
                         data: data2Return,
                         rowHeaders: false,
