@@ -115,7 +115,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                <h4 class="modal-title">Trend results <button class="btn btn-primary download-table-btn">Download</button></h4>
+                <h4 class="modal-title">Trend results <i id="trendResultHelp" class="fa fa-question-circle"></i> <button class="btn btn-primary download-table-btn">Download <i class="fa fa-cloud-download"></i></button></h4>
+            </div>
+            <div id="trendResultsHelpBox">
+                Table for trend results help goes here.
             </div>
             <div class="modal-body">
                 <div id="tableDiv">Loading...</div>
@@ -187,6 +190,7 @@
                     <li role="presentation"><a id="learnMoreTab" href="#learnMoreTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Learn More</a></li>
                     <li role="presentation"><a id="partnerTab" href="#partnerTabPane" data-toggle="tab"><i class="fa fa-id-card-o"></i>&nbsp;Partner Agencies</a></li>
                     <li role="presentation"><a id="waterResourcesTab" href="#waterResourcesTabPane" data-toggle="tab"><i class="fa fa-tint"></i>&nbsp;Other Resources</a></li>
+                    <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-check-circle-o"></i>&nbsp;Disclaimer</a></li>
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="aboutTabPane">
@@ -313,6 +317,10 @@
                         <h6 style="text-align: center;"><b>Contributing monitoring organizations</b></h6>
                         <p style="font-size: 11pt;">Alabama Department of Environmental Management &#8226; Arkansas Department of Environmental Quality &#8226; California Department of Water Resources &#8226; California Regional Water Board, Region 5, Total Maximum Daily Load &#8226; California Regional Water Quality Control Board &#8226; Westside San Joaquin River Watershed Coalition &#8226; The Rivers of Colorado Water Watch Network &#8226; Colorado Department of Public Health and Environment &#8226; Littleton and Englewood Wastewater Treatment Plant &#8226; Metro Waste Water Reclamation District &#8226; Summit Water Quality Committee &#8226; City of Thornton &#8226; District Department of the Environment &#8226; Delaware Department of Natural Resources and Environmental Control &#8226; Florida Department of Environmental Protection &#8226; Florida Fish and Wildlife Conservation Commission &#8226; Hillsborough County Environmental &#8226; Leon County Public Works &#8226; Loxahatchee River District &#8226; Manatee County Environmental Management Department &#8226; McGlynn Laboratories Incorporated &#8226; Northwest Florida Water Management District &#8226; Orange County Environmental Protection &#8226; Pinellas County Department of Environmental Management &#8226; Seminole County &#8226; Saint John's Water Management District &#8226; Suwannee River Water Management District &#8226; Southwest Florida Water Management District &#8226; Georgia Department of Natural Resources &#8226; Des Moines Water Works &#8226; Iowa Department of Natural Resources &#8226; Des Moines River Water Quality Network &#8226; Idaho Department of Environmental Quality &#8226; Illinois Environmental Protection Agency &#8226; Indiana Department of Environmental Management &#8226; Marion County Health Department &#8226; Wabash River Enhancement Corporation &#8226; Kansas Department of Health and Environment &#8226; Kentucky Department for Natural Resources and Environmental Protection &#8226; Louisiana Department of Environmental Quality &#8226; Maryland Department of Natural Resources &#8226; Michigan Department of Environmental Quality &#8226; Minnesota Department of Agriculture &#8226; Metropolitan Council Environmental Services &#8226; Minnesota Pollution Control Agency &#8226; Crowder College, Neosho, Missouri &#8226; Montana Department of Environmental Quality &#8226; North Carolina Department of Environment and Natural Resources &#8226; North Dakota Department of Health &#8226; Nebraska Department of Environmental Quality &#8226; New Jersey Department of Environmental Protection &#8226; Nevada Department of Conservation and Natural Resources &#8226; Community Science Institute &#8226; Ohio Environmental Protection Agency &#8226; Heidelberg University, National Center for Water Quality Research &#8226; Oklahoma Water Resources Board &#8226; Oregon Department of Environmental Quality &#8226; Oregon Klamath Tribe Research Station &#8226; Oregon, Portland Water Bureau &#8226; Pennsylvania Department of Environmental Protection &#8226; Ohio River Valley Water Sanitation Commission (ORSANCO) &#8226; South Carolina Department of Health and Environmental Control &#8226; South Dakota Department of Environmental and Natural Resources &#8226; Susquehanna River Basin Commission &#8226; Texas Commission on Environmental Quality &#8226; US Bureau of Reclamation &#8226; US Environmental Protection Agency &#8226; US Geological Survey &#8226; US National Park Service &#8226; Utah Department of Environmental Quality &#8226; Virginia Department of Environmental Quality &#8226; Washington State Department of Ecology &#8226; Wisconsin Department of Natural Resources &#8226; West Virginia Department of Environmental Protection</p>
                     </div>
+                    <div role="tabpanel" class="tab-pane" id="disclaimerTabPane">
+                        <h3>Disclaimer... </h3>
+                        <p>This is the disclaimer...</p>
+                    </div>
                 </div>
             </div>
 
@@ -338,7 +346,7 @@
             <div id="aboutModalBody" class="modal-body">
                 <ul class="nav nav-tabs" id="aboutModalTabs">
                     <li role="presentation" class="active"><a id="searchTab" href="#searchTabPane" data-toggle="tab"><i class="fa fa-search"></i>&nbsp;Search, Zoom, Print</a></li>
-                    <li role="presentation"><a id="iconTab" href="#iconTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Legend</a></li>
+                    <li role="presentation"><a id="iconTab" href="#iconTabPane" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;Legend</a></li>
                     <li role="presentation"><a id="layersTab" href="#layersTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;Map selection options</a></li>
                 </ul>
                 <div class="tab-content">
@@ -412,6 +420,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <form id="disclaimerButtons" id="disclaimer-form" class="form-inline" style="text-align:center;">
+                <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </form>
+
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id="trendResultHelpModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">Trend Results Help</h4>
+            </div>
+            <div id="trendResultHelpModalBody" class="modal-body">
+                <h4>Hello</h4>
             </div>
 
             <form id="disclaimerButtons" id="disclaimer-form" class="form-inline" style="text-align:center;">
@@ -823,6 +852,15 @@
             <!-- # closing div tag for accordion style panels -->
             <!--</div>-->
             <div class="identification pull-right">powered by  <a href="http://wim.usgs.gov/" target="_blank">WiM</a></div>
+            <div class="footer-links">
+                <a href="https://usgs.gov" target="_blank">USGS Home</a>
+                <a href="https://answers.usgs.gov" target="_blank">Contact USGS</a>
+                <a href="https://search.usgs.gov" target="_blank">Search USGS</a>
+                <a href="http://www2.usgs.gov/laws/accessibility.html" target="_blank">Accessibility</a>
+                <a href="http://www2.usgs.gov/foia/" target="_blank">FOIA</a>
+                <a href="http://www2.usgs.gov/laws/privacy.html" target="_blank">Privacy</a>
+                <a href="http://www2.usgs.gov/laws/policies_notices.html" target="_blank">Policies & Notices</a>
+            </div>
         </div>
         <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding keepit100">
             <!-- legend, associated with legend buttons. to be removed if we stick with the in-map legend toggle -->
@@ -867,6 +905,7 @@
                         </h4>
                     </div>
                     <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <small style="display: block; text-align: center; font-size: 8pt; text-transform: lowercase; color: rgba(0,0,0,0.65); font-weight: 400; padding: 5px 0;">For more information, see user guide above.</small>
                         <div id="legendDiv" class="panel-body"></div>
                     </div>
                 </div>
