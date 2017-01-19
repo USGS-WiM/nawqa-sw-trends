@@ -320,6 +320,10 @@ a.lgi-zoom:hover {
     visibility: hidden;
 }
 
+.charts-sbdown {
+    display: none;
+}
+
 option.tooltip {
     position: relative;
 }
