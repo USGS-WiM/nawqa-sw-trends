@@ -1032,6 +1032,12 @@ require([
         $('#aboutNav').click(function(){
             showAboutModal();
         });
+        $('.showUserGuide').click(function(){
+            $('#geosearchModal').modal('hide');
+            $('#aboutModal').modal('hide');
+            $('#faqModal').modal('hide');
+            $('#userGuideModal').modal('show');
+        });
         $('#userGuideNav').click(function(){
             $('#userGuideModal').modal('show');
         });
@@ -1286,7 +1292,7 @@ require([
                             "Not available" //reported confidence interval
                         ]);
                     });
-                    
+
                     $("#tableDiv").html("");
 
                     var container = document.getElementById('tableDiv');
