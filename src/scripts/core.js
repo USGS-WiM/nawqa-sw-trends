@@ -18,7 +18,7 @@ var constObj;
 
 var currentConstType = "";
 var currentSiteNo = "";
-var currentConst = "Total Phosphorous";
+var currentConst = "Total Phosphorus";
 
 require([
     'esri/arcgis/utils',
@@ -835,34 +835,34 @@ require([
                         "<b>Matched streamgage number: </b>" +  + "<br/>" +
                         "<b>Matched streamgage agency: </b>"*/);
                 } else if (layer == "pestSites") {
-                    currentSiteNo = attr["pest10yrsites.pstaid"];
+                    currentSiteNo = attr["pstaid"];
                     $("#siteInfoTabPane #charts").click(function (evt) {
                         console.log("event" + evt.toString());
-                        //<a target='_blank' href='https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" + attr["all_pest_trends_wm.period"] + "_" + attr["pest10yrsites.pstaid"] + "_FirstRun" + pname + ".pdf'>click here</a>
+                        //<a target='_blank' href='https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" + attr["period"] + "_" + attr["pstaid"] + "_FirstRun" + pname + ".pdf'>click here</a>
                     });
                     var resultDir = "";
-                    if (attr["all_pest_trends_wm.period"] == "P10") {
+                    if (attr["period"] == "P10") {
                         resultDir = "results10";
-                    } else if (attr["all_pest_trends_wm.period"] == "P20") {
+                    } else if (attr["period"] == "P20") {
                         resultDir = "results20";
                     }
-                    var pname = attr["all_pest_trends_wm.pname"];
+                    var pname = attr["pname"];
                     if (pname.length == 4) {
                         pname = "0" + pname;
                     }
-                    pestPDFs = "https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" + attr["all_pest_trends_wm.period"] + "_" + attr["pest10yrsites.pstaid"] + "_FinalRun" + pname + ".pdf";
-                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["all_pest_trends_wm.Site"] + "<br/>" +
-                        "<b>Site number: </b>" + attr["pest10yrsites.pstaid"] + "<br/>" +
+                    pestPDFs = "https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" + attr["period"] + "_" + attr["pstaid"] + "_FinalRun" + pname + ".pdf";
+                    $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["Site"] + "<br/>" +
+                        "<b>Site number: </b>" + attr["pstaid"] + "<br/>" +
                          /*"<b>State: </b>" +  + "<br/>" +*/
-                        "<b>Agency: </b>" + attr["pest10yrsites.agency"] + "<br/>" +
+                        "<b>Agency: </b>" + attr["agency"] + "<br/>" +
                         "<b>Data source: </b>NWIS<br/>" +
-                        "<b>Latitude: </b>" + attr["pest10yrsites.LAT"] + "<br/>" +
-                        "<b>Longitude: </b>" + attr["pest10yrsites.LONG_"] + "<br/>" +
-                        "<b>Drainage area: </b>" + attr["pest10yrsites.DA"] + " (km<sup>2</sup>)<br/>");
+                        "<b>Latitude: </b>" + attr["LAT"] + "<br/>" +
+                        "<b>Longitude: </b>" + attr["LONG_"] + "<br/>" +
+                        "<b>Drainage area: </b>" + attr["DA"] + " (km<sup>2</sup>)<br/>");
                         /*"<b>First run charts: </b><a target='_blank' href='https://wim.usgs.gov/sw-trends-data/pest_charts/" + resultDir + "/" +
-                            attr["all_pest_trends_wm.period"] + "_" + attr["pest10yrsites.pstaid"] + "_FinalRun" + pname + ".pdf'>click here</a><br/>"+*/
+                            attr["period"] + "_" + attr["pstaid"] + "_FinalRun" + pname + ".pdf'>click here</a><br/>"+*/
                         /*+
-                        "<b>trend pct: </b>" + attr["all_pest_trends_wm.trend_pct_yr"] + "<br/>" +
+                        "<b>trend pct: </b>" + attr["trend_pct_yr"] + "<br/>" +
                         "<b>HUC2: </b>" +  + "<br/>" +
                         "<b>HUC4: </b>" +  + "<br/>" +
                         "<b>HUC6: </b>" +  + "<br/>" +
@@ -1049,6 +1049,7 @@ require([
             } else {
                 var jossoSessionId = "";
                 $(".charts-model-loading").show();
+                $(".charts-sbdown").hide();
                 $.ajax({
                     dataType: 'json',
                     type: 'GET',
@@ -1118,6 +1119,9 @@ require([
                     },
                     error: function (error) {
                         console.log("Error processing the JSON. The error is:" + error);
+                        //add content here when science base is not allowing access
+                        $(".charts-model-loading").hide();
+                        $(".charts-sbdown").show();
                     }
                 });
                 $("#pConc").attr("src", "");
@@ -1169,11 +1173,16 @@ require([
             var pestCall = $.ajax({
                 dataType: 'json',
                 type: 'GET',
-                url: 'https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/0/query?where=pest10yrsites.pstaid+%3D+%27' + currentSiteNo + '%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=' +
-                'all_pest_trends_wm.Pesticide%2C' +
-                'all_pest_trends_wm.period%2C' +
-                'all_pest_trends_wm.likelihood%2C' +
-                'all_pest_trends_wm.trend_pct_yr' +
+                url: 'https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/0/query?where=pstaid+%3D+%27' + currentSiteNo + '%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=' +
+                'Pesticide%2C' +
+                'period%2C' +
+                'likelihood%2C' +
+                'ctndPpor%2C' +
+                'clciPpor%2C' +
+                'cuciPpor%2C' +
+                'ctndOrigPORPercentBase%2C' +
+                'clciOrigPORPercentBase%2C' +
+                'cuciOrigPORPercentBase' +
                 '&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
                 headers: {'Accept': '*/*'}
             });
@@ -1230,34 +1239,34 @@ require([
                     //handling Pesticide data
                     $.each(pestData[0].features, function (key, value) {
                         var trendPeriod = "";
-                        if (value.attributes["all_pest_trends_wm.period"] = "P10") {
+                        if (value.attributes["period"] = "P10") {
                             trendPeriod = "1992-2012";
-                        } else if (all_pest_trends_wm.period = "P10") {
+                        } else if (value.attributes["period"] = "P10") {
                             trendPeriod = "2002-2012";
                         }
-                        data2Return.push([value.attributes["all_pest_trends_wm.Pesticide"], //Constituent
+                        data2Return.push([value.attributes["Pesticide"], //Constituent
                             "Concentration (flow normalized)", //Type
                             trendPeriod, //Trend period
-                            value.attributes["all_pest_trends_wm.likelihood"].toFixed(5), //Trend likelihood
-                            (value.attributes["all_pest_trends_wm.trend_pct_yr"].toFixed(2)), //Trend, in percent
-                            "", //Lower confidence interval, in percent
-                           "", //Upper confidence interval, in percent
-                            "", //Trend, in original units
-                            "", //Lower confidence interval, in original units
-                            "", //Upper confidence interval, in original units
-                            "95 percent confidence interval" //Reported confidence interval
+                            value.attributes["likelihood"].toFixed(5), //Trend likelihood
+                            value.attributes["ctndPpor"].toFixed(2), //Trend, in percent
+                            value.attributes["clciPpor"].toFixed(2), //Lower confidence interval, in percent
+                            value.attributes["cuciPpor"].toFixed(2), //Upper confidence interval, in percent
+                            value.attributes["ctndOrigPORPercentBase"].toFixed(2), //Trend, in original units
+                            value.attributes["clciOrigPORPercentBase"].toFixed(2), //Lower confidence interval, in original units
+                            value.attributes["cuciOrigPORPercentBase"].toFixed(2), //Upper confidence interval, in original units
+                            "90 percent confidence interval" //Reported confidence interval
                         ]);
-                        data2Return.push([value.attributes["all_pest_trends_wm.Pesticide"], //Constituent
+                        data2Return.push([value.attributes["Pesticide"], //Constituent
                             "Load (flow normalized)", //Type
                             trendPeriod, //Trend period
-                            value.attributes["all_pest_trends_wm.likelihood"].toFixed(5), //Trend likelihood
-                            (value.attributes["all_pest_trends_wm.trend_pct_yr"].toFixed(2)), //Trend, in percent
-                            "", //Lower confidence interval, in percent
-                            "", //Upper confidence interval, in percent
-                            "", //Trend, in original units
-                            "", //Lower confidence interval, in original units
-                            "", //Upper confidence interval, in original units
-                            "95 percent confidence interval" //Reported confidence interval
+                            value.attributes["likelihood"].toFixed(5), //Trend likelihood
+                            value.attributes["ctndPpor"].toFixed(2), //Trend, in percent
+                            value.attributes["clciPpor"].toFixed(2), //Lower confidence interval, in percent
+                            value.attributes["cuciPpor"].toFixed(2), //Upper confidence interval, in percent
+                            value.attributes["ctndOrigPORPercentBase"].toFixed(2), //Trend, in original units
+                            value.attributes["clciOrigPORPercentBase"].toFixed(2), //Lower confidence interval, in original units
+                            value.attributes["cuciOrigPORPercentBase"].toFixed(2), //Upper confidence interval, in original units
+                            "90 percent confidence interval" //Reported confidence interval
                         ]);
                     });
 
@@ -1321,9 +1330,17 @@ require([
                             csvContent += index < data2Return.length ?  "\"" + dataString+ "\"\r\n" : dataString;
 
                         });
+                        var newData2Return = []
                         data2Return.forEach(function(infoArray, index){
 
-                            var dataString = infoArray.join(",");
+                            var dataString = ""
+                            infoArray.forEach(function(infoItem, ind) {
+                                if (ind == 0) {
+                                    dataString += "\"" + infoItem + "\"";
+                                } else {
+                                    dataString += "," + infoItem;
+                                }
+                            });
                             csvContent += index < data2Return.length ? dataString+ "\r\n" : dataString;
 
                         });
