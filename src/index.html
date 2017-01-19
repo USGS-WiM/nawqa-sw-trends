@@ -113,14 +113,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                <h4 class="modal-title">Graphs</h4>
+                <h4 class="modal-title">
+                    Graphs
+                    <div class="charts-model-loading">
+                        <img src="images/loader.gif"/>
+                    </div>
+                </h4>
             </div>
             <div class="modal-body charts-modal">
 
-                <div class="charts-model-loading">
-                    <img src="images/loader.gif"/>
-                    <span>Loading...</span>
-                </div>
+
+
 
                 <div class="charts-modal-column">
                     <h1>Monitoring Data</h1>
@@ -152,11 +155,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 <h4 class="modal-title">Trend results <i id="trendResultHelp" class="fa fa-question-circle"></i> <button class="btn btn-primary download-table-btn">Download <i class="fa fa-cloud-download"></i></button></h4>
             </div>
-            <div id="trendResultsHelpBox">
-                Table for trend results help goes here.
-            </div>
             <div class="modal-body">
-                <div id="tableDiv" style="overflow: auto; height: 500px; width: 100%;">Loading...</div>
+                <small>Hover boxes with a "?" for more information.</small>
+                <div id="tableDiv" style="overflow: auto; height: 100%; width: 100%;">Loading...</div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -223,7 +224,7 @@
                 <ul class="nav nav-tabs" id="aboutModalTabs">
                     <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About</a></li>
                     <li role="presentation"><a id="learnMoreTab" href="#learnMoreTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Learn More</a></li>
-                    <li role="presentation"><a id="partnerTab" href="#partnerTabPane" data-toggle="tab"><i class="fa fa-id-card-o"></i>&nbsp;Partner Agencies</a></li>
+                    <li role="presentation"><a id="partnerTab" href="#partnerTabPane" data-toggle="tab"><i class="fa fa-id-card-o"></i>&nbsp;Partner Organizations</a></li>
                     <li role="presentation"><a id="waterResourcesTab" href="#waterResourcesTabPane" data-toggle="tab"><i class="fa fa-tint"></i>&nbsp;Other Resources</a></li>
                     <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-check-circle-o"></i>&nbsp;Disclaimer</a></li>
                 </ul>
@@ -231,7 +232,7 @@
                     <div role="tabpanel" class="tab-pane active" id="aboutTabPane">
                         <div class="abouttab-inner">
                             <div class="image">
-                                <img src="images/about_photo.png" class="fullsize"/>
+                                <img src="images/about_photo.png"/>
                             </div>
                             <p>
                                 This mapper provides results from the largest-ever assessment of water-quality changes in the Nation's streams and rivers. More than 185 million water-quality records from over 600 Federal, State, Tribal, and local organizations were screened as part of this assessment.
@@ -249,7 +250,7 @@
                         <p>Since passage of the Clean Water Act in 1972, Federal, State, and local governments have invested billions of dollars to reduce pollution entering streams and rivers. In order to understand the return on these investments, and to more effectively manage and protect the Nation's water resources in the future, we need to know: Has water quality has been changing over time?</p>
                         <p>Answering that question is one of the major goals of the U.S. Geological Survey's (USGS) National Water-Quality Assessment project. To support that goal, they have conducted long-term consistent and comparable monitoring on streams and rivers throughout the Nation since 1992. Other USGS programs, as well as many other Federal, State, regional, and local monitoring organizations, also have collected long-term water-quality data to support their own assessments of changing water- quality conditions. For the first time, data from these organizations have been aggregated, screened, standardized, and used to support the most comprehensive assessment of stream-quality trends conducted to date in the United States. Collectively, these trend results will be used to provide insight into how natural features and human activities have contributed to water-quality changes over time in the Nation's streams and rivers.</p>
                         <p>Trends in water quality and aquatic ecology were evaluated for four time periods: 1972-2012, 1982- 2012, 1992-2012, and 2002-2012. Trends in the water-quality constituents were evaluated for both concentration and load. Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time.</p>
-                        <p>All of the water-quality and aquatic-ecology trends reported in this mapper are normalized for climatic variability. The specific terminology for the water-quality trends is “flow normalized”.</p>
+                        <p>All of the water-quality and aquatic-ecology trends reported in this mapper are normalized for climatic variability. The specific terminology for the water-quality trends is "flow normalized".</p>
                         <br/><p>The water-quality constituents included in the analysis were:</p>
                         <p><small>[mg/L, milligrams per liter. kg/year, kilograms per year; μmohs/cm, micromhos per centimeter; N, nitrogen; P, phosphorus; CaCO 3 , calcium carbonate; S, sulfate.]</small></p>
 
@@ -298,7 +299,7 @@
                         <div class="learn-more-aquatic-row"><span>InvertDO/Temp</span><span>Average community tolerance to dissolved oxygen and temperature</span></div>
                         <div class="learn-more-aquatic-row"><span>InvertSusSec</span><span>Average community tolerance to suspended sediment</span></div>
                         <div class="learn-more-aquatic-row"><span>InvertFines</span><span>Average community tolerance to fine sediment </span></div>
-                        <h5 style="text-align: center;"><b>Diatoms</b></h5>
+                        <h5 style="text-align: center;"><b>Algae (Diatoms)</b></h5>
                         <h6 style="text-align: center;"><b>Community composition</b></h6>
                         <div class="learn-more-aquatic-row"><span>DiaRich</span><span>The total number of different diatom taxa</span></div>
                         <div class="learn-more-aquatic-row"><span>DiaDiv</span><span>Shannon Weaver diversity</span></div>
@@ -313,7 +314,6 @@
                         <div class="learn-more-aquatic-row"><span>DiaLowTP</span><span>The number of taxa having a total phosphorus optima of less than or equal to 10 µ L-1</span></div>
                         <div class="learn-more-aquatic-row"><span>DiaHighTP</span><span>The number of taxa having a total phosphorus optima of more than or equal to 100 µ L-1</span></div>
                         <div class="learn-more-aquatic-row"><span>DiaHighMot</span><span>The number of taxa that are considered highly motile (mobile) distinguished by the presence of an extensive raphe and/or are large in size</span></div>
-                        <p>Trends in the water-quality constituents were evaluated for both concentration and load. Concentration is the amount of the constituent in the stream.  Load is the mass of the constituent transported past the sampling point in a stream during a period of time.  All of the water-quality and aquatic ecology trends reported in this mapper are normalized for climatic variability.  The specific terminology for the water-quality trends is 'flow normalized'.  (insert link to relevant FAQ here)</p>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="waterResourcesTabPane">
                         <h3>Other Resources</h3>
@@ -889,8 +889,8 @@
 
             <!-- # closing div tag for accordion style panels -->
             <!--</div>-->
-            <div class="identification pull-right">powered by  <a href="http://wim.usgs.gov/" target="_blank">WiM</a></div>
             <div class="footer-links">
+                <div class="identification"><a href="http://wim.usgs.gov/" target="_blank">Powered by WiM</a></div>
                 <a href="https://usgs.gov" target="_blank">USGS Home</a>
                 <a href="https://answers.usgs.gov" target="_blank">Contact USGS</a>
                 <a href="https://search.usgs.gov" target="_blank">Search USGS</a>
