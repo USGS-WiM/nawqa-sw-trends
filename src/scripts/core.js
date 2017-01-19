@@ -12,7 +12,7 @@ var maxLegendHeight;
 var maxLegendDivHeight;
 var printCount = 0;
 var dragInfoWindows = true;
-var defaultMapCenter = [-95.6, 38.6];
+var defaultMapCenter = [-94.106, 35.729];
 
 var constObj;
 
@@ -290,6 +290,10 @@ require([
         $('#printModal').modal('show');
     }
 
+    map.on('extent-change', function(event) {
+        //alert(event);
+    });
+
     $('#printNavButton').click(function(){
         var trendPeriodVal = $("input:radio[name='trendPeriod']:checked").val();
 
@@ -309,10 +313,41 @@ require([
             return letter.toUpperCase();
         });
 
-        var printTitle = trendTypeVal + " trend results for " + currentConst + " in surface water for " + trendPeriod + "-2012";
+        var printTitle = getPrintTitle();
         $("#printTitle").text(printTitle);
         showPrintModal();
     });
+
+    function getPrintTitle() {
+        var printTitle = ""
+
+        var trendPeriodVal = $("input:radio[name='trendPeriod']:checked").val();
+
+        var trendPeriod = "";
+        if (trendPeriodVal == "P10") {
+            trendPeriod = "2002";
+        } else if (trendPeriodVal == "P20") {
+            trendPeriod = "1992";
+        } else if (trendPeriodVal == "P30") {
+            trendPeriod = "1982";
+        } else if (trendPeriodVal == "P40") {
+            trendPeriod = "1972";
+        }
+
+        var trendTypeVal = $('input[name=trendType]:checked').val();
+        trendTypeVal = trendTypeVal.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+            return letter.toUpperCase();
+        });
+
+        var selectVal = $("#typeSelect")[0].value;
+        if (selectVal == "Pesticides" || selectVal == "Nutrients" || selectVal == "Carbon" || selectVal == "Major ions" || selectVal == "Salinity" || selectVal == "Sediment") {
+            printTitle = trendTypeVal + " trend results (flow normalized) for " + currentConst + " in surface water for " + trendPeriod + "-2012";
+        } else if (selectVal == "Algae" || selectVal == "Fish" || selectVal == "Macroinvertebrates") {
+            printTitle = "Trend results (flow normalized) for " + currentConst + " in surface water for " + trendPeriod + "-2012";
+        }
+
+        return printTitle;
+    }
 
     var layers_all = ["pestSites","ecoSites","wrtdsSites","wrtdsFluxSites"];
 
@@ -854,7 +889,7 @@ require([
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["Site"] + "<br/>" +
                         "<b>Site number: </b>" + attr["pstaid"] + "<br/>" +
                          /*"<b>State: </b>" +  + "<br/>" +*/
-                        "<b>Agency: </b>" + attr["agency"] + "<br/>" +
+                        "<b>Agency: </b>USGS<br/>" +
                         "<b>Data source: </b>NWIS<br/>" +
                         "<b>Latitude: </b>" + attr["LAT"] + "<br/>" +
                         "<b>Longitude: </b>" + attr["LONG_"] + "<br/>" +
@@ -1213,7 +1248,7 @@ require([
                         data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
                             "Concentration (flow normalized)", //Type
                             trendYear+"-2012", //Trend period
-                            value.attributes["wrtds_trends_wm_new.likeC"].toFixed(5), //Trend likelihood
+                            Math.abs(value.attributes["wrtds_trends_wm_new.likeC"].toFixed(5)), //Trend likelihood
                             value.attributes["wrtds_trends_wm_new.trend_pct_C"].toFixed(2), //Trend, in percent
                             value.attributes["wrtds_trends_wm_new.low_int_C"].toFixed(2), //Lower confidence interval, in percent
                             value.attributes["wrtds_trends_wm_new.up_int_C"].toFixed(2), //Upper confidence interval, in percent
@@ -1225,7 +1260,7 @@ require([
                         data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
                             "Load (flow normalized)", //Type
                             trendYear+"-2012", //Trend period
-                            value.attributes["wrtds_trends_wm_new.likeF"].toFixed(5), //Trend likelihood
+                            Math.abs(value.attributes["wrtds_trends_wm_new.likeF"].toFixed(5)), //Trend likelihood
                             value.attributes["wrtds_trends_wm_new.trend_pct_F"].toFixed(2),//Trend, in percent
                             value.attributes["wrtds_trends_wm_new.low_int_F"].toFixed(2), //Lower confidence interval, in percent
                             value.attributes["wrtds_trends_wm_new.up_int_F"].toFixed(2), //Upper confidence interval, in percent
@@ -1247,7 +1282,7 @@ require([
                         data2Return.push([value.attributes["Pesticide"], //Constituent
                             "Concentration (flow normalized)", //Type
                             trendPeriod, //Trend period
-                            value.attributes["likelihood"].toFixed(5), //Trend likelihood
+                            Math.abs(value.attributes["likelihood"].toFixed(5)), //Trend likelihood
                             value.attributes["ctndPpor"].toFixed(2), //Trend, in percent
                             value.attributes["clciPpor"].toFixed(2), //Lower confidence interval, in percent
                             value.attributes["cuciPpor"].toFixed(2), //Upper confidence interval, in percent
@@ -1259,7 +1294,7 @@ require([
                         data2Return.push([value.attributes["Pesticide"], //Constituent
                             "Load (flow normalized)", //Type
                             trendPeriod, //Trend period
-                            value.attributes["likelihood"].toFixed(5), //Trend likelihood
+                            Math.abs(value.attributes["likelihood"].toFixed(5)), //Trend likelihood
                             value.attributes["ctndPpor"].toFixed(2), //Trend, in percent
                             value.attributes["clciPpor"].toFixed(2), //Lower confidence interval, in percent
                             value.attributes["cuciPpor"].toFixed(2), //Upper confidence interval, in percent
@@ -1274,15 +1309,15 @@ require([
                     $.each(ecoData[0].features, function (key, value) {
                         data2Return.push([
                             value.attributes["code_desc"], //Constituent... used to be EcoTrendResults_y
-                            "Metric (climate normalized)", //Type
+                            "Metric (flow normalized)", //Type
                             trendPeriodFixer(value.attributes["EcoTrendResults_firstYear"])+"-2012", //Trend period
-                            value.attributes["EcoTrendResults_likelihood"].toFixed(5), //Trend likelihood
+                            Math.abs(value.attributes["EcoTrendResults_likelihood"].toFixed(5)), //Trend likelihood
                             value.attributes["EcoTrendResults_Per_ChangeR"].toFixed(2), //trend, in percent
-                            "n/a", //lower confidence interval, in percent
-                            "n/a", //upper confidence interval, in percent
+                            "Not available", //lower confidence interval, in percent
+                            "Not available", //upper confidence interval, in percent
                             value.attributes["trend_orig_period"].toFixed(2), //trend, in original units
-                            "n/a", //lower confidence interval, orig units
-                            "n/a", //upper confidence interval, orig units,
+                            "Not available", //lower confidence interval, orig units
+                            "Not available", //upper confidence interval, orig units,
                             "Not available" //reported confidence interval
                         ]);
                     });
@@ -1347,7 +1382,7 @@ require([
                         var encodedUri = encodeURI(csvContent);
                         var link = document.createElement("a");
                         link.setAttribute("href", encodedUri);
-                        link.setAttribute("download", "trend_results.csv");
+                        link.setAttribute("download", currentSiteNo + "_trend_results.csv");
                         document.body.appendChild(link); // Required for FF
                         link.click();
                     });
@@ -1462,30 +1497,12 @@ require([
         var legendLayers = [];
         //legendLayers.push(trendsLegendLayer);
 
-        var trendPeriodVal = $("input:radio[name='trendPeriod']:checked").val();
-
-        var trendPeriod = "";
-        if (trendPeriodVal == "P10") {
-            trendPeriod = "2002";
-        } else if (trendPeriodVal == "P20") {
-            trendPeriod = "1992";
-        } else if (trendPeriodVal == "P30") {
-            trendPeriod = "1982";
-        } else if (trendPeriodVal == "P40") {
-            trendPeriod = "1972";
-        }
-
-        var trendTypeVal = $('input[name=trendType]:checked').val();
-        trendTypeVal = trendTypeVal.toLowerCase().replace(/\b[a-z]/g, function(letter) {
-            return letter.toUpperCase();
-        });
-
-        var printTitle = trendTypeVal + " trend results for " + currentConst + " in surface water for " + trendPeriod + "-2012";
+        var printTitle = getPrintTitle();
 
         template.layoutOptions = {
             "titleText": printTitle,
             "authorText" : "NAWQA",
-            "copyrightText": "This page was produced by the nawqa-sw-trends mapper",
+            "copyrightText": "This page was produced by the nawqa surface water trends mapper",
             "legendLayers": legendLayers
         }
 
