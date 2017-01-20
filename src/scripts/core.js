@@ -907,10 +907,16 @@ require([
                         "<b>Matched streamgage agency: </b>"*/
                 } else if (layer == "wrtdsSites" || layer == "wrtdsFluxSites") {
                     currentSiteNo = attr["wrtds_sites.Site_no"];
+                    var agency = "";
+                    if (attr["wrtds_trends_wm_new.agency_2_full"] == null) {
+                        agency = attr["wrtds_trends_wm_new.agency_1_full"]
+                    } else {
+                        agency = attr["wrtds_trends_wm_new.agency_1_full"] + "/" + attr["wrtds_trends_wm_new.agency_2_full"];
+                    }
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr["wrtds_sites.Station_nm"] + "<br/>" +
                         "<b>Site number: </b>" + attr["wrtds_sites.Site_no"] + "<br/>" +
                         "<b>State: </b>" + attr["wrtds_sites.staAbbrev"] + "<br/>" +
-                        "<b>Agency: </b>" + attr["wrtds_trends_wm_new.agency_1_full"] + "<br/>" +
+                        "<b>Agency: </b>" + agency + "<br/>" +
                         "<b>Data source: </b>" + attr["wrtds_sites.db_source"] + "<br/>" +
                         "<b>Latitude: </b>" + attr["wrtds_sites.dec_lat_va"] + "<br/>" +
                         "<b>Longitude: </b>" + attr["wrtds_sites.dec_long_va"] + "<br/>" +
