@@ -872,6 +872,7 @@ input[type="checkbox"], input[type="radio"] {
 
 /*Data table header hover for more info*/
 .htCore th{
+
 }
 .htCore th:after{
     content: 'hello';
@@ -900,38 +901,38 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .htCore th:nth-child(1):after,
-.htCore th:nth-child(3):after,
-.htCore th:nth-child(6):after,
-.htCore th:nth-child(11):after{
+.htCore th:nth-child(3):after{
     display: none;
 }
 .htCore th:nth-child(2):after{
-    content: "Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time. A metric is an index calculated to represent a specific characteristic of aquatic communities. Changes over time in water-quality concentration and load and changes in aquatic ecology-metrics can be strongly influenced by random and systematic variations in streamflow. Flow normalization removes the variation in concentration, load, or metric that is due to variations in streamflow. Changes over time in aquatic ecology metrics can also be strongly influenced by random and systematic variations in air temperature. As a result, concentration and load trends are flow normalized; aquatic ecology trends are climate normalized (normalized for flow and(or) air temperature). See FAQ #12 for more information.";
+    content: "Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time. A metric is an index calculated to represent a specific characteristic of aquatic communities. Changes over time in water-quality concentration and load and changes in aquatic ecology-metrics can be strongly influenced by random and systematic variations in streamflow. Flow normalization removes the variation in concentration, load, or metric that is due to variations in streamflow. As a result, concentration and load trends are flow normalized and aquatic ecology metric trends are flow normalized. See FAQ #17 for more information.";
 }
 .htCore th:nth-child(4):after{
-    content: 'The likelihood-based approach is used as an alternative to the null-hypothesis significance testing approach that is often used when reporting water-quality trends. See FAQ #13 for more information. (provide a hyperlink here if it makes sense)';
+    content: 'The likelihood-based approach is used as an alternative to the null-hypothesis significance testing approach that is often used when reporting water-quality trends. See FAQ #18 for more information.';
 }
 .htCore th:nth-child(8):after{
-    content: 'The original units for each constituent and type are shown in the "Learn More" popup. Trends are reported for the full trend period. They are not reported on a per year basis.';
+    content: 'The original units for each constituent and type can be found in About -> Learn More. Trends are reported for the full tend period. They are not reported on a per year basis.';
 }
-.htCore th:nth-child(7):after,
-.htCore th:nth-child(9):after{
-    content: 'The original units for each constituent and type are shown in the "Learn More" popup.';
+.htCore th:nth-child(7):after{
+    content: 'A confidence interval is the interval that contains the true trend with the given likelihood. For example, for a 90% confidence interval, we can say we are 90% confident that the true trend is in the reported confidence interval, or that 90% of the hypothetically observed confidence intervals will hold the true trend.';
 }
-.htCore th:nth-child(10):after{
+.htCore th:nth-child(6):after,
+.htCore th:nth-child(9):after,
+.htCore th:nth-child(10):after,
+.htCore th:nth-child(11):after{
     content: 'A confidence interval is the interval that contains the true trend with the given likelihood. For example, for a 90% confidence interval, we can say we are 90% confident that the true trend is in the reported confidence interval, or that 90% of the hypothetically observed confidence intervals will hold the true trend.';
 }
 .htCore th:nth-child(5):after{
     content: 'Trends are reported for the full trend period. They are not reported on a per year basis.';
 }
 
-.htCore th:before{
+.htCore th .relative:before{
     content: '?';
     display: block;
     padding-left: 5px;
-    position: absolute;
-    bottom: 5px;
     width: 100%;
+    position: absolute;
+    top: 90px;
     background-color: rgba(0,0,0,0.5);
     color: white;
     width: 15px;
@@ -944,9 +945,7 @@ input[type="checkbox"], input[type="radio"] {
     padding-bottom: 5px;
     margin-left: 5px;
 }
-.htCore th:nth-child(1):before,
-.htCore th:nth-child(3):before,
-.htCore th:nth-child(6):before,
-.htCore th:nth-child(11):before{
+.htCore th:nth-child(1) .relative:before,
+.htCore th:nth-child(3) .relative:before{
     display: none;
 }
