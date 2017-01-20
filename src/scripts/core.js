@@ -853,15 +853,15 @@ require([
 
 
                 if (layer == "ecoSites") {
-                    currentSiteNo = attr.EcoSiteSummary_no_headers_csv_Ecology_site_ID;
+                    currentSiteNo = attr.EcoTrendResults_EcoSiteID;
                     $("#siteInfoTabPane").append("<br/><b>Site name: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_name + "<br/>" +
-                        "<b>Site number: </b>" + attr.EcoSiteSummary_no_headers_csv_Ecology_site_ID + "<br/>" +
+                        "<b>Site number: </b>" + attr.EcoTrendResults_EcoSiteID + "<br/>" +
                         /*"<b>State: </b>" +  + "<br/>" +*/
                         "<b>Agency: </b>USGS<br/>" +
                         "<b>Data source: </b>BioData<br/>" +
                         "<b>Latitude: </b>" + attr.EcoSiteSummary_no_headers_csv_LatDD + "<br/>" +
-                        "<b>Longitude: </b>" + attr.EcoSiteSummary_no_headers_csv_LngDD + "<br/>"/* +
-                        "<b>Drainage area: </b>" +  + "<br/>" +
+                        "<b>Longitude: </b>" + attr.EcoSiteSummary_no_headers_csv_LngDD + "<br/>" +
+                        "<b>Drainage area: </b>" + attr.DA + "<br/>"/* +
                         "<b>HUC2: </b>" +  + "<br/>" +
                         "<b>HUC4: </b>" +  + "<br/>" +
                         "<b>HUC6: </b>" +  + "<br/>" +
