@@ -861,7 +861,7 @@ require([
                         "<b>Data source: </b>BioData<br/>" +
                         "<b>Latitude: </b>" + attr.EcoSiteSummary_no_headers_csv_LatDD + "<br/>" +
                         "<b>Longitude: </b>" + attr.EcoSiteSummary_no_headers_csv_LngDD + "<br/>" +
-                        "<b>Drainage area: </b>" + attr.DA + "<br/>"/* +
+                        "<b>Drainage area: </b>" + attr.DA + " (km<sup>2</sup>)<br/>"/* +
                         "<b>HUC2: </b>" +  + "<br/>" +
                         "<b>HUC4: </b>" +  + "<br/>" +
                         "<b>HUC6: </b>" +  + "<br/>" +
