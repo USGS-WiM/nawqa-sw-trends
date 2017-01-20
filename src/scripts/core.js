@@ -1383,8 +1383,7 @@ require([
                         sortIndicator: true
                     })
 
-                    $(".download-table-btn").on('click', function(event) {
-                        console.log('clicked');
+                    var tableDownloadClick = $(".download-table-btn").on('click', function(event) {
                         var csvContent = "data:text/csv;charset=utf-8,";
                         var colHeaders = [];
                         colHeadersforCSV.forEach(function(infoArray, index){
@@ -1413,6 +1412,9 @@ require([
                         link.setAttribute("download", currentSiteNo + "_trend_results.csv");
                         document.body.appendChild(link); // Required for FF
                         link.click();
+                        $('.table-close').click(function() {
+                            tableDownloadClick.off();
+                        });
                     });
                 })
                 .fail(function() {
