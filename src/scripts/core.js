@@ -914,7 +914,7 @@ require([
                         "<b>Data source: </b>" + attr["wrtds_sites.db_source"] + "<br/>" +
                         "<b>Latitude: </b>" + attr["wrtds_sites.dec_lat_va"] + "<br/>" +
                         "<b>Longitude: </b>" + attr["wrtds_sites.dec_long_va"] + "<br/>" +
-                        "<b>Drainage area: </b>" + attr["wrtds_sites.drainSqKm"] + " (km<sup>2</sup>)<br/>"
+                        "<b>Drainage area: </b>" + attr["wrtds_trends_wm_new.DA"] + " (km<sup>2</sup>)<br/>"
                         /*"<b>HUC2: </b>" +  + "<br/>" +
                         "<b>HUC4: </b>" +  + "<br/>" +
                         "<b>HUC6: </b>" +  + "<br/>" +
@@ -1343,7 +1343,7 @@ require([
                             value.attributes["EcoTrendResults_Per_ChangeR"].toFixed(2), //trend, in percent
                             "Not available", //lower confidence interval, in percent
                             "Not available", //upper confidence interval, in percent
-                            value.attributes["trend_orig_period"].toFixed(2), //trend, in original units
+                            "Not available", //trend, in original units
                             "Not available", //lower confidence interval, orig units
                             "Not available", //upper confidence interval, orig units,
                             "Not available" //reported confidence interval
