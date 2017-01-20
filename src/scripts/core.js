@@ -1067,14 +1067,36 @@ require([
         $('#aboutNav').click(function(){
             showAboutModal();
         });
+
+        // Show User Guide
         $('.showUserGuide').click(function(){
+            $('#searchTab').trigger('click');
             $('#geosearchModal').modal('hide');
             $('#aboutModal').modal('hide');
             $('#faqModal').modal('hide');
             $('#userGuideModal').modal('show');
         });
+        // Show User Guide tab2
+        $('.showUserGuide2').click(function(){
+            $('#geosearchModal').modal('hide');
+            $('#aboutModal').modal('hide');
+            $('#faqModal').modal('hide');
+            $('#userGuideModal').modal('show');
+            $('#iconTab').trigger('click');
+            console.log("Opening tab 2 user guide");
+        });
+        // Show User Guide tab3
+        $('.showUserGuide3').click(function(){
+            $('#geosearchModal').modal('hide');
+            $('#aboutModal').modal('hide');
+            $('#faqModal').modal('hide');
+            $('#userGuideModal').modal('show');
+            console.log("Opening tab 3 user guide");
+            $('#layersTab').trigger('click');
+        });
         $('#userGuideNav').click(function(){
             $('#userGuideModal').modal('show');
+            $('#searchTab').trigger('click');
         });
         $('#trendResultHelp').click(function(){
             $('#trendResultsHelpBox').slideToggle(200);
