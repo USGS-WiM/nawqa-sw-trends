@@ -1321,7 +1321,7 @@ require([
                             value.attributes["EcoTrendResults_Per_ChangeR"].toFixed(2), //trend, in percent
                             "Not available", //lower confidence interval, in percent
                             "Not available", //upper confidence interval, in percent
-                            value.attributes["trend_orig_period"].toFixed(2), //trend, in original units
+                            "Not available", //trend, in original units
                             "Not available", //lower confidence interval, orig units
                             "Not available", //upper confidence interval, orig units,
                             "Not available" //reported confidence interval
