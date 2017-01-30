@@ -1251,7 +1251,13 @@ require([
                 'cuciPpor%2C' +
                 'ctndOrigPORPercentBase%2C' +
                 'clciOrigPORPercentBase%2C' +
-                'cuciOrigPORPercentBase' +
+                'cuciOrigPORPercentBase%2C' +
+                'ltndPpor%2C' +
+                'luciPpor%2C' +
+                'llciPpor%2C' +
+                'ltndOrigPORPercentBase%2C' +
+                'luciOrigPORPercentBase%2C' +
+                'llciOrigPORPercentBase' +
                 '&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
                 headers: {'Accept': '*/*'}
             });
@@ -1308,7 +1314,7 @@ require([
                     //handling Pesticide data
                     $.each(pestData[0].features, function (key, value) {
                         var trendPeriod = "";
-                        if (value.attributes["period"] = "P10") {
+                        if (value.attributes["period"] = "P20") {
                             trendPeriod = "1992-2012";
                         } else if (value.attributes["period"] = "P10") {
                             trendPeriod = "2002-2012";
@@ -1329,12 +1335,12 @@ require([
                             "Load (flow normalized)", //Type
                             trendPeriod, //Trend period
                             Math.abs(value.attributes["likelihood"].toFixed(5)), //Trend likelihood
-                            value.attributes["ctndPpor"].toFixed(2), //Trend, in percent
-                            value.attributes["clciPpor"].toFixed(2), //Lower confidence interval, in percent
-                            value.attributes["cuciPpor"].toFixed(2), //Upper confidence interval, in percent
-                            value.attributes["ctndOrigPORPercentBase"].toFixed(2), //Trend, in original units
-                            value.attributes["clciOrigPORPercentBase"].toFixed(2), //Lower confidence interval, in original units
-                            value.attributes["cuciOrigPORPercentBase"].toFixed(2), //Upper confidence interval, in original units
+                            value.attributes["ltndPpor"].toFixed(2), //Trend, in percent
+                            value.attributes["llciPpor"].toFixed(2), //Lower confidence interval, in percent
+                            value.attributes["luciPpor"].toFixed(2), //Upper confidence interval, in percent
+                            value.attributes["ltndOrigPORPercentBase"].toFixed(2), //Trend, in original units
+                            value.attributes["llciOrigPORPercentBase"].toFixed(2), //Lower confidence interval, in original units
+                            value.attributes["luciOrigPORPercentBase"].toFixed(2), //Upper confidence interval, in original units
                             "90 percent confidence interval" //Reported confidence interval
                         ]);
                     });
