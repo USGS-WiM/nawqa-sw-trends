@@ -124,7 +124,7 @@ require([
                         "id": "wrtdsFluxSites",
                         "opacity": 1.00,
                         "mode": FeatureLayer.MODE_SNAPSHOT,
-                        "outFields": ["wrtds_sites.Station_nm","wrtds_sites.Site_no","wrtds_sites.staAbbrev","wrtds_sites.agency1","wrtds_trends_wm_new.agency_1_full","wrtds_sites.db_source","wrtds_sites.dec_lat_va","wrtds_sites.dec_long_va","wrtds_sites.drainSqKm","wrtds_sites.huc_cd"],
+                        "outFields": ["wrtds_sites.Station_nm","wrtds_sites.Site_no","wrtds_sites.staAbbrev","wrtds_sites.agency1","wrtds_trends_wm_new.agency_1_full","wrtds_trends_wm_new.agency_2_full","wrtds_sites.db_source","wrtds_sites.dec_lat_va","wrtds_sites.dec_long_va","wrtds_sites.drainSqKm","wrtds_sites.huc_cd","wrtds_trends_wm_new.DA"],
                         "visible": false
                     },
                     "wimOptions": {
@@ -136,7 +136,7 @@ require([
                     }
                 },
                 "2012": {
-                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
                     "options": {
                         "id": "lu2012",
                         "opacity": 0.5,
@@ -152,7 +152,7 @@ require([
                     }
                 },
                 "2002": {
-                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2002_100515_test/ImageServer",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2002_100515_test/ImageServer",
                     "options": {
                         "id": "lu2002",
                         "opacity": 0.5,
@@ -168,7 +168,7 @@ require([
                     }
                 },
                 "1992": {
-                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1992_100515_test/ImageServer",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1992_100515_test/ImageServer",
                     "options": {
                         "id": "lu1992",
                         "opacity": 0.5,
@@ -184,7 +184,7 @@ require([
                     }
                 },
                 "1982": {
-                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1982_100515_test/ImageServer",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1982_100515_test/ImageServer",
                     "options": {
                         "id": "lu1982",
                         "opacity": 0.5,
@@ -200,7 +200,7 @@ require([
                     }
                 },
                 "1974": {
-                    "url": "http://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1974_100515_test/ImageServer",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1974_100515_test/ImageServer",
                     "options": {
                         "id": "lu1974",
                         "opacity": 0.5,
