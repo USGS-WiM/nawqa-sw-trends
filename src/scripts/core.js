@@ -598,7 +598,7 @@ require([
             var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + selectVal + "%" + trendPeriod + "%' OR wrtds_trends_wm_new.id_unique LIKE '%" + selectVal + "%" + trendPeriod2 + "%'";
             layer.setDefinitionExpression(expression);
         }
-
+        //comment for commit
     });
 
     $(".trendType").on("change", function(event) {
