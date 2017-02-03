@@ -19,6 +19,8 @@ var constObj;
 var currentConstType = "";
 var currentSiteNo = "";
 var currentConst = "Total Phosphorus";
+var currentLayer = "wrtdsSites";
+
 
 require([
     'esri/arcgis/utils',
@@ -781,7 +783,6 @@ require([
         map.graphics.clear();
     });
 
-    var currentLayer = "";
     var pestPDFs = "";
 
     map.on('layer-add', function (evt) {
@@ -790,18 +791,17 @@ require([
 
         if (layer == "pestSites" || layer == "wrtdsSites" || layer == "ecoSites" || layer == "wrtdsFluxSites") {
 
+            /*var layerUpdate = on(map.getLayer(layer), 'update-end', function(evt) {
+                if (layer != currentLayer) {
+                    currentLayer = layer;
+                    alert(layer);
+                }
+            });*/
+
             if (layer == "wrtdsSites") {
                 var graphics = map.getLayer("wrtdsSites").graphics;
-                /*var layerUpdate = on(map.getLayer("wrtdsSites"), 'update-end', function(evt) {
-                    if (graphics.length > 0) {
-                        var currentExtent = graphicsUtils.graphicsExtent(graphics);
-                        map.setExtent(currentExtent, true);
-                        layerUpdate.remove();
-                    }
-                });*/
                 map.getLayer("wrtdsSites").setDefinitionExpression("wrtds_trends_wm_new.id_unique LIKE '%Total Phosphorus%2002' OR wrtds_trends_wm_new.id_unique LIKE '%Total Phosphorus%2003'");
                 map.getLayer("wrtdsSites").setVisibility(true);
-
             }
 
             map.getLayer(layer).on('click', function (evt) {
