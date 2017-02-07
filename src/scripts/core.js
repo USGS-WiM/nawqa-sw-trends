@@ -1540,6 +1540,7 @@ require([
         $('#faq24header').click(function(){$('#faq24body').slideToggle(250);});
         $('#faq25header').click(function(){$('#faq25body').slideToggle(250);});
         $('#faq26header').click(function(){$('#faq26body').slideToggle(250);});
+        $('#faq27header').click(function(){$('#faq27body').slideToggle(250);});
 
         $('.fullsize').click(function(){
             var data = "<img src='"+$(this).attr('src')+"'/>";
