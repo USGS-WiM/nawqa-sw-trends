@@ -7,19 +7,19 @@
 
     <link rel="stylesheet" href="styles/vendor.css">
     <!-- CSS for the mapping components -->
-    <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.13/esri/css/esri.css">
 
     <link rel="stylesheet" href="styles/main.css">
     <!-- <link rel="stylesheet" href="styles/base.css"> -->
     <link rel="stylesheet" href="styles/base.css">
 
-    <link rel="shortcut icon" id="favicon" type="image/ico" href="https://wim.usgs.gov/favicon-wim.png" />
+    <link rel="shortcut icon" id="favicon" type="image/ico" href="images/favicon-dark.png" />
 
     <script src="scripts/vendor.js"></script>
 
     <script src="scripts/handsontable.js"></script>
 
-    <script src="http://js.arcgis.com/3.13/"></script>
+    <script src="https://js.arcgis.com/3.13/"></script>
 
 
     <script src="scripts/combined.js"></script>
@@ -32,13 +32,17 @@
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-89532587-2', 'auto');
+    ga('create', 'UA-61219868-19', 'auto');
     ga('send', 'pageview');
 
     </script>
 
 </head>
 <body>
+
+<div class="alert-box">
+  <b>No sites are available for this constituent and trend period. Please select another option.</b>
+</div>
 
 <div id="navbar" class="navbar navbar-static navbar-default navbar-fixed-top navbar-dark">
     <div class="container-fluid">
@@ -48,7 +52,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://usgs.gov">
+            <a class="navbar-brand" href="https://usgs.gov">
                 <span>
                     <img alt="USGS logo" height="38px" src="images/USGS_ID_white.png">
                     <span class='hidden-xs header-longtitle'>
@@ -220,7 +224,7 @@
                                 <br/><br/>
                                 Tracking changes in stream quality and investigating the reasons for these changes is crucial for informing management decisions to protect and sustain our valuable water resources.
                                 <br/><br/>
-                                The mapper shows stream trends in water chemistry (nutrients, pesticides, sediment, carbon, and salinity) and aquatic ecology (fish, macroinvertebrates, and algae) for four time periods: 1972-2012, 1982-2012, 1992-2012, and 2002-2012.
+                                The mapper shows stream trends in water chemistry (nutrients, pesticides, sediment, carbon, and salinity) and aquatic ecology (fish, invertebrates, and algae) for four time periods: 1972-2012, 1982-2012, 1992-2012, and 2002-2012.
                                 <br/><br/>
                                 <small><b>LEFT:</b> U.S. Geological Survey hydrologic technician Jeffrey Foster collecting a water-quality sample from the Colorado River near the Colorado-Utah state line. Photograph by Nancy Bauch with the U.S. Geological Survey.</small>
                             </p>
@@ -233,12 +237,14 @@
                         <p>Trends in water quality and aquatic ecology were evaluated for four time periods: 1972-2012, 1982- 2012, 1992-2012, and 2002-2012. Trends in the water-quality constituents were evaluated for both concentration and load. Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time.</p>
                         <p>All of the water-quality and aquatic-ecology trends reported in this mapper are normalized for climatic variability. The specific terminology for the water-quality trends is "flow normalized".</p>
                         <br/><br/><p style="text-align: center;">The water-quality constituents included in the analysis were:</p>
-                        <p style="text-align: center;">[mg/L, milligrams per liter. kg/year, kilograms per year; μmohs/cm, micromhos per centimeter; N, nitrogen; P, phosphorus; CaCO3, calcium carbonate; S, sulfate.]</p>
+                        <p style="text-align: center;">[mg/L, milligrams per liter. kg/year, kilograms per year; μmohs/cm, micromhos per centimeter; N, nitrogen; P, phosphorus; CaCO<sub>3</sub>, calcium carbonate; S, sulfate.]</p>
 
 
                         <img src="images/learnmore1.png" style="display: block; margin: 0 auto; width: 90%; max-width: 440px;"/>
                         <img src="images/learnmore2.png" style="display: block; margin: 0 auto; width: 90%; max-width: 440px;"/>
                         <img src="images/learnmore3.png" style="display: block; margin: 0 auto; width: 90%; max-width: 440px; margin-bottom: 25px;"/>
+
+                        <p><a href="https://nwis.waterdata.usgs.gov/usa/nwis/pmcodes?radio_pm_search=param_group&pm_group=Organics%2C+pesticide&pm_search=&casrn_search=&srsname_search=&format=html_table&show=parameter_group_nm&show=parameter_nm&show=casrn&show=srsname&show=parameter_units" target="_blank">The CAS registry number and SRS name for these pesticides are available from the parameter code dictionary for the U.S Geological Survey’s National Water Information System (NWIS) data base.</a>
 
 
                         <h3 style="border-bottom: 1px solid rgba(0,0,0,0.4); padding: 15px 0 8px 0; margin-bottom: 8px;">Aquatic Ecology</h3>
@@ -247,59 +253,66 @@
                         <h6 style="text-align: center;"><b>Community composition</b></h6>
                         <div class="learn-more-aquatic-row"><span>FishRich</span><span>The total number of different fish species</span></div>
                         <div class="learn-more-aquatic-row"><span>FishDiv</span><span>Shannon and Weaver diversity</span></div>
-                        <div class="learn-more-aquatic-row"><span>FishLTsim</span><span>Bray-Curtis Similarity value between each year and the start year in the trend period</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishLTsim</span><span>Fish Bray-Curtis Similarity value between each year and the start year in the trend period</span></div>
                         <h6 style="text-align: center;"><b>Assessment Indicator</b></h6>
-                        <div class="learn-more-aquatic-row"><span>FishO/E</span><span>XXXRatio of observed (O) taxa to the modeled number of expected (E) taxa (O/E) or as multi-metric index (MMI) value standardized to O/E unitsX</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishO/E</span><span>Ratio of observed (O) fish taxa to the modeled number of expected (E) fish taxa (O/E) or multi-metric index (MMI) value standardized to O/E units</span></div>
+
                         <h6 style="text-align: center;"><b>Tolerance</b></h6>
-                        <div class="learn-more-aquatic-row"><span>FishAmm</span><span>Average community tolerance to ammonia</span></div>
-                        <div class="learn-more-aquatic-row"><span>FishCl</span><span>Average community tolerance to chloride</span></div>
-                        <div class="learn-more-aquatic-row"><span>FishSC</span><span>Average community tolerance to specific conductance</span></div>
-                        <div class="learn-more-aquatic-row"><span>FishDO</span><span>Average community tolerance to dissolved oxygen</span></div>
-                        <div class="learn-more-aquatic-row"><span>FishNitraNitri</span><span>Average community tolerance to nitrite plus nitrate</span></div>
-                        <div class="learn-more-aquatic-row"><span>FishpH</span><span>Average community tolerance to pH</span></div>
-                        <div class="learn-more-aquatic-row"><span>FishPhos</span><span>Average community tolerance to phosphorus</span></div>
-                        <div class="learn-more-aquatic-row"><span>FishSul</span><span>Average community tolerance to sulfate </span></div>
-                        <div class="learn-more-aquatic-row"><span>FishSusSed</span><span>Average community tolerance to suspended sediment</span></div>
-                        <div class="learn-more-aquatic-row"><span>FishTemp</span><span>Average community tolerance to water temperature</span></div>
-                        <h5 style="text-align: center;"><b>Macroinvertebrates</b></h5>
+                        <div class="learn-more-aquatic-row"><span>FishAmm</span><span>Average fish community tolerance to ammonia</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishCl</span><span>Average fish community tolerance to chloride</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishSC</span><span>Average fish community tolerance to specific conductance</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishDO</span><span>Average fish community tolerance to dissolved oxygen</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishNitraNitri</span><span>Average fish community tolerance to nitrite plus nitrate</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishpH</span><span>Average fish community tolerance to pH</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishPhos</span><span>Average fish community tolerance to phosphorus</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishSul</span><span>Average fish community tolerance to sulfate</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishSusSed</span><span>Average fish community tolerance to suspended sediment</span></div>
+                        <div class="learn-more-aquatic-row"><span>FishTemp</span><span>Average fish community tolerance to water temperature</span></div>
+
+                        <h5 style="text-align: center;"><b>Invertebrates</b></h5>
                         <h6 style="text-align: center;"><b>Community composition</b></h6>
                         <div class="learn-more-aquatic-row"><span>InvertRich</span><span>The total number of different invertebrate taxa</span></div>
-                        <div class="learn-more-aquatic-row"><span>InvertPerEPTr</span><span>Percent taxa richness comprised of individuals belonging to the orders Ephemeroptera (mayflies), Plecoptera (stoneflies), and Trichoptera (caddisflies)</span></div>
-                        <div class="learn-more-aquatic-row"><span>InvertPnInr</span><span>Percent of taxa richness comprised of non-insect taxa.</span></div>
-                        <div class="learn-more-aquatic-row"><span>InvertDiv</span><span>Shannon Weaver diversity</span></div>
-                        <div class="learn-more-aquatic-row"><span>InvertLTsim</span><span>Bray-Curtis Similarity value between each year and the start year in the trend period</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertPerEPTr</span><span>Percent invertebrate taxa richness comprised of individuals belonging to the orders Ephemeroptera (mayflies), Plecoptera (stoneflies), and Trichoptera (caddisflies)</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertPnInr</span><span>Percent of invertebrate taxa richness comprised of non-insect taxa.</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertDiv</span><span>Invertebrate Shannon Weaver diversity</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertLTsim</span><span>Invertebrate Bray-Curtis Similarity value between each year and the start year in the trend period</span></div>
+
                         <h6 style="text-align: center;"><b>Assessment indicator</b></h6>
-                        <div class="learn-more-aquatic-row"><span>InvertO/E</span><span>Ratio of observed (O) taxa to the modeled number of expected (E) taxa (O/E)</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertO/E</span><span>Ratio of observed (O) invertebrate taxa to the modeled number of expected (E) invertebrate taxa (O/E)</span></div>
+
                         <h6 style="text-align: center;"><b>Tolerance</b></h6>
-                        <div class="learn-more-aquatic-row"><span>InvertIon</span><span>Average community tolerance to major ions</span></div>
-                        <div class="learn-more-aquatic-row"><span>InvertNutr</span><span>Average community tolerance to nutrients</span></div>
-                        <div class="learn-more-aquatic-row"><span>InvertDO/Temp</span><span>Average community tolerance to dissolved oxygen and temperature</span></div>
-                        <div class="learn-more-aquatic-row"><span>InvertSusSec</span><span>Average community tolerance to suspended sediment</span></div>
-                        <div class="learn-more-aquatic-row"><span>InvertFines</span><span>Average community tolerance to fine sediment </span></div>
-                        <h5 style="text-align: center;"><b>Algae (Diatoms)</b></h5>
+                        <div class="learn-more-aquatic-row"><span>InvertIon</span><span>Average invertebrate community tolerance to major ions</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertNutr</span><span>Average invertebrate community tolerance to nutrients</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertDO/Temp</span><span>Average invertebrate community tolerance to dissolved oxygen and temperature</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertSusSec</span><span>Average invertebrate community tolerance to suspended sediment</span></div>
+                        <div class="learn-more-aquatic-row"><span>InvertFines</span><span>Average invertebrate community tolerance to fine sediment</span></div>
+
+                        <h5 style="text-align: center;"><b>Diatoms</b></h5>
                         <h6 style="text-align: center;"><b>Community composition</b></h6>
                         <div class="learn-more-aquatic-row"><span>DiaRich</span><span>The total number of different diatom taxa</span></div>
-                        <div class="learn-more-aquatic-row"><span>DiaDiv</span><span>Shannon Weaver diversity</span></div>
-                        <div class="learn-more-aquatic-row"><span>DiaLTsim</span><span>Bray-Curtis Similarity value between each year and the start year in the trend period</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaDiv</span><span>Diatom Shannon Weaver diversity</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaLTsim</span><span>Diatom Bray-Curtis Similarity value between each year and the start year in the trend period</span></div>
+
                         <h6 style="text-align: center;"><b>Tolerance</b></h6>
                         <div class="learn-more-aquatic-row"><span>DiaSenBahlTol</span><span>The number of diatom taxa sensitive to general nutrient and organic enrichment</span></div>
-                        <div class="learn-more-aquatic-row"><span>DiaxHighCa</span><span>The number of diatom taxa with a calcium optima of greater than 40 mg L-1</span></div>
-                        <div class="learn-more-aquatic-row"><span>DiaLowCl</span><span>The number of diatom taxa with a chloride optima less than 15 mg L-1</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaxHighCa</span><span>The number of diatom taxa with a calcium optima of greater than 40 milligrams per liter</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaLowCl</span><span>The number of diatom taxa with a chloride optima less than 15 milligrams per liter</span></div>
                         <div class="learn-more-aquatic-row"><span>DiaLowO2</span><span>The number of diatom taxa that are known to tolerate down to 30 percent dissolved oxygen saturation</span></div>
-                        <div class="learn-more-aquatic-row"><span>DiaLowTN</span><span>The number of taxa having a total nitrogen optima of less than or equal to 0.2 mg L-1</span></div>
-                        <div class="learn-more-aquatic-row"><span>DiaHighTN</span><span>The number of taxa having a total nitrogen optima of greater than or equal to 3 mg L-1</span></div>
-                        <div class="learn-more-aquatic-row"><span>DiaLowTP</span><span>The number of taxa having a total phosphorus optima of less than or equal to 10 µ L-1</span></div>
-                        <div class="learn-more-aquatic-row"><span>DiaHighTP</span><span>The number of taxa having a total phosphorus optima of more than or equal to 100 µ L-1</span></div>
-                        <div class="learn-more-aquatic-row"><span>DiaHighMot</span><span>The number of taxa that are considered highly motile (mobile) distinguished by the presence of an extensive raphe and/or are large in size</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaHigh02</span><span>The number of diatom taxa that require nearly 100 percent dissolved oxygen saturation</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaLowTN</span><span>The number of diatom taxa having a total nitrogen optima of less than or equal to 0.2 milligrams per liter as N</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaHighTN</span><span>The number of diatom taxa having a total nitrogen optima of greater than or equal to 3 milligrams per liter as N</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaLowTP</span><span>The number of diatom taxa having a total phosphorus optima of less than or equal to 10 micrograms per liter as P</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaHighTP</span><span>The number of diatom taxa having a total phosphorus optima of more than or equal to 100 micrograms per liter as P</span></div>
+                        <div class="learn-more-aquatic-row"><span>DiaHighMot</span><span>The number of diatom taxa that are considered highly motile (mobile) distinguished by the presence of an extensive raphe and/or are large in size</span></div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="waterResourcesTabPane">
                         <h3>Related Resources</h3>
-                        <h5><b>Related U.S. Geological Survey Web Applications</b></h5>
+                        <h5><b>Related U.S. Geological Survey (USGS) Web Applications</b></h5>
                         <p>
                             <a href="https://nawqatrends.wim.usgs.gov/Decadal/" target="_blank">Decadal Changes in US Groundwater Quality</a><br/>
                             <a href="https://cida.usgs.gov/quality/rivers/home" target="_blank">Tracking Water Quality of the Nation's Rivers and Streams</a><br/>
                         </p>
-                        <h5><b>Other Related U.S. Geological Survey (USGS) Information</b></h5>
+                        <h5><b>Other Related USGS Information</b></h5>
                         <p>
                             <a href="https://www.usgs.gov/" target="_blank">USGS homepage</a><br/>
                             <a href="https://water.usgs.gov/nawqa" target="_blank">USGS National Water-Quality Assessment Project</a><br/>
@@ -334,6 +347,9 @@
                         <p>Long-term water-quality monitoring data from the following organizations were included in this analysis:</p>
                         <h6 style="text-align: center;"><b>Contributing monitoring organizations</b></h6>
                         <p style="font-size: 11pt;">Alabama Department of Environmental Management &#8226; Arkansas Department of Environmental Quality &#8226; California Department of Water Resources &#8226; California Regional Water Board, Region 5 &#8226; California Regional Water Quality Control Board &#8226; Westside San Joaquin River Watershed Coalition &#8226; City of Thornton &#8226; Colorado Department of Public Health and Environment &#8226; Littleton and Englewood Wastewater Treatment Plant &#8226; Metro Wastewater Reclamation District &#8226; Summit Water Quality Committee &#8226; The Rivers of Colorado Water Watch Network &#8226; Delaware Department of Natural Resources and Environmental Control &#8226; District Department of the Environment &#8226; Environmental Protection Commission of Hillsborough County &#8226; Florida Department of Environmental Protection &#8226; Florida Fish and Wildlife Conservation Commission &#8226; Leon County Public Works &#8226; Loxahatchee River District &#8226; Manatee County Environmental Management Department &#8226; McGlynn Laboratories Incorporated &#8226; Northwest Florida Water Management District &#8226; Orange County Environmental Protection &#8226; Pinellas County Department of Environmental Management &#8226; Seminole  County &#8226; Southwest Florida Water Management District &#8226; St. Johns Water Management District &#8226; Suwannee River Water Management District &#8226; Georgia Department of Natural Resources &#8226; Idaho Department of Environmental Quality &#8226; Illinois Environmental Protection Agency &#8226; Indiana Department of Environmental Management &#8226; Marion County Public Health Department &#8226; Wabash River Enhancement Corporation &#8226; Des Moines River Water Quality Network &#8226; Des Moines Water Works &#8226; Iowa Department of Natural Resources &#8226; Kansas Department of Health and Environment &#8226; Kentucky Department for Natural Resources and Environmental Protection &#8226; Louisiana Department of Environmental Quality &#8226; Maryland Department of Natural Resources &#8226; Michigan Department of Environmental Quality &#8226; Metropolitan Council Environmental Services &#8226; Minnesota Department of Agriculture &#8226; Minnesota Pollution Control Agency &#8226; Crowder College, Neosho, Missouri &#8226; Montana Department of Environmental Quality &#8226; Nebraska Department of Environmental Quality &#8226; Nevada Department of Conservation and Natural Resources &#8226; New Jersey Department of Environmental Protection &#8226; Community Science Institute &#8226; North Carolina Department of Envrionment and Natural Resources &#8226; North Dakota Department of Health &#8226; Heidelberg University, National Center for Water Quality Research &#8226; Ohio Environmental Protection Agency &#8226; Oklahoma Water Resources Board &#8226; Klamath Tribes Research Station &#8226; Oregon Department of Environmental Quality &#8226; Oregon, Portland Water Bureau &#8226; Pennsylvania Department of Environmental Protection &#8226; South Carolina Department of Health and Environmental Control &#8226; South Dakota Department of Environmental and Natural Resources &#8226; Texas Commission on Environmental Quality &#8226; Utah Department of Environmental Quality &#8226; Virginia Department of Environmental Quality &#8226; Washington State Department of Ecology &#8226; West Virginia Department of Environmental Protection &#8226; Wisconsin Department of Natural Resources &#8226; Ohio River Valley Water Sanitation Commission (ORSANCO) &#8226; Susquehanna River Basin Commission &#8226; U.S. Bureau of Reclamation &#8226; U.S. Environmental Protection Agency &#8226; U.S. Geological Survey &#8226; U.S. National Park Service</p>
+                        <p>
+                          A full list of the 608 Federal, State, Tribal, and local organizations whose data were screened as part of this assessment is available in Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water- Quality Trends in the Nation's Rivers and Streams 1972-2012-Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-5006, in press.
+                        </p>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="disclaimerTabPane">
                         <p>Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.</p>
@@ -406,19 +422,19 @@
                             <div class="user-guide-item-image"><img src="images/userguide/legendfull.png"/></div>
                         </div>
                         <p>
-                            A likelihood-based approach is used to report these trend results. When the trend is "likely up", the chance of the trend being upward is at least an 85 out of 100. When the trend is "likely down", the chance of the trend being downward is at least an 85 out of 100. When the trend is "somewhat likely up", the chance of the trend being upward is between 70 and 85 out of 100. When the trend is "somewhat likely down", the chance of the trend being downward is between 70 and 85 out of 100. When the trend is "about as likely as not", the chance of the trend being either upward or downward is less than 70 out of 100.
+                          A likelihood-based approach is used to report these trend results. When the trend is "likely up" or "likely down", the trend likelihood value associated with the trend is between 0.85 and 1.0—in other words, the chance of the trend occurring in the specified direction is at least an 85 out of 100. When the trend is "somewhat likely up" or "somewhat likely down", the trend likelihood value associated with the trend is between 0.7 and 0.85—in other words, the chance of the trend occurring in the specified direction is between 70 and 85 out of 100. When the trend is "about as likely as not", the trend likelihood value associated with the trend is less than 0.7—in other words, the chance of the trend being either upward or downward is less than 70 out of 100.
                         </p>
+
                         <p>
-                            This likelihood-based approach is used as an alternative to the null-hypothesis signicance testing (NHST) approach that is often used when reporting water-quality trends. The likelihood-based approach gives people more intuitive information on the certainty of a trend estimate, and avoids the arbitrary classications imposed by selecting an alpha value to assess signicance. For example, in the NHST approach, a trend with a p-value of 0.099 could be classied as signicant while a dierent trend with a p-value of 0.11 could be classied as nonsignicant. In reality, there is no meaningful dierence between these two p-values.
+                          This likelihood-based approach is used as an alternative to the null-hypothesis signi­ficance testing (NHST) approach that is often used when reporting water-quality trends. The likelihood-based approach gives people more intuitive information on the certainty of a trend estimate, and provides more evidence of a growing problem or initial clean-up successes. Consider an example where the chance of an upward trend in nitrate concentrations at a site is 80 out of 100 (a trend likelihood value of 0.80). Using the NHST approach and a traditional alpha value of either 0.05 or 0.1, the trend would be reported as nonsignifi­cant. Using the likelihood-based approach, the trend would be reported instead as "somewhat likely up". The NHST approach could lead to a false sense of security because it indicates that there isn't strong proof of a growing problem. The likelihood-based approach indicates instead that it is somewhat likely conditions in the stream are not improving, giving people more information to use when making decisions about watershed management.
                         </p>
+
                         <p>
-                            Consider an example where the chance of an upward trend in nitrate concentrations at a site is 80 out of 100. Using the NHST approach, the trend would be reported as nonsignicant. Using the likelihood-based approach, the trend would be reported as "somewhat likely up". The NHST approach could lead to a false sense of security because it indicates that there isn't strong proof of a growing problem. The likelihood-based approach indicates instead that it is somewhat likely conditions in the stream are not improving, giving people more information to use when making decisions about watershed management.
+                          For more information on the philosophy of the likelihood-based approach, please see Hirsch and others (2015), "A bootstrap method for estimating uncertainty of water quality trends", at http://dx.doi.org/10.1016/j.envsoft.2015.07.017. Trend likelihood values for nutrients, sediment, salinity, major ions, and carbon were determined using the bootstrap approach in that same report. Trend likelihood values for pesticides and aquatic ecology metrics were determined using the p-value reported from their respective trend tests, using the equation 1-(p-value/2). See Vecchia and others (2008), "Modeling Variability and Trends in
                         </p>
+
                         <p>
-                            For more information on the likelihood-based approach, please see Hirsch and others (2015), "A bootstrap method for estimating uncertainty of water quality trends", at <a href="http://dx.doi.org/10.1016/j.envsoft.2015.07.017" target="_blank">http://dx.doi.org/10.1016/j.envsoft.2015.07.017</a>.
-                        </p>
-                        <p>
-                            Likelihood values for nutrients, sediment, salinity, and carbon were determined using the bootstrap approach in Hirsch and others (2013). Likelihood values for pesticides and aquatic ecology were determined using the p-value reported from the trend test, in the equation 1-(p-value/2).
+                          Pesticide Concentrations in Streams", at <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2008.00225.x/pdf" target="_blank">http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2008.00225.x/pdf</a> for more information on calculating p-values in the pesticide models. See Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water- Quality Trends in the Nation's Rivers and Streams 1972-2012-Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-5006, in press. for more information on calculating p-values in the ecology models.
                         </p>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="layersTabPane">
@@ -436,7 +452,7 @@
                             <div class="user-guide-item-image"><img src="images/userguide/constituent.png"/></div>
                         </div>
                         <div class="user-guide-item">
-                            <p><b>Selecting a trend type</b>Based on the constituent selection, a user can choose from among the available trend types. Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time. A metric is an index calculated to represent a specific characteristic of aquatic communities. Changes over time in water-quality concentration and load and changes in aquatic ecology- metrics can be strongly influenced by random and systematic variations in streamflow. Flow normalization removes the variation in concentration, load, or metric that is due to variations in streamflow. Changes over time in aquatic ecology metrics can also be strongly influenced by random and systematic variations in air temperature. As a result, concentration and load trends are flow normalized; aquatic ecology metric trends are also flow normalized. See FAQ #17 for more information. Note not all trend types are available for every constituent.</p>
+                            <p><b>Selecting a trend type</b>Based on the constituent selection, a user can choose from among the available trend types. Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time. A metric is an index calculated to represent a specific characteristic of aquatic communities. Changes over time in water-quality concentration and load and changes in aquatic ecology-metrics can be strongly influenced by random and systematic variations in streamflow. Flow normalization removes the variation in concentration, load, or metric that is due to variations in streamflow. As a result, concentration and load trends are flow normalized and aquatic ecology metric trends are flow normalized. See FAQ #17 for more information. Note all trend types are available for every constituent.</p>
                             <div class="user-guide-item-image"><img src="images/userguide/trendtype.png"/></div>
                         </div>
                         <div class="user-guide-item">
@@ -494,7 +510,7 @@
 
                 <div class="faq-header" id="faq2header">2. Where can I get more information on this study? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq2body">
-                    More information on data sources, preparation and screening; statistical methods; and results is available in Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water-Quality Trends in the Nation's Rivers and Streams 1972-2012—Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-xxxx, xxx p.  More information on the overall study is available at <a href="https://water.usgs.gov/nawqa/swtrends/" target="_blank">https://water.usgs.gov/nawqa/swtrends/</a>.
+                    More information on data sources, preparation and screening; statistical methods; and results is available in Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water- Quality Trends in the Nation's Rivers and Streams 1972-2012-Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-5006, in press. More information on the overall study is available at <a href="https://water.usgs.gov/nawqa/swtrends/" target="_blank">https://water.usgs.gov/nawqa/swtrends/</a>.
                 </div>
 
                 <div class="faq-header" id="faq3header">3. Why evaluate changes in water quality? <i class="fa fa-angle-right"></i></div>
@@ -548,6 +564,10 @@
                     <br/><br/>De Cicco, L.A., Sprague, L.A., Murphy, J.C., Riskin, M.L., Falcone, J.A., Stets, E.G., Oelsner, G.P., and Johnson, H.M., 2017, Water-quality and streamflow datasets used in the Weighted Regressions on Time, Discharge, and Season (WRTDS) models to determine trends in the Nation's rivers and streams, 1972-2012: U.S. Geological Survey data release, <a href="http://dx.doi.org/10.5066/F7KW5D4H" target="_blank">http://dx.doi.org/10.5066/F7KW5D4H</a>.
                     <br/><br/>Ryberg, K.R., Murphy, J.C., Falcone, J.A., Riskin, M.L., Wieben, C.M., and Vecchia, A.V., 2017, Pesticide concentration and streamflow datasets used to evaluate pesticide trends in the Nation's rivers and streams, 1992-2012: U.S. Geological Survey data release, <a href="http://dx.doi.org/10.5066/F7BC3WPC" target="_blank">http://dx.doi.org/10.5066/F7BC3WPC</a>.
                     <br/><br/>Zuellig, R.E. and Riskin, M.L., 2017, Ecological community datasets used to evaluate the presence of trends in ecological communities in selected rivers and streams across the United States, 1992-2012: U.S. Geological Survey data release, <a href="http://dx.doi.org/10.5066/F7G44ND3" target="_blank">http://dx.doi.org/10.5066/F7G44ND3</a>.
+                    <br/><br/>
+                    You also can download the land-use data shown in the Map Layers option through the following U.S. Geological Survey report:
+                    <br/>
+                    Falcone, J.A., 2015, U.S. conterminous wall-to-wall anthropogenic land use trends (NWALT), 1974–2012: U.S. Geological Survey Data Series 948, 33 p.
                 </div>
 
 
@@ -617,10 +637,10 @@
 
                 <div class="faq-header" id="faq18header">18. What do the designations in the map Explanation box mean? And why don't you present your trend results with "significant"/"nonsignificant" designations? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq18body">
-                    A likelihood-based approach is used to report these trend results. When the trend is "likely up", the chance of the trend being upward is at least an 85 out of 100. When the trend is "likely down", the chance of the trend being downward is at least an 85 out of 100. When the trend is "somewhat likely up", the chance of the trend being upward is between 70 and 85 out of 100. When the trend is "somewhat likely down", the chance of the trend being downward is between 70 and 85 out of 100. When the trend is "about as likely as not", the chance of the trend being either upward or downward is less than 70 out of 100.
-                    <br/>This likelihood-based approach is used as an alternative to the null-hypothesis significance testing (NHST) approach that is often used when reporting water-quality trends. The likelihood-based approach gives people more intuitive information on the certainty of a trend estimate, and avoids the arbitrary classifications imposed by selecting an alpha value to assess significance. For example, in the NHST approach, a trend with a p-value of 0.099 could be classified as significant while a different trend with a p-value of 0.11 could be classified as nonsignificant. In reality, there is no meaningful difference between these two p-values.
-                    <br/>Consider an example where the chance of an upward trend in nitrate concentrations at a site is 80 out of 100. Using the NHST approach, the trend would be reported as non-significant. Using the likelihood-based approach, the trend would be reported as "somewhat likely up". The NHST approach could lead to a false sense of security because it indicates that there isn't strong proof of a growing problem. The likelihood-based approach indicates instead that it is somewhat likely conditions in the stream are not improving, giving people more information to use when making decisions about watershed management.
-                    <br/>The likelihood values used for nutrients, sediment, salinity, major ions, and carbon trends are based on the posterior mean estimate of the probability of an increasing or decreasing trend, as determined through bootstrap replicates. See Hirsch and others (2015) for more information on the bootstrapping process.  The likelihood values used for pesticides and aquatic ecology trends are based on the p-value from the associated trend tests, calculated as (1-(p-value/2)).  See Vecchia and others (2008) and Oelsner and others (2017) for more information on the determination of the p-value in the trend tests for pesticide and aquatic ecology data, respectively.
+                    A likelihood-based approach is used to report these trend results. When the trend is "likely up" or “likely down”, the trend likelihood value associated with the trend is between 0.85 and 1.0—in other words, the chance of the trend occurring in the specified direction is at least an 85 out of 100. When the trend is "somewhat likely up" or “somewhat likely down”, the trend likelihood value associated with the trend is between 0.7 and 0.85—in other words, the chance of the trend occurring in the specified direction is between 70 and 85 out of 100. When the trend is "about as likely as not", the trend likelihood value associated with the trend is less than 0.7—in other words, the chance of the trend being either upward or downward is less than 70 out of 100.
+                    <br/>his likelihood-based approach is used as an alternative to the null-hypothesis signi­ficance testing (NHST) approach that is often used when reporting water-quality trends. The likelihood-based approach gives people more intuitive information on the certainty of a trend estimate, and provides more evidence of a growing problem or initial clean-up successes. Consider an example where the chance of an upward trend in nitrate concentrations at a site is 80 out of 100 (a trend likelihood value of 0.80). Using the NHST approach and a traditional alpha value of either 0.05 or 0.1, the trend would be reported as nonsignifi­cant. Using the likelihood-based approach, the trend would be reported instead as "somewhat likely up". The NHST approach could lead to a false sense of security because it indicates that there isn't strong proof of a growing problem. The likelihood-based approach indicates instead that it is somewhat likely conditions in the stream are not improving, giving people more information to use when making decisions about watershed management.
+                    <br/>For more information on the philosophy of the likelihood-based approach, please see Hirsch and others (2015), "A bootstrap method for estimating uncertainty of water quality trends", at <a href="http://dx.doi.org/10.1016/j.envsoft.2015.07.017" target="_blank">http://dx.doi.org/10.1016/j.envsoft.2015.07.017</a>. Trend likelihood values for nutrients, sediment, salinity, major ions, and carbon were determined using the bootstrap approach in that same report. Trend likelihood values for pesticides and aquatic ecology metrics were determined using the p-value reported from their respective trend tests, using the equation 1-(p-value/2). See Vecchia and others (2008), “Modeling Variability and Trends in
+                    <br/>Pesticide Concentrations in Streams”, at <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2008.00225.x/pdf" target="_blank">http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2008.00225.x/pdf</a> for more information on calculating p-values in the pesticide models. See Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water- Quality Trends in the Nation's Rivers and Streams 1972-2012-Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-5006, in press. for more information on calculating p-values in the ecology models.
                 </div>
 
 
@@ -631,7 +651,7 @@
 
                 <div class="faq-header" id="faq20header">20. Is it correct that the concentration trend and the load trend are the same for pesticides? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq20body">
-                    Yes.  Using the SEAWAVE-Q model for pesticides, the trend in flow-normalized annual load cannot be different mathematically from the trend in flow-normalized annual concentration when there is no trend in flow.  This is a computational constraint of the SEAWAVE-Q model.  A different model – Weighted Regressions on Time, Discharge, and Season (WRTDS) – was used for the other water-quality constituents (see FAQ #11).  One attribute of the WRTDS model is that it allows the trend in flow-normalized concentration to be different in magnitude or opposite in direction from trends in flow-normalized load (Hirsch and De Cicco, 2015). For example, if there were large decreases in point source inputs of a pollutant but increases in nonpoint sources associated with high-flow events, then we might see a downward trend in concentration but an upward trend in flux.  But the WRTDS model was not used with pesticides, because SEAWAVE-Q was specifically developed to address a number of difficulties often found in pesticide data, such as strong seasonality in response to use patterns, high numbers of concentrations below laboratory reporting levels, complex relations between streamflow and concentration, and intermittent or changing sampling frequencies (Vecchia and others, 2008) (see FAQ #13).
+                    For a given site and trend period, the direction and likelihood of pesticide trends will be the same for concentration and load. The graphs for will be the same for concentration and load, since both are derived from the same model. The magnitude of the trends also will be the same for concentration and load, when reported in percent. The magnitude of the trends will be different for concentration and load, when reported in original units. Using the SEAWAVE-Q model for pesticides, when comparing the trend in percent, the trend in flow-normalized annual load cannot be different mathematically from the trend in flow-normalized annual concentration when there is no trend in flow. This is a computational constraint of the SEAWAVE-Q model. A different model – Weighted Regressions on Time, Discharge, and Season (WRTDS) – was used for the other water-quality constituents (see FAQ #11). One attribute of the WRTDS model is that it allows the trend in flow-normalized concentration to be different in magnitude or opposite in direction from trends in flow-normalized load (Hirsch and De Cicco, 2015). For example, if there were large decreases in point source inputs of a pollutant but increases in nonpoint sources associated with high-flow events, then we might see a downward trend in concentration but an upward trend in flux. But the WRTDS model was not used with pesticides, because SEAWAVE-Q was specifically developed to address a number of difficulties often found in pesticide data, such as strong seasonality in response to use patterns, high numbers of concentrations below laboratory reporting levels, complex relations between streamflow and concentration, and intermittent or changing sampling frequencies (Vecchia and others, 2008) (see FAQ #13).
                 </div>
 
                 <div class="faq-header" id="faq21header">21. What is shown on the graphs for each site? <i class="fa fa-angle-right"></i></div>
@@ -646,6 +666,8 @@
                         <li>The sixth graph shows a time series plot of the annual average load (referred to on the plot as "flux") and annual flow-normalized load, as estimated by the model. The annual average load is displayed as individual points. The flow-normalized results (see FAQ #17) are presented as a smooth curve (in solid green) even though they are computed for a single point in time for each year. This graphical convention emphasizes the relatively smooth nature of the flow-normalized load record in contrast with the annual average load record.  The 90th and 10th confidence intervals ("CI") of the annual flow-normalized loads are shown as smoothed curves as well (in dashed green), to emphasize the uncertainty in these model estimates. "Replicates" refers to the number of bootstrap replicates used to generate the confidence intervals. "Block" refers to the block length used in the bootstrap method.  For more information on the theory behind the number of replicates and the block length, see Hirsch and others (2015). When there was a contemporaneous trend in streamflow, the flow-normalized estimates may diverge from the annual estimates.  In these cases, the flow-normalized estimates reflect the portion of the in-stream trend that was caused by factors other than changes in streamflow, whereas the annual estimates reflect the overall in-stream trend that was caused by all factors, including, among  other things, random and systematic changes in streamflow.</li>
                     </ul>
                     For pesticides (from Ryberg and Vecchia, 2013):
+                    <br/>
+                    <a href="https://nwis.waterdata.usgs.gov/usa/nwis/pmcodes?radio_pm_search=param_group&pm_group=Organics%2C+pesticide&pm_search=&casrn_search=&srsname_search=&format=html_table&show=parameter_group_nm&show=parameter_nm&show=casrn&show=srsname&show=parameter_units" target="_blank">These graphs show a parameter code for each pesticide contained in the graphs.  A definition for these parameter codes is available from the parameter code dictionary for the U.S Geological Survey’s National Water Information System (NWIS) data base.</a>
                     <ul>
                         <li>The first graph shows a time series plot of the observed (referred to on the plot as "measured concentrations") concentrations in red, as a function of time, for the trend period.   The convention for showing a censored value (a value reported as below a laboratory detection limit) is the use of an open circle, rather than a filled circle, for these observations.  The time series of model estimates of concentration (referred to on the plot as "fitted concentrations") is shown as a thin black line. The estimated trend over the trend period is shown as a thicker straight black line.</li>
                         <li>The second graph shows a time series plot of the daily percentiles of the model estimates of concentration, as a function of time.  The 50th percentile of estimated concentrations (referred to on the plot as "fitted median concentration") is shown as a black line. The 95th percentile of estimated concentrations (referred to on the plot as "fitted 95th percentile concentration") is shown as a red line. The 50th percentile of estimated concentrations is an estimate of the concentration that is exceeded 50 percent of the time (about 180 days) in a typical year. The 95th percentile of estimated concentrations is an estimate of the concentration that is exceeded 5 percent of the time (about 18 days) in a typical year. These percentiles should not be confused with the sample percentiles computed using the observed concentrations. Percentiles computed using the observed concentrations would be affected by the frequency and timing of sample collection; because the samples are not collected to represent a random sampling of days within each year, percentiles computed using the observed concentrations could not be directly related to any particular duration of exceedance. For more information on the theory behind the daily percentile calculation, see Ryberg and others (2010).</li>
@@ -657,8 +679,13 @@
                     There are no graphs available for aquatic ecology trends.
                 </div>
 
-                <div class="faq-header" id="faq22header">22. Could my organization's trend results be different from yours at the same site? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-header" id="faq22header">22. Is it correct that for a given constituent at a given site, the graphs are the same for concentration and load and for different trend periods? <i class="fa fa-angle-right"></i></div>
                 <div class="faq-body" id="faq22body">
+                    For nutrients, sediment, salinity, major ions, carbon, and pesticides, the graphs are the same for concentration and load for a given trend period. This is because the concentration and trend results were obtained from the same model. For nutrients, sediment, salinity, major ions, and carbon (but not for pesticides), the concentration and load graphs also will be the same for different trend periods. For these constituents, the same model was used to obtain trend results for all available time periods. For pesticides, a different model was used for the 1992-2012 and the 2002-2012 trend period, so these graphs will be different.
+                </div>
+
+                <div class="faq-header" id="faq23header">23. Could my organization's trend results be different from yours at the same site? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq23body">
                     Yes, and there are a few reasons why this could be happening.  The most likely reason is that the trend periods are different.  The choice of start and end years can make a big difference.  For example, cigarette smoking in the United States increased in the first part of the 20th century as mass production, advertising, and addiction increased.  After the first Surgeon General's report in 1964 on the harmful effects of smoking, smoking rates decreased. If we were to determine a trend in cigarette consumption between 1900 and 2002, the result would show an increase.  However, if we were to determine a trend between 1970 and 2002, the result would show a decrease.  The same potential difference can occur with water-quality trends any time the direction of change in concentration or load reverses, or any time the rate of change slows or becomes more rapid.
                     <br/><img src="images/faq/faq-11.png"/>
                     <br/>Another common reason for trend results at the same site to be different—even when the trend period is the same—is the use of different trend methods.  Because periodic or random factors like season or streamflow can add noise to a water-quality time series, statistical methods are necessary to separate the signal (the trend) from the noise.  The choice of trend method can affect how much of the noise is removed, which in turn can affect the power of the trend test.  With a robust enough data set, the differences between statistical methods should be minor.  We conducted extensive sensitivity testing to develop a set of screening criteria that would lead us to sites with robust data sets. As a result, any differences between our results and your results for the same trend period should be minor, although there may be rare exceptions.
@@ -666,8 +693,8 @@
                     <br/>In a smaller number of cases, differences in trend results may be related to the characteristics of our respective data sets.  For instance, we may have combined data from two agencies that were sampling at the same location, whereas you only used data from one of the sources.  Or we may have excluded some data that were inadequately documented in our database, whereas you may have included those data because you had adequate documentation locally.
                 </div>
 
-                <div class="faq-header" id="faq23header">23. Where can I learn more about other NAWQA water-quality assessments? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq23body">
+                <div class="faq-header" id="faq24header">24. Where can I learn more about other NAWQA water-quality assessments? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq24body">
                     Access <a href="http://water.usgs.gov/nawqa" target="_blank">http://water.usgs.gov/nawqa</a> for information about the USGS NAWQA Project and its on-going work to monitor the Nation's water resources.
                 </div>
 
@@ -675,17 +702,17 @@
                 <h4 style="margin-bottom: 15px; font-weight: 600;">Citations</h4>
 
 
-                <div class="faq-header" id="faq24header">24. How should this mapper be cited? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq24body">
+                <div class="faq-header" id="faq25header">25. How should this mapper be cited? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq25body">
                     The citation for this mapper is:
-                    <br/>Sprague, L.A., 2017, Water-quality changes in the Nation's streams and rivers: U.S. Geological Survey Web Page, XXXX .
+                    <br/>Sprague, L.A., 2017, Water-quality changes in the Nation's streams and rivers: U.S. Geological Survey Web Page, http://nawqatrends.wim.usgs.gov/swtrends.
                     <br/><br/>
-                    All of the results in the mapper are reported in Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water-Quality Trends in the Nation's Rivers and Streams 1972-2012—Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-xxxx, xxx p . That citation also can be used when referencing the results presented in the mapper.
+                    All of the results in the mapper are reported in Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water- Quality Trends in the Nation's Rivers and Streams 1972-2012-Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-5006, in press. That citation also can be used when referencing the results presented in the mapper.
                 </div>
 
 
-                <div class="faq-header" id="faq25header">25. Who can I contact for more information on this mapper? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq25body">
+                <div class="faq-header" id="faq26header">26. Who can I contact for more information on this mapper? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq26body">
                     For questions related to the study methods and results, you can contact:
                     <br/>Lori Sprague
                     <br/>Coordinator, NAWQA Surface-Water Trend Studies
@@ -697,11 +724,11 @@
                     <br/>Email: hvraga@usgs.gov
                 </div>
 
-                <div class="faq-header" id="faq26header">26. FAQ Citations <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq26body">
+                <div class="faq-header" id="faq27header">27. FAQ Citations <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq27body">
                     Hirsch, Robert M., Archfield, Stacey A., and DeCicco, Laura A., 2015, A bootstrap method for estimating uncertainty of water quality trends, Environmental Modelling and Software, 73, 148-166, <a href="http://www.sciencedirect.com/science/article/pii/S1364815215300220" target="_blank">http://www.sciencedirect.com/science/article/pii/S1364815215300220</a><br/><br/>
                     Hirsch, R.M., and De Cicco, L.A., 2015, User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval-R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p., <a href="http://dx.doi.org/10.3133/tm4A10" target="_blank">http://dx.doi.org/10.3133/tm4A10</a><br/><br/>
-                    Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water- Quality Trends in the Nation's Rivers and Streams 1972-2012-Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-xxxx, xxx p.<br/><br/>
+                    Oelsner, G.P., Sprague, L.A., Murphy, J.C., Zuellig, R.E., Johnson, H.M., Ryberg, K.R., Falcone, J.A., Stets, E.G., Vecchia, A.V., Riskin, M.L., De Cicco, L.A., Mills, T.J., and Farmer, W.H., 2017, Water- Quality Trends in the Nation's Rivers and Streams 1972-2012-Data Preparation, Statistical Methods, and Trend Results: U.S. Geological Survey Scientific Investigations Report 2017-5006, in press.<br/><br/>
                     Ryberg, K.R., Vecchia, A.V., Gilliom, R.J., and Martin, J.D., 2014, Pesticide trends in major rivers of the United States, 1992–2010: U.S. Geological Survey Scientific Investigations Report 2014–5135, 63 p., <a href="http://dx.doi.org/10.3133/sir20145135" target="_blank">http://dx.doi.org/10.3133/sir20145135</a>.<br/><br/>
                     Ryberg, K.R., and Vecchia, A.V., 2013, seawaveQ—An R package providing a model and utilities for analyzing trends in chemical concentrations in streams with a seasonal wave (seawave) and adjustment for streamflow (Q) and other ancillary variables: U.S. Geological Survey Open-File Report 2013–1255, 13 p., with 3 appendixes, <a href="http://dx.doi.org/10.3133/ofr20131255" target="_blank">http://dx.doi.org/10.3133/ofr20131255</a>.<br/><br/>
                     Ryberg, K.R., Vecchia, A.V., Martin, J.D., and Gilliom, R.J., 2010, Trends in pesticide concentrations in urban streams in the United States, 1992–2008: U.S. Geological Survey Scientific Investigations Report 2010–5139, 101 p. <a href="https://pubs.usgs.gov/sir/2010/5139/" target="_blank">https://pubs.usgs.gov/sir/2010/5139/</a><br/><br/>
@@ -786,7 +813,7 @@
                                 <option value="Algae" select="#algaeSelect">Algae (Diatoms)</option>
                                 <option value="Carbon" select="#carbonSelect">Carbon</option>
                                 <option value="Fish" select="#fishSelect">Fish</option>
-                                <option value="Macroinvertebrates" select="#macroinvertSelect">Macroinvertebrates</option>
+                                <option value="Macroinvertebrates" select="#macroinvertSelect">Invertebrates</option>
                                 <option value="Major ions" select="#majorIonsSelect">Major ions</option>
                                 <option value="Nutrients" select="#nutrientsSelect">Nutrients</option>
                                 <option value="Pesticides" select="#pesticideSelect">Pesticides</option>
@@ -876,14 +903,14 @@
             <!-- # closing div tag for accordion style panels -->
             <!--</div>-->
             <div class="footer-links">
-                <div class="identification"><a href="http://wim.usgs.gov/" target="_blank">Powered by WiM</a></div>
+                <div class="identification"><a href="https://wim.usgs.gov/" target="_blank">Powered by WiM</a></div>
                 <a href="https://usgs.gov" target="_blank">USGS Home</a>
                 <a href="https://answers.usgs.gov" target="_blank">Contact USGS</a>
                 <a href="https://search.usgs.gov" target="_blank">Search USGS</a>
-                <a href="http://www2.usgs.gov/laws/accessibility.html" target="_blank">Accessibility</a>
-                <a href="http://www2.usgs.gov/foia/" target="_blank">FOIA</a>
-                <a href="http://www2.usgs.gov/laws/privacy.html" target="_blank">Privacy</a>
-                <a href="http://www2.usgs.gov/laws/policies_notices.html" target="_blank">Policies & Notices</a>
+                <a href="https://www2.usgs.gov/laws/accessibility.html" target="_blank">Accessibility</a>
+                <a href="https://www2.usgs.gov/foia/" target="_blank">FOIA</a>
+                <a href="https://www2.usgs.gov/laws/privacy.html" target="_blank">Privacy</a>
+                <a href="https://www2.usgs.gov/laws/policies_notices.html" target="_blank">Policies & Notices</a>
             </div>
         </div>
         <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding keepit100">
@@ -903,7 +930,6 @@
                         </div>
                     </div>
                     <div class="panel-body">
-
                         <div id="siteInfoPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="siteInfoPanelHeader">
                             <ul class="nav nav-tabs" id="siteInfoTabs">
                                 <li role="presentation" class="active"><a id="siteInfoTab" href="#siteInfoTabPane" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Site Information</a></li>
