@@ -1334,7 +1334,7 @@ require([
                         var trendYear = trendYearArray[trendYearArray.length-1];
                         data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
                             "Concentration (flow normalized)", //Type
-                            trendYear+"-2012", //Trend period
+                            trendPeriodFixer(trendYear)+"-2012", //Trend period
                             Math.abs(value.attributes["wrtds_trends_wm_new.likeC"].toFixed(3)), //Trend likelihood
                             value.attributes["wrtds_trends_wm_new.trend_pct_C"].toFixed(2), //Trend, in percent
                             value.attributes["wrtds_trends_wm_new.low_int_C"].toFixed(2), //Lower confidence interval, in percent
@@ -1344,18 +1344,20 @@ require([
                             value.attributes["wrtds_trends_wm_new.upC90"].toFixed(4), //Upper confidence interval, in original units
                             "90 percent confidence interval" //Reported confidence interval
                         ]);
-                        data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
-                            "Load (flow normalized)", //Type
-                            trendYear+"-2012", //Trend period
-                            Math.abs(value.attributes["wrtds_trends_wm_new.likeF"].toFixed(3)), //Trend likelihood
-                            value.attributes["wrtds_trends_wm_new.trend_pct_F"].toFixed(2),//Trend, in percent
-                            value.attributes["wrtds_trends_wm_new.low_int_F"].toFixed(2), //Lower confidence interval, in percent
-                            value.attributes["wrtds_trends_wm_new.up_int_F"].toFixed(2), //Upper confidence interval, in percent
-                            value.attributes["wrtds_trends_wm_new.estF"].toFixed(4), //Trend, in original units
-                            value.attributes["wrtds_trends_wm_new.lowF90"].toFixed(4), //Lower confidence interval, in original units
-                            value.attributes["wrtds_trends_wm_new.upF90"].toFixed(4), //Upper confidence interval, in original units
-                            "90 percent confidence interval" //Reported confidence interval
-                        ]);
+                        if (value.attributes["wrtds_trends_wm_new.param_nm"] != "Specific conductance") {
+                            data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
+                                "Load (flow normalized)", //Type
+                                trendPeriodFixer(trendYear)+"-2012", //Trend period
+                                Math.abs(value.attributes["wrtds_trends_wm_new.likeF"].toFixed(3)), //Trend likelihood
+                                value.attributes["wrtds_trends_wm_new.trend_pct_F"].toFixed(2),//Trend, in percent
+                                value.attributes["wrtds_trends_wm_new.low_int_F"].toFixed(2), //Lower confidence interval, in percent
+                                value.attributes["wrtds_trends_wm_new.up_int_F"].toFixed(2), //Upper confidence interval, in percent
+                                value.attributes["wrtds_trends_wm_new.estF"].toFixed(4), //Trend, in original units
+                                value.attributes["wrtds_trends_wm_new.lowF90"].toFixed(4), //Lower confidence interval, in original units
+                                value.attributes["wrtds_trends_wm_new.upF90"].toFixed(4), //Upper confidence interval, in original units
+                                "90 percent confidence interval" //Reported confidence interval
+                            ]);
+                        }
                     });
 
                     //handling Pesticide data
