@@ -1453,7 +1453,7 @@ require([
                         readOnly: true,
                         columnSorting: true,
                         sortIndicator: true
-                    })
+                    });
 
                     var tableDownloadClick = $(".download-table-btn").on('click', function(event) {
                         var csvContent = "data:text/csv;charset=utf-8,";
@@ -1484,9 +1484,10 @@ require([
                         link.setAttribute("download", currentSiteNo + "_trend_results.csv");
                         document.body.appendChild(link); // Required for FF
                         link.click();
-                        $('.table-close').click(function() {
-                            tableDownloadClick.off();
-                        });
+                    });
+
+                    $('.table-close').click(function() {
+                        tableDownloadClick.off();
                     });
                 })
                 .fail(function() {
@@ -1516,6 +1517,10 @@ require([
         }
 
         $('#table').click(function(){
+            $('#tableModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
             showTableModal();
         });
 
