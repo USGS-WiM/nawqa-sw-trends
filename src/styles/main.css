@@ -875,7 +875,6 @@ input[type="checkbox"], input[type="radio"] {
 
 }
 .htCore th:after{
-    content: 'hello';
     display: none;
     position: fixed;
     box-sizing: border-box;
@@ -901,7 +900,8 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .htCore th:nth-child(1):after,
-.htCore th:nth-child(3):after{
+.htCore th:nth-child(3):after,
+.htCore th:nth-child(11):after{
     display: none;
 }
 .htCore th:nth-child(2):after{
@@ -948,7 +948,8 @@ input[type="checkbox"], input[type="radio"] {
     margin-left: 5px;
 }
 .htCore th:nth-child(1) .relative:before,
-.htCore th:nth-child(3) .relative:before{
+.htCore th:nth-child(3) .relative:before,
+.htCore th:nth-child(11) .relative:before{
     display: none;
 }
 
