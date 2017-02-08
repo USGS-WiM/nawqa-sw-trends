@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Water-Quality Changes in the Nation's Streams and Rivers</title>
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- build:css styles/vendor.css -->
@@ -125,6 +125,26 @@
     </div>
 </div>
 
+<div class="modal" id="IEwarningModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                <!--<h4 class="modal-title">{Event Name} Data Viewer</h4>-->
+                <h4><i class="fa fa-exclamation-triangle fa-lg"></i> Web browser warning</h4>
+            </div>
+            <div class="modal-body">
+                <p>This web application does not support use of Microsoft Internet Explorer. It is not designed or tested for use with IE and functionality may be limited or impaired.</p>
+                <p>Please use this application in Google Chrome (Bison Connect, for Department of Interior employees) or Mozilla Firefox.</p>
+
+            </div>
+            <div class="modal-footer">
+                <button id="IEwarnContinue" type="button" class="btn btn-danger" data-dismiss="modal">Continue Anyway (Not recommended)</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
 <div class="modal fade overflow-y-hidden" id="chartModal" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -230,7 +250,7 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-<div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
+<div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" >
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
