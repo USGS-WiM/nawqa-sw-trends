@@ -405,7 +405,7 @@ require([
     });
 
     function layerUpdateListener(layer) {
-        var layerUpdate = on(map.getLayer(layer), 'update-end', function(evt) {
+        var layerUpdate = map.getLayer(layer).on('update-end', function(evt) {
             var graphicsNum = evt.target.graphics.length;
             if (graphicsNum == 0) {
                 //alert("No sites are available for this constituent and trend period. Please select another option.");
@@ -473,11 +473,14 @@ require([
 
         var trendTypeVal = $('input[name=trendType]:checked').val();
         var layer;
+        var layerID;
         if (trendTypeVal == "concentration") {
             layer = map.getLayer("wrtdsSites");
+            layerID = "wrtdsSites";
             layer.setVisibility(true);
         } else if (trendTypeVal == "load") {
             layer = map.getLayer("wrtdsFluxSites");
+            layerID = "wrtdsFluxSites";
             layer.setVisibility(true);
         }
 
@@ -499,7 +502,7 @@ require([
         }
         var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod + "%' OR wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod2 + "%'";
         layer.setDefinitionExpression(expression);
-        layerUpdateListener(layer);
+        layerUpdateListener(layerID);
     }
 
     $("#pesticideSelect").on("change", function(event) {
@@ -540,7 +543,7 @@ require([
 
         currentConst = val;
         var layer;
-
+        var layerID;
         if (val == "Specific conductance") {
             $("#load").prop('disabled', true);
             $('input:radio[name=trendType]')[0].checked = true;
@@ -551,9 +554,11 @@ require([
         var trendTypeVal = $('input[name=trendType]:checked').val();
         if (trendTypeVal == "concentration") {
             layer = map.getLayer("wrtdsSites");
+            layerID = "wrtdsSites";
             layer.setVisibility(true);
         } else if (trendTypeVal == "load") {
             layer = map.getLayer("wrtdsFluxSites");
+            layerID = "wrtdsFluxSites";
             layer.setVisibility(true);
         }
 
@@ -575,7 +580,7 @@ require([
         }
         var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod + "%' OR wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod2 + "%'";
         layer.setDefinitionExpression(expression);
-        layerUpdateListener(layer);
+        layerUpdateListener(layerID);
     });
 
     $(".trendPeriod").on("change", function(event) {
@@ -603,13 +608,16 @@ require([
             layerUpdateListener("ecoSites");
         } else if ($("#typeSelect")[0].value == "Nutrients" || $("#typeSelect")[0].value == "Carbon" || $("#typeSelect")[0].value == "Major ions" || $("#typeSelect")[0].value == "Salinity" || $("#typeSelect")[0].value == "Sediment") {
             var layer;
+            var layerID;
             var trendTypeVal = $('input[name=trendType]:checked').val();
             if (trendTypeVal == "concentration") {
                 layer = map.getLayer("wrtdsSites");
+                layerID = "wrtdsSites";
                 layer.setVisibility(true);
                 map.getLayer("wrtdsFluxSites").setVisibility(false);
             } else if (trendTypeVal == "load") {
                 layer = map.getLayer("wrtdsFluxSites");
+                layerID = "wrtdsFluxSites";
                 layer.setVisibility(true);
                 map.getLayer("wrtdsSites").setVisibility(false);
             }
@@ -633,7 +641,7 @@ require([
             currentConst = selectVal;
             var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + selectVal + "%" + trendPeriod + "%' OR wrtds_trends_wm_new.id_unique LIKE '%" + selectVal + "%" + trendPeriod2 + "%'";
             layer.setDefinitionExpression(expression);
-            layerUpdateListener(layer);
+            layerUpdateListener(layerID);
         }
     });
 
@@ -648,14 +656,17 @@ require([
 
         } else if ($("#typeSelect")[0].value == "Nutrients" || $("#typeSelect")[0].value == "Carbon" || $("#typeSelect")[0].value == "Major ions" || $("#typeSelect")[0].value == "Salinity" || $("#typeSelect")[0].value == "Sediment") {
             var layer;
+            var layerID;
             $.each(layers_all, function(key,value){
                 map.getLayer(value).setVisibility(false);
             });
 
             if (val == "concentration") {
                 layer = map.getLayer("wrtdsSites");
+                layerID = "wrtdsSites";
             } else if (val == "load") {
                 layer = map.getLayer("wrtdsFluxSites");
+                layerID = "wrtdsFluxSites";
             }
 
             var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
@@ -680,7 +691,7 @@ require([
 
             layer.setDefinitionExpression(expression);
             layer.setVisibility(true);
-            layerUpdateListener(layer);
+            layerUpdateListener(layerID);
         }
 
     });
