@@ -265,7 +265,6 @@ require([
     }, "locateButton");
     locate.startup();
 
-    $('#aboutModal').modal('show');
     $('#legendButton').click();
 
     //following block forces map size to override problems with default behavior
@@ -281,6 +280,20 @@ require([
             $('#legendElement').css('height', 'initial');
         }*/
     });
+
+    // All code for handling IE warning popup
+    $("#IEwarnContinue").click(function () {
+        $('#aboutModal').modal({backdrop: 'static'});
+        $('#aboutModal').modal('show');
+    });
+
+    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+        $("#IEwarningModal").modal('show');
+    } else {
+        $('#aboutModal').modal({backdrop: 'static'});
+        $('#aboutModal').modal('show');
+    }
+    // End IE warning code
 
     $('#printExecuteButton').click(function (e) {
         e.preventDefault();
