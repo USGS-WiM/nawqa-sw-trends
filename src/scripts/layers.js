@@ -68,7 +68,7 @@ require([
             "includeInLayerList": false,
             "layers": {
                 "pest layer": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/0",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/0",
                     "options": {
                         "id": "pestSites",
                         "opacity": 1.00,
@@ -85,7 +85,7 @@ require([
                     }
                 },
                 "Eco Sites layer" : {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/1",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/1",
                     "options": {
                         "id": "ecoSites",
                         "opacity": 1.00,
@@ -102,7 +102,7 @@ require([
                     }
                 },
                 "WRTDS Concentration Sites" : {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/2",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/2",
                     "options": {
                         "id": "wrtdsSites",
                         "opacity": 1.00,
@@ -119,7 +119,7 @@ require([
                     }
                 },
                 "WRTDS Flux Sites" : {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/3",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/3",
                     "options": {
                         "id": "wrtdsFluxSites",
                         "opacity": 1.00,
