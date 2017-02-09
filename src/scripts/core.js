@@ -177,7 +177,7 @@ require([
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites_test/MapServer/4/query?where=include_in_mapper_+%3D+%27include%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=Model%2CParameter_name&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
+        url: 'https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/4/query?where=include_in_mapper_+%3D+%27include%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=Model%2CParameter_name&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             constObj = data;
@@ -265,7 +265,6 @@ require([
     }, "locateButton");
     locate.startup();
 
-    $('#aboutModal').modal('show');
     $('#legendButton').click();
 
     //following block forces map size to override problems with default behavior
@@ -281,6 +280,20 @@ require([
             $('#legendElement').css('height', 'initial');
         }*/
     });
+
+    // All code for handling IE warning popup
+    $("#IEwarnContinue").click(function () {
+        $('#aboutModal').modal({backdrop: 'static'});
+        $('#aboutModal').modal('show');
+    });
+
+    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+        $("#IEwarningModal").modal('show');
+    } else {
+        $('#aboutModal').modal({backdrop: 'static'});
+        $('#aboutModal').modal('show');
+    }
+    // End IE warning code
 
     $('#printExecuteButton').click(function (e) {
         e.preventDefault();
@@ -392,10 +405,13 @@ require([
     });
 
     function layerUpdateListener(layer) {
-        var layerUpdate = on(map.getLayer(layer), 'update-end', function(evt) {
+        var layerUpdate = map.getLayer(layer).on('update-end', function(evt) {
             var graphicsNum = evt.target.graphics.length;
             if (graphicsNum == 0) {
-                alert("No sites are available for this constituent and trend period. Please select another option.");
+                //alert("No sites are available for this constituent and trend period. Please select another option.");
+                $(".alert-box").show();
+            } else {
+                $(".alert-box").hide();
             }
             layerUpdate.remove();
         });
@@ -457,11 +473,14 @@ require([
 
         var trendTypeVal = $('input[name=trendType]:checked').val();
         var layer;
+        var layerID;
         if (trendTypeVal == "concentration") {
             layer = map.getLayer("wrtdsSites");
+            layerID = "wrtdsSites";
             layer.setVisibility(true);
         } else if (trendTypeVal == "load") {
             layer = map.getLayer("wrtdsFluxSites");
+            layerID = "wrtdsFluxSites";
             layer.setVisibility(true);
         }
 
@@ -483,7 +502,7 @@ require([
         }
         var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod + "%' OR wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod2 + "%'";
         layer.setDefinitionExpression(expression);
-        layerUpdateListener(layer);
+        layerUpdateListener(layerID);
     }
 
     $("#pesticideSelect").on("change", function(event) {
@@ -524,7 +543,7 @@ require([
 
         currentConst = val;
         var layer;
-
+        var layerID;
         if (val == "Specific conductance") {
             $("#load").prop('disabled', true);
             $('input:radio[name=trendType]')[0].checked = true;
@@ -535,9 +554,11 @@ require([
         var trendTypeVal = $('input[name=trendType]:checked').val();
         if (trendTypeVal == "concentration") {
             layer = map.getLayer("wrtdsSites");
+            layerID = "wrtdsSites";
             layer.setVisibility(true);
         } else if (trendTypeVal == "load") {
             layer = map.getLayer("wrtdsFluxSites");
+            layerID = "wrtdsFluxSites";
             layer.setVisibility(true);
         }
 
@@ -559,7 +580,7 @@ require([
         }
         var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod + "%' OR wrtds_trends_wm_new.id_unique LIKE '%" + val + "%" + trendPeriod2 + "%'";
         layer.setDefinitionExpression(expression);
-        layerUpdateListener(layer);
+        layerUpdateListener(layerID);
     });
 
     $(".trendPeriod").on("change", function(event) {
@@ -587,13 +608,16 @@ require([
             layerUpdateListener("ecoSites");
         } else if ($("#typeSelect")[0].value == "Nutrients" || $("#typeSelect")[0].value == "Carbon" || $("#typeSelect")[0].value == "Major ions" || $("#typeSelect")[0].value == "Salinity" || $("#typeSelect")[0].value == "Sediment") {
             var layer;
+            var layerID;
             var trendTypeVal = $('input[name=trendType]:checked').val();
             if (trendTypeVal == "concentration") {
                 layer = map.getLayer("wrtdsSites");
+                layerID = "wrtdsSites";
                 layer.setVisibility(true);
                 map.getLayer("wrtdsFluxSites").setVisibility(false);
             } else if (trendTypeVal == "load") {
                 layer = map.getLayer("wrtdsFluxSites");
+                layerID = "wrtdsFluxSites";
                 layer.setVisibility(true);
                 map.getLayer("wrtdsSites").setVisibility(false);
             }
@@ -617,7 +641,7 @@ require([
             currentConst = selectVal;
             var expression = "wrtds_trends_wm_new.id_unique LIKE '%" + selectVal + "%" + trendPeriod + "%' OR wrtds_trends_wm_new.id_unique LIKE '%" + selectVal + "%" + trendPeriod2 + "%'";
             layer.setDefinitionExpression(expression);
-            layerUpdateListener(layer);
+            layerUpdateListener(layerID);
         }
     });
 
@@ -632,14 +656,17 @@ require([
 
         } else if ($("#typeSelect")[0].value == "Nutrients" || $("#typeSelect")[0].value == "Carbon" || $("#typeSelect")[0].value == "Major ions" || $("#typeSelect")[0].value == "Salinity" || $("#typeSelect")[0].value == "Sediment") {
             var layer;
+            var layerID;
             $.each(layers_all, function(key,value){
                 map.getLayer(value).setVisibility(false);
             });
 
             if (val == "concentration") {
                 layer = map.getLayer("wrtdsSites");
+                layerID = "wrtdsSites";
             } else if (val == "load") {
                 layer = map.getLayer("wrtdsFluxSites");
+                layerID = "wrtdsFluxSites";
             }
 
             var trendPeriodVal = $('input[name=trendPeriod]:checked').val();
@@ -664,7 +691,7 @@ require([
 
             layer.setDefinitionExpression(expression);
             layer.setVisibility(true);
-            layerUpdateListener(layer);
+            layerUpdateListener(layerID);
         }
 
     });
@@ -1318,7 +1345,7 @@ require([
                         var trendYear = trendYearArray[trendYearArray.length-1];
                         data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
                             "Concentration (flow normalized)", //Type
-                            trendYear+"-2012", //Trend period
+                            trendPeriodFixer(trendYear)+"-2012", //Trend period
                             Math.abs(value.attributes["wrtds_trends_wm_new.likeC"].toFixed(3)), //Trend likelihood
                             value.attributes["wrtds_trends_wm_new.trend_pct_C"].toFixed(2), //Trend, in percent
                             value.attributes["wrtds_trends_wm_new.low_int_C"].toFixed(2), //Lower confidence interval, in percent
@@ -1328,18 +1355,20 @@ require([
                             value.attributes["wrtds_trends_wm_new.upC90"].toFixed(4), //Upper confidence interval, in original units
                             "90 percent confidence interval" //Reported confidence interval
                         ]);
-                        data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
-                            "Load (flow normalized)", //Type
-                            trendYear+"-2012", //Trend period
-                            Math.abs(value.attributes["wrtds_trends_wm_new.likeF"].toFixed(3)), //Trend likelihood
-                            value.attributes["wrtds_trends_wm_new.trend_pct_F"].toFixed(2),//Trend, in percent
-                            value.attributes["wrtds_trends_wm_new.low_int_F"].toFixed(2), //Lower confidence interval, in percent
-                            value.attributes["wrtds_trends_wm_new.up_int_F"].toFixed(2), //Upper confidence interval, in percent
-                            value.attributes["wrtds_trends_wm_new.estF"].toFixed(4), //Trend, in original units
-                            value.attributes["wrtds_trends_wm_new.lowF90"].toFixed(4), //Lower confidence interval, in original units
-                            value.attributes["wrtds_trends_wm_new.upF90"].toFixed(4), //Upper confidence interval, in original units
-                            "90 percent confidence interval" //Reported confidence interval
-                        ]);
+                        if (value.attributes["wrtds_trends_wm_new.param_nm"] != "Specific conductance") {
+                            data2Return.push([value.attributes["wrtds_trends_wm_new.param_nm"], //Constituent
+                                "Load (flow normalized)", //Type
+                                trendPeriodFixer(trendYear)+"-2012", //Trend period
+                                Math.abs(value.attributes["wrtds_trends_wm_new.likeF"].toFixed(3)), //Trend likelihood
+                                value.attributes["wrtds_trends_wm_new.trend_pct_F"].toFixed(2),//Trend, in percent
+                                value.attributes["wrtds_trends_wm_new.low_int_F"].toFixed(2), //Lower confidence interval, in percent
+                                value.attributes["wrtds_trends_wm_new.up_int_F"].toFixed(2), //Upper confidence interval, in percent
+                                value.attributes["wrtds_trends_wm_new.estF"].toFixed(4), //Trend, in original units
+                                value.attributes["wrtds_trends_wm_new.lowF90"].toFixed(4), //Lower confidence interval, in original units
+                                value.attributes["wrtds_trends_wm_new.upF90"].toFixed(4), //Upper confidence interval, in original units
+                                "90 percent confidence interval" //Reported confidence interval
+                            ]);
+                        }
                     });
 
                     //handling Pesticide data
@@ -1424,7 +1453,7 @@ require([
                         readOnly: true,
                         columnSorting: true,
                         sortIndicator: true
-                    })
+                    });
 
                     var tableDownloadClick = $(".download-table-btn").on('click', function(event) {
                         var csvContent = "data:text/csv;charset=utf-8,";
@@ -1455,9 +1484,10 @@ require([
                         link.setAttribute("download", currentSiteNo + "_trend_results.csv");
                         document.body.appendChild(link); // Required for FF
                         link.click();
-                        $('.table-close').click(function() {
-                            tableDownloadClick.off();
-                        });
+                    });
+
+                    $('.table-close').click(function() {
+                        tableDownloadClick.off();
                     });
                 })
                 .fail(function() {
@@ -1487,6 +1517,10 @@ require([
         }
 
         $('#table').click(function(){
+            $('#tableModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
             showTableModal();
         });
 
@@ -1540,6 +1574,7 @@ require([
         $('#faq24header').click(function(){$('#faq24body').slideToggle(250);});
         $('#faq25header').click(function(){$('#faq25body').slideToggle(250);});
         $('#faq26header').click(function(){$('#faq26body').slideToggle(250);});
+        $('#faq27header').click(function(){$('#faq27body').slideToggle(250);});
 
         $('.fullsize').click(function(){
             var data = "<img src='"+$(this).attr('src')+"'/>";

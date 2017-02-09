@@ -658,10 +658,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .user-guide-item{
-    display: -webkit-flex;
-    display: flex;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
+    display: block;
     box-sizing: border-box;
     padding: 35px 15px 35px 0;
     border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -671,20 +668,15 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .user-guide-item .user-guide-item-image{
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-justify-content: center;
-    justify-content: center;
-    width: 180px;
-    min-width: 150px;
+    display: inline-block;
+    width: 100%;
     height: 100px;
 }
 .user-guide-item img{
     display: block;
-    width: 100%;
-    height: auto;
+    height: 100%;
+    margin: 0 auto;
+    width: auto;
     max-height: 100%;
     max-width: 100%;
     border: 4px solid rgba(0,0,0,0.15);
@@ -875,7 +867,6 @@ input[type="checkbox"], input[type="radio"] {
 
 }
 .htCore th:after{
-    content: 'hello';
     display: none;
     position: fixed;
     box-sizing: border-box;
@@ -901,14 +892,15 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .htCore th:nth-child(1):after,
-.htCore th:nth-child(3):after{
+.htCore th:nth-child(3):after,
+.htCore th:nth-child(11):after{
     display: none;
 }
 .htCore th:nth-child(2):after{
     content: "Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time. A metric is an index calculated to represent a specific characteristic of aquatic communities. Changes over time in water-quality concentration and load and changes in aquatic ecology-metrics can be strongly influenced by random and systematic variations in streamflow. Flow normalization removes the variation in concentration, load, or metric that is due to variations in streamflow. As a result, concentration and load trends are flow normalized and aquatic ecology metric trends are flow normalized. See FAQ #17 for more information.";
 }
 .htCore th:nth-child(4):after{
-    content: 'The likelihood-based approach is used as an alternative to the null-hypothesis significance testing approach that is often used when reporting water-quality trends. See FAQ #18 for more information.';
+    content: 'The trend is "likely" when this value is greater than 0.85. The trend is "somewhat likely" when this value is between 0.70 and 0.85. The trend is "about as likely as not" when this value is less than 0.70. This likelihood-based approach is used as an alternative to the null-hypothesis significance testing approach that is often used when reporting water-quality trends. See User Guide > Explanation for more information.';
 }
 .htCore th:nth-child(8):after{
     content: 'The original units for each constituent and type can be found in About -> Learn More. Trends are reported for the full tend period. They are not reported on a per year basis.';
@@ -917,10 +909,12 @@ input[type="checkbox"], input[type="radio"] {
     content: 'A confidence interval is the interval that contains the true trend with the given likelihood. For example, for a 90% confidence interval, we can say we are 90% confident that the true trend is in the reported confidence interval, or that 90% of the hypothetically observed confidence intervals will hold the true trend.';
 }
 .htCore th:nth-child(6):after,
-.htCore th:nth-child(9):after,
-.htCore th:nth-child(10):after,
-.htCore th:nth-child(11):after{
+\.htCore th:nth-child(11):after{
     content: 'A confidence interval is the interval that contains the true trend with the given likelihood. For example, for a 90% confidence interval, we can say we are 90% confident that the true trend is in the reported confidence interval, or that 90% of the hypothetically observed confidence intervals will hold the true trend.';
+}
+.htCore th:nth-child(9):after,
+.htCore th:nth-child(10):after{
+    content: 'A confidence interval is the interval that contains the true trend with the given likelihood. For example, for a 90% confidence interval, we can say we are 90% confident that the true trend is in the reported confidence interval, or that 90% of the hypothetically observed confidence intervals will hold the true trend. The original units for each constituent and type can be found in About -> Learn More.';
 }
 .htCore th:nth-child(5):after{
     content: 'Trends are reported for the full trend period. They are not reported on a per year basis.';
@@ -946,6 +940,40 @@ input[type="checkbox"], input[type="radio"] {
     margin-left: 5px;
 }
 .htCore th:nth-child(1) .relative:before,
-.htCore th:nth-child(3) .relative:before{
+.htCore th:nth-child(3) .relative:before,
+.htCore th:nth-child(11) .relative:before{
     display: none;
+}
+
+
+
+/*Alert*/
+.alert-box{
+  display: block;
+  position: fixed;
+  top: 65px;
+  left: 50%;
+  margin-left: -150px;
+  width: 300px;
+  box-sizing: border-box;
+  padding: 15px;
+  background-color: white;
+  z-index: 5000000;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  color: black;
+  border-left: 8px solid #379AFF;
+  display: none;
+}
+.alert-box h1{
+  display: block;
+  font-size: 12pt;
+  font-weight: bolder;
+  margin: 0;
+  padding: 0;
+}
+.alert-box b{
+  display: block;
+  font-size: 10pt;
+  font-weight: 500;
+  padding-top: 5px;
 }
