@@ -136,7 +136,7 @@ require([
                     }
                 },
                 "2012": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
+                    "url": "https://supermario.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
                     "options": {
                         "id": "lu2012",
                         "opacity": 0.5,
@@ -152,7 +152,7 @@ require([
                     }
                 },
                 "2002": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2002_100515_test/ImageServer",
+                    "url": "https://supermario.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2002_100515_test/ImageServer",
                     "options": {
                         "id": "lu2002",
                         "opacity": 0.5,
@@ -168,7 +168,7 @@ require([
                     }
                 },
                 "1992": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1992_100515_test/ImageServer",
+                    "url": "https://supermario.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1992_100515_test/ImageServer",
                     "options": {
                         "id": "lu1992",
                         "opacity": 0.5,
@@ -184,7 +184,7 @@ require([
                     }
                 },
                 "1982": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1982_100515_test/ImageServer",
+                    "url": "https://supermario.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1982_100515_test/ImageServer",
                     "options": {
                         "id": "lu1982",
                         "opacity": 0.5,
@@ -200,7 +200,7 @@ require([
                     }
                 },
                 "1974": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1974_100515_test/ImageServer",
+                    "url": "https://supermario.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1974_100515_test/ImageServer",
                     "options": {
                         "id": "lu1974",
                         "opacity": 0.5,
