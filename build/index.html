@@ -66,11 +66,11 @@
             </a>
         </div>
 
-        <button id="geosearchNav" type="button" class="btn btn-primary navbar-btn pull-right" onclick="ga('send','event','navbar','click','Find Location');">
+        <button id="geosearchNav" type="button" class="btn btn-primary navbar-btn pull-right" onclick="ga('send','event','navbar','click','Find Location Modal Opened');">
             <span class="glyphicon glyphicon-search"></span>
             <span id="geosearchButtonText"> Find Location</span>
         </button>
-        <button id="printNavButton" type="button" class="btn btn-primary navbar-btn pull-right" onclick="ga('send','event','navbar','click','Print');">
+        <button id="printNavButton" type="button" class="btn btn-primary navbar-btn pull-right" onclick="ga('send','event','navbar','click','Print Modal Opened');">
             <span class="glyphicon glyphicon-print"></span>
             <span id="printButtonText"> Print</span>
         </button>
@@ -189,7 +189,7 @@
                 </div>
                 <form id="geosearch-form" class="form-inline geosearch-buttons">
                     <button id="btnDismiss" type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button id="btnGeosearch" type="button" class="btn btn-success" data-dismiss="modal"> Search </button>
+                    <button id="btnGeosearch" type="button" class="btn btn-success" data-dismiss="modal" onclick="ga('send','event','navbar','click','Find Location Search Performed');"> Search </button>
                 </form>
             </div>
         </div><!-- /.modal-content -->
@@ -211,7 +211,7 @@
                     <!--</form>
 
                     <form id="print-form" class="form-inline">-->
-                    <button id="printExecuteButton" type="submit" class="btn btn-success btn-fixed" data-loading-text="Printing..." > Print </button>
+                    <button id="printExecuteButton" type="submit" class="btn btn-success btn-fixed" data-loading-text="Printing..." onclick="ga('send','event','navbar','click','Print Job Performed');"> Print </button>
                     <button id="printDismissButton" type="button" class="btn btn-default btn-fixed" data-dismiss="modal"> Dismiss</button>
                 </form>
 
