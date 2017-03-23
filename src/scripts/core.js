@@ -1479,11 +1479,19 @@ require([
 
                         });
                         var encodedUri = encodeURI(csvContent);
-                        var link = document.createElement("a");
-                        link.setAttribute("href", encodedUri);
-                        link.setAttribute("download", currentSiteNo + "_trend_results.csv");
-                        document.body.appendChild(link); // Required for FF
-                        link.click();
+                        if(navigator.userAgent.indexOf("Safari") != -1){
+                            var a = $("<a>").attr("href", encodedUri).attr("download", currentSiteNo + "_trend_results.csv").appendTo("body");
+                            a[0].click();
+                            a.remove();
+                        } else {
+                            var link = document.createElement("a");
+                            link.setAttribute("href", encodedUri);
+                            link.setAttribute("download", currentSiteNo + "_trend_results.csv");
+                            document.body.appendChild(link); // Required for FF
+                            link.click();
+                            link.remove();
+                        }
+
                     });
 
                     $('.table-close').click(function() {
