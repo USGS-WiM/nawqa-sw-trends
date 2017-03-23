@@ -1481,7 +1481,7 @@ require([
                         var encodedUri = encodeURI(csvContent);
                         if(navigator.userAgent.indexOf("Safari") != -1){
                             var a = $("<a>").attr("href", encodedUri).attr("download", currentSiteNo + "_trend_results.csv").appendTo("body");
-                            a[0].click();
+                            a.click();
                             a.remove();
                         } else {
                             var link = document.createElement("a");
