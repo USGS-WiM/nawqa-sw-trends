@@ -1480,8 +1480,11 @@ require([
                         });
                         var encodedUri = encodeURI(csvContent);
                         if(navigator.userAgent.indexOf("Safari") != -1){
-                            var a = $("<a>").attr("href", encodedUri).attr("download", currentSiteNo + "_trend_results.csv").appendTo("body");
-                            a.click();
+                            var cle = document.createEvent("MouseEvent");
+                            cle.initEvent("click", true, true);
+                            var a = $("<a>").attr("id", "downloadLink").attr("target", "_blank").attr("href", encodedUri).attr("download", currentSiteNo + "_trend_results.csv").appendTo("body");
+                            var elem = document.getElementById('downloadLink');
+                            elem.dispatchEvent(cle);
                             a.remove();
                         } else {
                             var link = document.createElement("a");
