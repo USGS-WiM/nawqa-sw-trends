@@ -1482,7 +1482,7 @@ require([
                         if(navigator.userAgent.indexOf("Safari") != -1){
                             var cle = document.createEvent("MouseEvent");
                             cle.initEvent("click", true, true);
-                            var a = $("<a>").attr("id", "downloadLink").attr("href", encodedUri).attr("download", currentSiteNo + "_trend_results.csv").appendTo("body");
+                            var a = $("<a>").attr("id", "downloadLink").attr("target", "_blank").attr("href", encodedUri).attr("download", currentSiteNo + "_trend_results.csv").appendTo("body");
                             var elem = document.getElementById('downloadLink');
                             elem.dispatchEvent(cle);
                             a.remove();
