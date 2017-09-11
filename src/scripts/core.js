@@ -1180,12 +1180,12 @@ require([
 
 
 
-                $("#pConc").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotConcTime.png");
-                $("#bConc").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/boxConcMonth.png");
-                $("#pConcPred").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotConcPred.png");
-                $("#pFluxPred").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotFluxPred.png");
-                $("#pConcHistBoot").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotConcHistBoot.png");
-                $("#pFluxHistBoot").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotFluxHistBoot.png");
+                $("#pConc").attr("src", "http://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotConcTime.png");
+                $("#bConc").attr("src", "http://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/boxConcMonth.png");
+                $("#pConcPred").attr("src", "http://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotConcPred.png");
+                $("#pFluxPred").attr("src", "http://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotFluxPred.png");
+                $("#pConcHistBoot").attr("src", "http://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotConcHistBoot.png");
+                $("#pFluxHistBoot").attr("src", "http://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotFluxHistBoot.png");
 
 
                 $.ajax({
