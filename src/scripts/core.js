@@ -1175,8 +1175,19 @@ require([
                 //alert(pestPDFs);
             } else {
                 var jossoSessionId = "";
-                $(".charts-model-loading").show();
+                //$(".charts-model-loading").show();
                 $(".charts-sbdown").hide();
+
+
+
+                $("#pConc").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotConcTime.png");
+                $("#bConc").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/boxConcMonth.png");
+                $("#pConcPred").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotConcPred.png");
+                $("#pFluxPred").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotFluxPred.png");
+                $("#pConcHistBoot").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotConcHistBoot.png");
+                $("#pFluxHistBoot").attr("src", "https://nawqatrends.wim.usgs.gov.s3.amazonaws.com/charts/" + currentConst + "_" + currentSiteNo + "/plotFluxHistBoot.png");
+
+
                 $.ajax({
                     dataType: 'json',
                     type: 'GET',
@@ -1206,7 +1217,7 @@ require([
                                         headers: {'Accept': '*/*'},
                                         success: function (data) {
                                             var pngUrlData = data;
-                                            $.each(pngUrlData.files, function (key, value) {
+                                            /*$.each(pngUrlData.files, function (key, value) {
                                                 console.log(value.url);
                                                 switch(value.name) {
                                                     case "plotConcTime.png":
@@ -1229,7 +1240,7 @@ require([
                                                         break;
                                                     default:
                                                 }
-                                            });
+                                            });*/
                                             console.log(pngUrlData);
                                             $(".charts-model-loading").hide();
                                         },
@@ -1251,12 +1262,12 @@ require([
                         $(".charts-sbdown").show();
                     }
                 });
-                $("#pConc").attr("src", "");
+                /*$("#pConc").attr("src", "");
                 $("#bConc").attr("src", "");
                 $("#pConcPred").attr("src", "");
                 $("#pFluxPred").attr("src", "");
                 $("#pConcHistBoot").attr("src", "");
-                $("#pFluxHistBoot").attr("src", "");
+                $("#pFluxHistBoot").attr("src", "");*/
                 $('#chartModal').modal('show');
             }
         }
