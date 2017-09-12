@@ -1175,88 +1175,16 @@ require([
                 //alert(pestPDFs);
             } else {
                 var jossoSessionId = "";
-                $(".charts-model-loading").show();
+                //$(".charts-model-loading").show();
                 $(".charts-sbdown").hide();
-                $.ajax({
-                    dataType: 'json',
-                    type: 'GET',
-                    url: 'https://services.wim.usgs.gov/proxies/sbProxy/Default.aspx?q=sessionid',
-                    headers: {'Accept': '*/*'},
-                    success: function (data) {
-                        var jossoObj = data;
-                        var qTerm = currentConst + "_" + currentSiteNo;
-                        var newQTerm = qTerm.replace(" ","%20");
-                        var url = "https://www.sciencebase.gov/catalog/items?s=Search&q="+ newQTerm + "&format=json&josso=" + jossoObj.jossoSessionId;
-                        console.log(url);
-                        $.ajax({
-                            dataType: 'json',
-                            type: 'GET',
-                            url: url,
-                            headers: {'Accept': '*/*'},
-                            success: function (data) {
-                                var itemData = data;
-                                console.log(itemData);
-                                //get folder id and then call this for with josso session id to get plot urls
-                                if (itemData.items.length > 0) {
-                                    var url = "https://www.sciencebase.gov/catalog/item/" + itemData.items[0].id + "?format=json&josso=" + jossoObj.jossoSessionId;
-                                    $.ajax({
-                                        dataType: 'json',
-                                        type: 'GET',
-                                        url: url,
-                                        headers: {'Accept': '*/*'},
-                                        success: function (data) {
-                                            var pngUrlData = data;
-                                            $.each(pngUrlData.files, function (key, value) {
-                                                console.log(value.url);
-                                                switch(value.name) {
-                                                    case "plotConcTime.png":
-                                                        $("#pConc").attr("src", value.url + "&josso=" + jossoObj.jossoSessionId);
-                                                        break;
-                                                    case "boxConcMonth.png":
-                                                        $("#bConc").attr("src", value.url + "&josso=" + jossoObj.jossoSessionId);
-                                                        break;
-                                                    case "plotConcPred.png":
-                                                        $("#pConcPred").attr("src", value.url + "&josso=" + jossoObj.jossoSessionId);
-                                                        break;
-                                                    case "plotFluxPred.png":
-                                                        $("#pFluxPred").attr("src", value.url + "&josso=" + jossoObj.jossoSessionId);
-                                                        break;
-                                                    case "plotConcHistBoot.png":
-                                                        $("#pConcHistBoot").attr("src", value.url + "&josso=" + jossoObj.jossoSessionId);
-                                                        break;
-                                                    case "plotFluxHistBoot.png":
-                                                        $("#pFluxHistBoot").attr("src", value.url + "&josso=" + jossoObj.jossoSessionId);
-                                                        break;
-                                                    default:
-                                                }
-                                            });
-                                            console.log(pngUrlData);
-                                            $(".charts-model-loading").hide();
-                                        },
-                                        error: function (error) {
-                                            console.log("Error processing the JSON. The error is:" + error);
-                                        }
-                                    });
-                                }
-                            },
-                            error: function (error) {
-                                console.log("Error processing the JSON. The error is:" + error);
-                            }
-                        });
-                    },
-                    error: function (error) {
-                        console.log("Error processing the JSON. The error is:" + error);
-                        //add content here when science base is not allowing access
-                        $(".charts-model-loading").hide();
-                        $(".charts-sbdown").show();
-                    }
-                });
-                $("#pConc").attr("src", "");
-                $("#bConc").attr("src", "");
-                $("#pConcPred").attr("src", "");
-                $("#pFluxPred").attr("src", "");
-                $("#pConcHistBoot").attr("src", "");
-                $("#pFluxHistBoot").attr("src", "");
+                $(".charts-model-loading").hide();
+
+                $("#pConc").attr("src", "https://s3.amazonaws.com/nawqatrends.wim.usgs.gov/charts/" + currentConst + "_" + currentSiteNo + "/plotConcTime.png");
+                $("#bConc").attr("src", "https://s3.amazonaws.com/nawqatrends.wim.usgs.gov/charts/" + currentConst + "_" + currentSiteNo + "/boxConcMonth.png");
+                $("#pConcPred").attr("src", "https://s3.amazonaws.com/nawqatrends.wim.usgs.gov/charts/" + currentConst + "_" + currentSiteNo + "/plotConcPred.png");
+                $("#pFluxPred").attr("src", "https://s3.amazonaws.com/nawqatrends.wim.usgs.gov/charts/" + currentConst + "_" + currentSiteNo + "/plotFluxPred.png");
+                $("#pConcHistBoot").attr("src", "https://s3.amazonaws.com/nawqatrends.wim.usgs.gov/charts/" + currentConst + "_" + currentSiteNo + "/plotConcHistBoot.png");
+                $("#pFluxHistBoot").attr("src", "https://s3.amazonaws.com/nawqatrends.wim.usgs.gov/charts/" + currentConst + "_" + currentSiteNo + "/plotFluxHistBoot.png");
                 $('#chartModal').modal('show');
             }
         }
@@ -1589,8 +1517,8 @@ require([
         $('#faq28header').click(function(){$('#faq28body').slideToggle(250);});
 
         $('.fullsize').click(function(){
-            var data = "<img src='"+$(this).attr('src')+"'/>";
-            var myWindow = window.open("data:text/html," + encodeURIComponent(data),"_blank");
+            //var data = "<img src='"+$(this).attr('src')+"'/>";
+            var myWindow = window.open($(this).attr('src'),"_blank");
             myWindow.focus();
         });
 
