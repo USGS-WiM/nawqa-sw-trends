@@ -1600,8 +1600,8 @@ require([
         $('#faq28header').click(function(){$('#faq28body').slideToggle(250);});
 
         $('.fullsize').click(function(){
-            var data = "<img src='"+$(this).attr('src')+"'/>";
-            var myWindow = window.open("data:text/html," + encodeURIComponent(data),"_blank");
+            //var data = "<img src='"+$(this).attr('src')+"'/>";
+            var myWindow = window.open($(this).attr('src'),"_blank");
             myWindow.focus();
         });
 
