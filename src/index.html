@@ -18,6 +18,9 @@
     <!-- CSS for the mapping components -->
     <link rel="stylesheet" href="https://js.arcgis.com/3.13/esri/css/esri.css">
 
+    <!-- CSS for USGS Geosearch -->
+    <link rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.1/api/search_api.css" />
+
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -27,6 +30,10 @@
     <!-- endbuild -->
 
     <link rel="shortcut icon" id="favicon" type="image/ico" href="images/favicon-dark.png" />
+
+    <!-- USGS Geosearch -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://txpub.usgs.gov/DSS/search_api/2.1/api/search_api.min.js"></script>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -212,17 +219,28 @@
                 <h4 class="modal-title">Find Location</h4>
             </div>
             <div class="modal-body">
-                <div class="form-group geosearch-form">
-                    <div id="geosearch"><div id="sapi_searchTextBoxDiv"></div></div>
-                    <div class="checkbox">
-                        <label>
-                            <input id="chkExtent" type="checkbox"> Search in Map Only
-                        </label>
+                <div class="form-group">
+                    <div id="geosearch" align="center"></div>
+                    <br>
+                    <div align="center">
+                        <p>Supported Search Strings:</p>
+                            <div id="supportedSearchText">
+                                <ul style="list-style:none;">
+                                    <li>GNIS Locations</li>
+                                    <li>Lat/Long (ie. '43.9, -72.1')</li>
+                                    <li>States</li>
+                                    <li>Street Address</li>
+                                    <li>USGS Sites</li> 
+                                    <li>Zip Codes</li>
+                                </ul>
+                            </div>
+                        <hr>
+                        <p>Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search Javascript API</a></p>
                     </div>
                 </div>
                 <form id="geosearch-form" class="form-inline geosearch-buttons">
                     <button id="btnDismiss" type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button id="btnGeosearch" type="button" class="btn btn-success" data-dismiss="modal" onclick="ga('send','event','navbar','click','Find Location Search Performed');"> Search </button>
+                    <!-- <button id="btnGeosearch" type="button" class="btn btn-success" data-dismiss="modal" onclick="ga('send','event','navbar','click','Find Location Search Performed');"> Search </button> -->
                 </form>
             </div>
         </div><!-- /.modal-content -->

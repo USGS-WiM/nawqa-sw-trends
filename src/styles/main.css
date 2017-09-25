@@ -131,6 +131,11 @@ a:hover{
     z-index: 50;
 }
 
+#supportedSearchText {
+    text-align: left;
+    display: inline-block;
+}
+
 .hover-content {
     display:none;
 }

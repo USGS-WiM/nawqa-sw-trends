@@ -998,7 +998,7 @@ require([
         }
     });
 
-    var geocoder = new Geocoder({
+    /* var geocoder = new Geocoder({
         value: '',
         maxLocations: 25,
         autoComplete: true,
@@ -1014,6 +1014,52 @@ require([
         if (e.keyCode == 13) {
             setSearchExtent();
         }
+    }); */
+
+    search_api.create( "geosearch", {
+        on_result: function(o) {
+            // what to do when a location is found
+            // o.result is geojson point feature of location with properties
+            // zoom to location
+            require(["esri/geometry/Extent"], function(Extent) {
+                var noExtents = ["GNIS_MAJOR", "GNIS_MINOR", "ZIPCODE", "AREACODE"];
+                var noExtentCheck = noExtents.indexOf(o.result.properties["Source"])
+                $("#geosearchModal").modal('hide');
+                if (noExtentCheck == -1) {
+                    map.setExtent(
+                        new esri.geometry.Extent({
+                            xmin: o.result.properties.LonMin,
+                            ymin: o.result.properties.LatMin,
+                            xmax: o.result.properties.LonMax,
+                            ymax: o.result.properties.LatMax,
+                            spatialReference: {"wkid":4326}
+                        }),
+                        true
+                    );
+                } else {
+                    //map.setCenter();
+                    require( ["esri/geometry/Point"], function(Point) {
+                        map.centerAndZoom(
+                            new Point( o.result.properties.Lon, o.result.properties.Lat ),
+                            12
+                        );
+                    });
+                }
+            });
+             
+        },
+        "include_usgs_sw": true,
+        "include_usgs_gw": true,
+        "include_usgs_sp": true,
+        "include_usgs_at": true,
+        "include_usgs_ot": true,
+        "include_huc2": true,
+        "include_huc4": true,
+        "include_huc6": true,
+        "include_huc8": true,
+        "include_huc10": true,
+        "include_huc12": true,
+        
     });
 
     // Symbols
@@ -1025,7 +1071,7 @@ require([
     });
 
     // Geosearch functions
-    on(dom.byId('btnGeosearch'),'click', geosearch);
+    /* on(dom.byId('btnGeosearch'),'click', geosearch); */
 
     // Optionally confine search to map extent
     function setSearchExtent (){
