@@ -1531,7 +1531,7 @@ require([
             $('#legendElement').css('height', 'initial');
         });
 
-
+        
         // FAQ Modal controls.
         $('#faq1header').click(function(){$('#faq1body').slideToggle(250);});
         $('#faq2header').click(function(){$('#faq2body').slideToggle(250);});

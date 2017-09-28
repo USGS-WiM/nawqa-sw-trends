@@ -28,6 +28,7 @@
     <!-- build:css styles/base.css -->
     <link rel="stylesheet" href="bower_components/wim-styles/template/css/base.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="styles/custom.css">
 
     <link rel="shortcut icon" id="favicon" type="image/ico" href="images/favicon-dark.png" />
 
@@ -842,7 +843,7 @@
             <div class="panel panel-default wim-sidebar-panel">
                 <div class="panel-heading" id="basemapsHeader">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse"  href="#basemapsPanel" aria-expanded="false" aria-controls="basemapsPanel">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse"  href="#basemapsPanel" aria-expanded="false" aria-controls="basemapsPanel">
                             Basemaps
                         </a>
                     </h4>
@@ -862,15 +863,16 @@
 
                 </div>
             </div>
+            
             <div class="panel panel-default wim-sidebar-panel">
                 <div class="panel-heading" id="layersPanelHeader">
                     <h4 class="panel-title">
-                        <a class="collapsed" data-toggle="collapse" href="#layersPanel" aria-expanded="true" aria-controls="layersPanel">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" href="#layersPanel" aria-expanded="true" aria-controls="layersPanel">
                             Map Layers
                         </a>
                     </h4>
                 </div>
-                <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
+                <div id="layersPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="layersPanelHeader">
                     <div id="toggle" style="padding: 2px 2px;"></div>
                 </div>
             </div>
@@ -878,7 +880,7 @@
             <div class="panel panel-default wim-sidebar-panel">
                 <div class="panel-heading" id="constPanelHeader">
                     <h4 class="panel-title">
-                        <a class="collapsed" data-toggle="collapse" href="#constPanel" aria-expanded="true" aria-controls="constDropdowns">
+                        <a class="accordion-toggle" data-toggle="collapse" href="#constPanel" aria-expanded="true" aria-controls="constDropdowns">
                             Constituent Select
                         </a>
                     </h4>
