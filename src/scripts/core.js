@@ -1582,7 +1582,7 @@ require([
             dpi: 300
         };
         template.format = "PDF";
-        template.layout = "Letter ANSI A Landscape sw-trends";
+        template.layout = "Letter ANSI A Landscape sw-trends fix";
         template.preserveScale = false;
         var trendsLegendLayer = new LegendLayer();
         trendsLegendLayer.layerId = "1";
