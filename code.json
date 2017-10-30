@@ -1,0 +1,30 @@
+{
+  "name": "nawqa-sw-trends",
+  "organization": "U.S. Geological Survey",
+  "description": "Water-quality changes in the nation's streams and rivers",
+  "status": "Production",
+  "homepage": "https://nawqatrends.wim.usgs.gov/sw-trends/",
+  "downloadURL": "https://github.com/usgs-wim/nawqa-sw-trends/archive/master.zip",
+  "openSourceProject": 1,
+  "license": "https://github.com/usgs-wim/nawqa-sw-trends/blob/master/LICENSE.md",
+  "vcs": "git",
+  "repository": "https://github.com/usgs-wim/nawqa-sw-trends.git",
+
+  "tags": [
+    "nawqa",
+    "wim",
+    "usgs"
+  ],
+  "languages": [
+    "javascript",
+    "html"
+  ],
+
+  "contact": {
+    "name": "Nicholas Estes",
+    "email": "njestes@usgs.gov"
+  },
+  "updated": {
+    "metadataLastUpdated": "10/26/2017"
+  }
+}
