@@ -21,6 +21,7 @@ var currentSiteNo = "";
 var currentConst = "Total Phosphorus";
 var currentLayer = "wrtdsSites";
 
+var identifyTask, identifyParams;
 
 require([
     'esri/arcgis/utils',
@@ -36,6 +37,8 @@ require([
     'esri/geometry/Multipoint',
     'esri/geometry/Point',
     'esri/graphicsUtils',
+    'esri/tasks/IdentifyParameters',
+    'esri/tasks/IdentifyTask',
     'esri/symbols/PictureMarkerSymbol',
     'esri/symbols/SimpleFillSymbol',
     'esri/symbols/SimpleLineSymbol',
@@ -66,6 +69,8 @@ require([
     Multipoint,
     Point,
     graphicsUtils,
+    IdentifyParameters,
+    IdentifyTask,
     PictureMarkerSymbol,
     SimpleFillSymbol,
     SimpleLineSymbol,
@@ -851,6 +856,49 @@ require([
             }
 
             map.getLayer(layer).on('click', function (evt) {
+
+                //watershed identify task
+                //watershedGraphicsLayer.clear();
+                var identifyParameters = new IdentifyParameters();
+                identifyParameters.returnGeometry = true;
+                identifyParameters.tolerance = 0;
+                identifyParameters.width = map.width;
+                identifyParameters.height = map.height;
+                identifyParameters.geometry = evt.mapPoint;
+                identifyParameters.layerOption = IdentifyParameters.LAYER_OPTION_TOP;
+                identifyParameters.mapExtent = map.extent;
+                identifyParameters.spatialReference = map.spatialReference;
+
+                var identifyTask = new IdentifyTask(allLayers[0].layers["HUC8"].url);
+                var hucDeffered = identifyTask.execute(identifyParameters);
+
+                hucDeffered.addCallback(function(response) {
+                    if (response.length >= 1) {
+
+                        var feature;
+                        feature = response[0].feature;
+
+                        // Code for adding HUC highlight
+                        var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL,
+                            new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                                new dojo.Color([187,0,255]), 2), new dojo.Color([98,194,204,0])
+                        );
+                        feature.geometry.spatialReference = map.spatialReference;
+                        var graphic = feature;
+                        graphic.setSymbol(symbol);
+
+                        map.graphics.add(graphic);
+
+                        var convertedGeom = webMercatorUtils.webMercatorToGeographic(feature.geometry);
+
+                        var featExtent = convertedGeom.getExtent();
+
+                        map.setExtent(featExtent, true);
+
+                        var HUCNumber = response[0].feature.attributes.HUC8;
+                        var HUCName = response[0].feature.attributes.Name;
+                    }
+                });
 
                 map.graphics.clear();
                 var symbol = new SimpleMarkerSymbol();

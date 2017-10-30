@@ -214,6 +214,21 @@ require([
                         "hasOpacitySlider": true,
                         "includeLegend": true
                     }
+                },
+                'HUC8' : {
+                    'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/HUCs/MapServer',
+                    'visibleLayers': [1],
+                    'options': {
+                        'id': 'huc8',
+                        'opacity': 1.00,
+                        'visible': false
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisDynamic',
+                        'includeInLayerList': false,
+                        'includeLegend': true,
+                    }
                 }
             }
         }
