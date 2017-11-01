@@ -23,7 +23,7 @@ gulp.task('less', function () {
 
 // Styles
 gulp.task('styles', function () {
-    return gulp.src(['src/styles/main.css'])
+    return gulp.src(['src/styles/main.css', 'src/styles/custom.css'])
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('src/styles'))
         .pipe($.size());
