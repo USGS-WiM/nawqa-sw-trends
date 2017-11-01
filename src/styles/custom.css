@@ -152,3 +152,8 @@
     transition-property: -webkit-transform;
     transition-property: transform;
 }
+
+/* hiding second esri label in legend */
+  .esriLegendLayerLabel {
+      display: none;
+  }
