@@ -21,6 +21,7 @@ var currentSiteNo = "";
 var currentConst = "Total Phosphorus";
 var currentLayer = "wrtdsSites";
 
+var identifyTask, identifyParams;
 
 require([
     'esri/arcgis/utils',
@@ -36,6 +37,8 @@ require([
     'esri/geometry/Multipoint',
     'esri/geometry/Point',
     'esri/graphicsUtils',
+    'esri/tasks/IdentifyParameters',
+    'esri/tasks/IdentifyTask',
     'esri/symbols/PictureMarkerSymbol',
     'esri/symbols/SimpleFillSymbol',
     'esri/symbols/SimpleLineSymbol',
@@ -66,6 +69,8 @@ require([
     Multipoint,
     Point,
     graphicsUtils,
+    IdentifyParameters,
+    IdentifyTask,
     PictureMarkerSymbol,
     SimpleFillSymbol,
     SimpleLineSymbol,
@@ -852,6 +857,49 @@ require([
 
             map.getLayer(layer).on('click', function (evt) {
 
+                //watershed identify task
+                //watershedGraphicsLayer.clear();
+                var identifyParameters = new IdentifyParameters();
+                identifyParameters.returnGeometry = true;
+                identifyParameters.tolerance = 0;
+                identifyParameters.width = map.width;
+                identifyParameters.height = map.height;
+                identifyParameters.geometry = evt.mapPoint;
+                identifyParameters.layerOption = IdentifyParameters.LAYER_OPTION_TOP;
+                identifyParameters.mapExtent = map.extent;
+                identifyParameters.spatialReference = map.spatialReference;
+
+                var identifyTask = new IdentifyTask(allLayers[0].layers["HUC8"].url);
+                var hucDeffered = identifyTask.execute(identifyParameters);
+
+                hucDeffered.addCallback(function(response) {
+                    if (response.length >= 1) {
+
+                        var feature;
+                        feature = response[0].feature;
+
+                        // Code for adding HUC highlight
+                        var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL,
+                            new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                                new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
+                        );
+                        feature.geometry.spatialReference = map.spatialReference;
+                        var graphic = feature;
+                        graphic.setSymbol(symbol);
+
+                        map.graphics.add(graphic);
+
+                        var convertedGeom = webMercatorUtils.webMercatorToGeographic(feature.geometry);
+
+                        var featExtent = convertedGeom.getExtent();
+
+                        map.setExtent(featExtent, true);
+
+                        var HUCNumber = response[0].feature.attributes.HUC8;
+                        var HUCName = response[0].feature.attributes.Name;
+                    }
+                });
+
                 map.graphics.clear();
                 var symbol = new SimpleMarkerSymbol();
                 symbol.setStyle(SimpleMarkerSymbol.STYLE_SQUARE);
@@ -998,7 +1046,7 @@ require([
         }
     });
 
-    var geocoder = new Geocoder({
+    /* var geocoder = new Geocoder({
         value: '',
         maxLocations: 25,
         autoComplete: true,
@@ -1014,6 +1062,52 @@ require([
         if (e.keyCode == 13) {
             setSearchExtent();
         }
+    }); */
+
+    search_api.create( "geosearch", {
+        on_result: function(o) {
+            // what to do when a location is found
+            // o.result is geojson point feature of location with properties
+            // zoom to location
+            require(["esri/geometry/Extent"], function(Extent) {
+                var noExtents = ["GNIS_MAJOR", "GNIS_MINOR", "ZIPCODE", "AREACODE"];
+                var noExtentCheck = noExtents.indexOf(o.result.properties["Source"])
+                $("#geosearchModal").modal('hide');
+                if (noExtentCheck == -1) {
+                    map.setExtent(
+                        new esri.geometry.Extent({
+                            xmin: o.result.properties.LonMin,
+                            ymin: o.result.properties.LatMin,
+                            xmax: o.result.properties.LonMax,
+                            ymax: o.result.properties.LatMax,
+                            spatialReference: {"wkid":4326}
+                        }),
+                        true
+                    );
+                } else {
+                    //map.setCenter();
+                    require( ["esri/geometry/Point"], function(Point) {
+                        map.centerAndZoom(
+                            new Point( o.result.properties.Lon, o.result.properties.Lat ),
+                            12
+                        );
+                    });
+                }
+            });
+             
+        },
+        "include_usgs_sw": true,
+        "include_usgs_gw": true,
+        "include_usgs_sp": true,
+        "include_usgs_at": true,
+        "include_usgs_ot": true,
+        "include_huc2": true,
+        "include_huc4": true,
+        "include_huc6": true,
+        "include_huc8": true,
+        "include_huc10": true,
+        "include_huc12": true,
+        
     });
 
     // Symbols
@@ -1025,7 +1119,7 @@ require([
     });
 
     // Geosearch functions
-    on(dom.byId('btnGeosearch'),'click', geosearch);
+    /* on(dom.byId('btnGeosearch'),'click', geosearch); */
 
     // Optionally confine search to map extent
     function setSearchExtent (){
@@ -1485,7 +1579,7 @@ require([
             $('#legendElement').css('height', 'initial');
         });
 
-
+        
         // FAQ Modal controls.
         $('#faq1header').click(function(){$('#faq1body').slideToggle(250);});
         $('#faq2header').click(function(){$('#faq2body').slideToggle(250);});
@@ -1522,6 +1616,230 @@ require([
             myWindow.focus();
         });
 
+        $("#faq1header").click(function () {
+            if (  $( "#angle1" ).css( "transform" ) == 'none' ){
+                $("#angle1").css("transform","rotate(90deg)");
+            } else {
+                $("#angle1").css("transform","" );
+            }
+        });
+        $("#faq2header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle2" ).css( "transform" ) == 'none' ){
+                $("#angle2").css("transform","rotate(90deg)");
+            } else {
+                $("#angle2").css("transform","" );
+            }
+        });
+        $("#faq3header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle3" ).css( "transform" ) == 'none' ){
+                $("#angle3").css("transform","rotate(90deg)");
+            } else {
+                $("#angle3").css("transform","" );
+            }
+        });
+        $("#faq4header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle4" ).css( "transform" ) == 'none' ){
+                $("#angle4").css("transform","rotate(90deg)");
+            } else {
+                $("#angle4").css("transform","" );
+            }
+        });
+        $("#faq5header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle5" ).css( "transform" ) == 'none' ){
+                $("#angle5").css("transform","rotate(90deg)");
+            } else {
+                $("#angle5").css("transform","" );
+            }
+        });
+        $("#faq6header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle6" ).css( "transform" ) == 'none' ){
+                $("#angle6").css("transform","rotate(90deg)");
+            } else {
+                $("#angle6").css("transform","" );
+            }
+        });
+        $("#faq7header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle7" ).css( "transform" ) == 'none' ){
+                $("#angle7").css("transform","rotate(90deg)");
+            } else {
+                $("#angle7").css("transform","" );
+            }
+        });
+        $("#faq8header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle8" ).css( "transform" ) == 'none' ){
+                $("#angle8").css("transform","rotate(90deg)");
+            } else {
+                $("#angle8").css("transform","" );
+            }
+        });
+        $("#faq9header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle9" ).css( "transform" ) == 'none' ){
+                $("#angle9").css("transform","rotate(90deg)");
+            } else {
+                $("#angle9").css("transform","" );
+            }
+        });
+        $("#faq10header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle10" ).css( "transform" ) == 'none' ){
+                $("#angle10").css("transform","rotate(90deg)");
+            } else {
+                $("#angle10").css("transform","" );
+            }
+        });
+        $("#faq11header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle11" ).css( "transform" ) == 'none' ){
+                $("#angle11").css("transform","rotate(90deg)");
+            } else {
+                $("#angle11").css("transform","" );
+            }
+        });
+        $("#faq12header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle12" ).css( "transform" ) == 'none' ){
+                $("#angle12").css("transform","rotate(90deg)");
+            } else {
+                $("#angle12").css("transform","" );
+            }
+        });
+        $("#faq13header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle13" ).css( "transform" ) == 'none' ){
+                $("#angle13").css("transform","rotate(90deg)");
+            } else {
+                $("#angle13").css("transform","" );
+            }
+        });
+        $("#faq14header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle14" ).css( "transform" ) == 'none' ){
+                $("#angle14").css("transform","rotate(90deg)");
+            } else {
+                $("#angle14").css("transform","" );
+            }
+        });
+        $("#faq15header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle15" ).css( "transform" ) == 'none' ){
+                $("#angle15").css("transform","rotate(90deg)");
+            } else {
+                $("#angle15").css("transform","" );
+            }
+        });
+        $("#faq16header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle16" ).css( "transform" ) == 'none' ){
+                $("#angle16").css("transform","rotate(90deg)");
+            } else {
+                $("#angle16").css("transform","" );
+            }
+        });
+        $("#faq17header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle17" ).css( "transform" ) == 'none' ){
+                $("#angle17").css("transform","rotate(90deg)");
+            } else {
+                $("#angle17").css("transform","" );
+            }
+        });
+        $("#faq18header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle18" ).css( "transform" ) == 'none' ){
+                $("#angle18").css("transform","rotate(90deg)");
+            } else {
+                $("#angle18").css("transform","" );
+            }
+        });
+        $("#faq19header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle19" ).css( "transform" ) == 'none' ){
+                $("#angle19").css("transform","rotate(90deg)");
+            } else {
+                $("#angle19").css("transform","" );
+            }
+        });
+        $("#faq20header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle20" ).css( "transform" ) == 'none' ){
+                $("#angle20").css("transform","rotate(90deg)");
+            } else {
+                $("#angle20").css("transform","" );
+            }
+        });
+        $("#faq21header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle21" ).css( "transform" ) == 'none' ){
+                $("#angle21").css("transform","rotate(90deg)");
+            } else {
+                $("#angle21").css("transform","" );
+            }
+        });
+        $("#faq22header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle22" ).css( "transform" ) == 'none' ){
+                $("#angle22").css("transform","rotate(90deg)");
+            } else {
+                $("#angle22").css("transform","" );
+            }
+        });
+        $("#faq23header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle23" ).css( "transform" ) == 'none' ){
+                $("#angle23").css("transform","rotate(90deg)");
+            } else {
+                $("#angle23").css("transform","" );
+            }
+        });
+        $("#faq24header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle24" ).css( "transform" ) == 'none' ){
+                $("#angle24").css("transform","rotate(90deg)");
+            } else {
+                $("#angle24").css("transform","" );
+            }
+        });
+        $("#faq25header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle25" ).css( "transform" ) == 'none' ){
+                $("#angle25").css("transform","rotate(90deg)");
+            } else {
+                $("#angle25").css("transform","" );
+            }
+        });
+        $("#faq26header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle26" ).css( "transform" ) == 'none' ){
+                $("#angle26").css("transform","rotate(90deg)");
+            } else {
+                $("#angle26").css("transform","" );
+            }
+        });
+        $("#faq27header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle27" ).css( "transform" ) == 'none' ){
+                $("#angle27").css("transform","rotate(90deg)");
+            } else {
+                $("#angle27").css("transform","" );
+            }
+        });
+        $("#faq28header").click(function () {
+            //alert($( this ).css( "transform" ));
+            if (  $( "#angle28" ).css( "transform" ) == 'none' ){
+                $("#angle28").css("transform","rotate(90deg)");
+            } else {
+                $("#angle28").css("transform","" );
+            }
+        });
+
     });
 
     function printMap() {
@@ -1536,7 +1854,7 @@ require([
             dpi: 300
         };
         template.format = "PDF";
-        template.layout = "Letter ANSI A Landscape sw-trends";
+        template.layout = "Letter ANSI A Landscape sw-trends fix";
         template.preserveScale = false;
         var trendsLegendLayer = new LegendLayer();
         trendsLegendLayer.layerId = "1";

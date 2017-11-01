@@ -84,6 +84,22 @@ require([
                         "includeLegend": true
                     }
                 },
+                'HUC8' : {
+                    'url': 'https://fwsprimary.wim.usgs.gov/server/rest/services/HUCs/MapServer',
+                    'visibleLayers': [1],
+                    'options': {
+                        'id': 'huc8',
+                        'opacity': 1.00,
+                        'visible': true
+                    },
+                    'wimOptions': {
+                        'type': 'layer',
+                        'layerType': 'agisDynamic',
+                        'includeInLayerList': false,
+                        'includeLegend': true,
+                        'layerDefinitions': {1: "OBJECTID = -1"}
+                    }
+                },
                 "Eco Sites layer" : {
                     "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/1",
                     "options": {
@@ -220,8 +236,3 @@ require([
     ]
 
 });
-
-
-
-
-
