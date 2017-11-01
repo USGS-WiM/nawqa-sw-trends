@@ -881,7 +881,7 @@ require([
                         // Code for adding HUC highlight
                         var symbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL,
                             new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
-                                new dojo.Color([187,0,255]), 2), new dojo.Color([98,194,204,0])
+                                new dojo.Color([255,255,0]), 2), new dojo.Color([98,194,204,0])
                         );
                         feature.geometry.spatialReference = map.spatialReference;
                         var graphic = feature;
