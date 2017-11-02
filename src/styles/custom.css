@@ -153,7 +153,24 @@
     transition-property: transform;
 }
 
-/* hiding second esri label in legend */
-  .esriLegendLayerLabel {
-      display: none;
-  }
+
+
+/* Title for HUCS in legend */
+#legendDiv_huc8_1::before{
+ content: "Hydrologic unit code (HUC8)";
+ font-weight: bold;
+}
+
+/* Hiding the default title from the service */
+#legendDiv_huc8 .esriLegendServiceLabel {
+    display: none;
+   } 
+
+/* Hiding layer name */
+.esriLegendLayerLabel {
+    display: none;
+}
+
+/* #legendDiv_huc8 table tbody tr td{
+    display: none;
+} */

@@ -832,6 +832,11 @@ require([
     $("#siteInfoClose").click(function(){
         $("#siteInfoDiv").css("visibility", "hidden");
         map.graphics.clear();
+
+        var hucLayer;
+        hucLayer = map.getLayer("huc8");
+
+        hucLayer.setVisibility(false);
     });
 
     var pestPDFs = "";
@@ -857,6 +862,30 @@ require([
 
             map.getLayer(layer).on('click', function (evt) {
 
+                var hucLayer;
+                hucLayer = map.getLayer("huc8");
+        
+                hucLayer.setVisibility(true);
+
+                map.graphics.clear();
+                var symbol = new SimpleMarkerSymbol();
+                symbol.setStyle(SimpleMarkerSymbol.STYLE_SQUARE);
+                symbol.setColor(new Color([0,0,0,0.0]));
+                symbol.setSize("20");
+                var outline = new SimpleLineSymbol(
+                    SimpleLineSymbol.STYLE_SOLID,
+                    new Color([0,255,255]),
+                    2
+                );
+                symbol.setOutline(outline);
+
+                var pt = new Point(evt.mapPoint.x,evt.mapPoint.y,map.spatialReference)
+                var newGraphic = new Graphic(evt.graphic.geometry, symbol);
+
+                //newGraphic.setSymbol(symbol);
+                //map.graphics.add(evt.graphic)
+                map.graphics.add(newGraphic);
+
                 //watershed identify task
                 //watershedGraphicsLayer.clear();
                 var identifyParameters = new IdentifyParameters();
@@ -864,7 +893,7 @@ require([
                 identifyParameters.tolerance = 0;
                 identifyParameters.width = map.width;
                 identifyParameters.height = map.height;
-                identifyParameters.geometry = evt.mapPoint;
+                identifyParameters.geometry = evt.graphic.geometry;
                 identifyParameters.layerOption = IdentifyParameters.LAYER_OPTION_TOP;
                 identifyParameters.mapExtent = map.extent;
                 identifyParameters.spatialReference = map.spatialReference;
@@ -899,26 +928,7 @@ require([
                         var HUCName = response[0].feature.attributes.Name;
                     }
                 });
-
-                map.graphics.clear();
-                var symbol = new SimpleMarkerSymbol();
-                symbol.setStyle(SimpleMarkerSymbol.STYLE_SQUARE);
-                symbol.setColor(new Color([0,0,0,0.0]));
-                symbol.setSize("20");
-                var outline = new SimpleLineSymbol(
-                    SimpleLineSymbol.STYLE_SOLID,
-                    new Color([0,255,255]),
-                    2
-                );
-                symbol.setOutline(outline);
-
-                var pt = new Point(evt.mapPoint.x,evt.mapPoint.y,map.spatialReference)
-                var newGraphic = new Graphic(evt.graphic.geometry, symbol);
-
-                //newGraphic.setSymbol(symbol);
-                //map.graphics.add(evt.graphic)
-                map.graphics.add(newGraphic);
-
+                
                 if (layer == "ecoSites") {
                     $("#charts").hide();
                 } else {
@@ -2432,7 +2442,11 @@ require([
             layerInfos: legendLayers
         }, "legendDiv");
         legend.startup();
+        
+        var hucLayer;
+        hucLayer = map.getLayer("huc8");
 
+        hucLayer.setVisibility(false);
 
     });//end of require statement containing legend building code
 
@@ -2448,5 +2462,4 @@ $(document).ready(function () {
     //$('#legendClose').on('click', function () {
     //    $('#legend').hide();
     //});
-
 });
