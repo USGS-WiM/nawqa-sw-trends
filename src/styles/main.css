@@ -131,6 +131,11 @@ a:hover{
     z-index: 50;
 }
 
+#supportedSearchText {
+    text-align: left;
+    display: inline-block;
+}
+
 .hover-content {
     display:none;
 }
@@ -599,6 +604,7 @@ input[type="checkbox"], input[type="radio"] {
 
 .faq-header i{
     margin-left: 10px;
+    transition: all 2s linear;
 }
 .faq-header:hover{
     cursor: pointer;
