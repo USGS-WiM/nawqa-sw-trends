@@ -1,4 +1,4 @@
-{
+[{
   "name": "nawqa-sw-trends",
   "organization": "U.S. Geological Survey",
   "description": "Water-quality changes in the nation's streams and rivers",
@@ -27,4 +27,4 @@
   "updated": {
     "metadataLastUpdated": "10/26/2017"
   }
-}
+}]
