@@ -1,6 +1,6 @@
 {
   "name": "nawqa-sw-trends",
-  "version": "0.0.1",
+  "version": "1.2.3",
   "dependencies": {
     "jquery": "^2.1.3",
     "jquery-ui": "^1.12.0",
