@@ -7,10 +7,13 @@
     "fontawesome": "^4.3.0",
     "lobipanel": "arboshiki/lobipanel#v0.6",
     "jquery.nicescroll": "inuyaksa/jquery.nicescroll#~3.6.0",
-    "bootstrap": "3.3.7",
+    "bootstrap": "latest",
     "wim-styles": "USGS-WiM/wim-styles",
     "bootstrap-sidebar": "^0.2.0",
-    "bootstrap-map-js": "3.3.7",
+    "bootstrap-map-js": "latest",
     "handsontable": "~0.29.1"
+  },
+  "resolutions": {
+    "bootstrap": "^3.3.6"
   }
 }
