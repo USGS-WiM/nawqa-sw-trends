@@ -12,5 +12,8 @@
     "bootstrap-sidebar": "^0.2.0",
     "bootstrap-map-js": "latest",
     "handsontable": "~0.29.1"
+  },
+  "resolutions": {
+    "bootstrap": "^3.3.6"
   }
 }
