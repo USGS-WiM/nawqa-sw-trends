@@ -1592,13 +1592,13 @@ require([
             showTableModal();
         });
 
-        $("#html").niceScroll();
+        /*$("#html").niceScroll();
         $("#sidebar").niceScroll();
         $("#sidebar").scroll(function () {
             $("#sidebar").getNiceScroll().resize();
         });
 
-        $("#legendDiv").niceScroll();
+        $("#legendDiv").niceScroll();*/
 
         maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
         $('#legendElement').css('max-height', maxLegendHeight);
