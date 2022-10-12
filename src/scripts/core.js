@@ -182,7 +182,7 @@ require([
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/4/query?where=include_in_mapper_+%3D+%27include%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=Model%2CParameter_name&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
+        url: 'https://gis1.wim.usgs.gov/server/rest/services/SWTrends/swTrendSites/MapServer/4/query?where=include_in_mapper_+%3D+%27include%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=Model%2CParameter_name&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             constObj = data;
@@ -1051,7 +1051,7 @@ require([
 
         if (layer == "wrtdsSites" || layer == "wrtdsFluxSites") {
             map.getLayer(layer).on('query-limit-exceeded', function(evt) {
-                alert('exceeded');
+                //alert('exceeded');
             })
         }
     });
@@ -1890,6 +1890,7 @@ require([
         };
         template.format = "PDF";
         template.layout = "Letter ANSI A Landscape sw-trends fix";
+        //template.layout = "Letter ANSI A Landscape";
         template.preserveScale = false;
         var trendsLegendLayer = new LegendLayer();
         trendsLegendLayer.layerId = "1";
@@ -1910,7 +1911,8 @@ require([
         var docTitle = template.layoutOptions.titleText;
 
         printParams.template = template;
-        var printMap = new PrintTask("https://gis.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
+        var printMap = new PrintTask("https://gis1.wim.usgs.gov/server/rest/services/SWTrends/ExportWebMap/GPServer/Export%20Web%20Map");
+        //var printMap = new PrintTask("https://gis.wim.usgs.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task");
         printMap.execute(printParams, printDone, printError);
 
         function printDone(event) {
