@@ -68,7 +68,7 @@ require([
             "includeInLayerList": false,
             "layers": {
                 "pest layer": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/0",
+                    "url": "https://gis1.wim.usgs.gov/server/rest/services/SWTrends/swTrendSites/MapServer/0",
                     "options": {
                         "id": "pestSites",
                         "opacity": 1.00,
@@ -101,7 +101,7 @@ require([
                     }
                 },
                 "Eco Sites layer" : {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/1",
+                    "url": "https://gis1.wim.usgs.gov/server/rest/services/SWTrends/swTrendSites/MapServer/1",
                     "options": {
                         "id": "ecoSites",
                         "opacity": 1.00,
@@ -118,7 +118,7 @@ require([
                     }
                 },
                 "WRTDS Concentration Sites" : {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/2",
+                    "url": "https://gis1.wim.usgs.gov/server/rest/services/SWTrends/swTrendSites/MapServer/2",
                     "options": {
                         "id": "wrtdsSites",
                         "opacity": 1.00,
@@ -135,7 +135,7 @@ require([
                     }
                 },
                 "WRTDS Flux Sites" : {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/swTrendSites/MapServer/3",
+                    "url": "https://gis1.wim.usgs.gov/server/rest/services/SWTrends/swTrendSites/MapServer/3",
                     "options": {
                         "id": "wrtdsFluxSites",
                         "opacity": 1.00,
@@ -152,7 +152,7 @@ require([
                     }
                 },
                 "2012": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
+                    "url": "https://gis1.wim.usgs.gov/server/rest/services/SWTrends/lu2012_100515_test/ImageServer",
                     "options": {
                         "id": "lu2012",
                         "opacity": 0.5,
@@ -168,7 +168,7 @@ require([
                     }
                 },
                 "2002": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2002_100515_test/ImageServer",
+                    "url": "https://gis1.wim.usgs.gov/server/rest/services/SWTrends/lu2002_100515_test/ImageServer",
                     "options": {
                         "id": "lu2002",
                         "opacity": 0.5,
@@ -184,7 +184,7 @@ require([
                     }
                 },
                 "1992": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1992_100515_test/ImageServer",
+                    "url": "https://gis1.wim.usgs.gov/server/rest/services/SWTrends/lu1992_100515_test/ImageServer",
                     "options": {
                         "id": "lu1992",
                         "opacity": 0.5,
@@ -200,7 +200,7 @@ require([
                     }
                 },
                 "1982": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1982_100515_test/ImageServer",
+                    "url": "https://gis1.wim.usgs.gov/server/rest/services/SWTrends/lu1982_100515_test/ImageServer",
                     "options": {
                         "id": "lu1982",
                         "opacity": 0.5,
@@ -216,7 +216,7 @@ require([
                     }
                 },
                 "1974": {
-                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu1974_100515_test/ImageServer",
+                    "url": "https://gis1.wim.usgs.gov/server/rest/services/SWTrends/lu1974_100515_test/ImageServer",
                     "options": {
                         "id": "lu1974",
                         "opacity": 0.5,
