@@ -8,6 +8,7 @@ This mapper provides results from the largest-ever assessment of water-quality c
 ### Prerequisites
 
 [Node Package Manager](https://en.wikipedia.org/wiki/Npm_(software)) (npm)
+[node.js](https://nodejs.org) (version 10.15.3)
 
 ## Getting Started
 
