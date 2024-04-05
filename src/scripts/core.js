@@ -312,6 +312,7 @@ require([
 
     map.on('extent-change', function(event) {
         //alert(event);
+        //console.log('panned :>> ', panned);
     });
 
     $('#printNavButton').click(function(){
@@ -410,15 +411,19 @@ require([
     });
 
     function layerUpdateListener(layer) {
-        var layerUpdate = map.getLayer(layer).on('update-end', function(evt) {
-            var graphicsNum = evt.target.graphics.length;
-            if (graphicsNum == 0) {
-                //alert("No sites are available for this constituent and trend period. Please select another option.");
-                $(".alert-box").show();
-            } else {
-                $(".alert-box").hide();
-            }
-            layerUpdate.remove();
+        //$(".alert-box").show();
+        var layerUpdateStart = map.getLayer(layer).on('update-start', function(evt) {
+            var layerUpdate = map.getLayer(layer).on('update-end', function(evt) {
+                var graphicsNum = evt.target.graphics.length;
+                if (graphicsNum == 0) {
+                    //alert("No sites are available for this constituent and trend period. Please select another option.");
+                    $(".alert-box").show();
+                } else {
+                    $(".alert-box").hide();
+                }
+                layerUpdate.remove();
+                layerUpdateStart.remove();
+            });
         });
         map.getLayer(layer).refresh();
     }
