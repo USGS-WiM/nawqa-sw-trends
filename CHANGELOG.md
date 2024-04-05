@@ -17,6 +17,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  
 ### Fixed
  
+ -  
+
+
+ ## [1.2.8](https://github.com/USGS-WiM/nawqa-sw-trends/releases/tag/v1.2.8)
+
+### Added
+
+ -  
+ 
+### Changed
+
+ -  
+ 
+### Fixed
+ 
  -  'No sites' alert showing when layer displayed sites
 
 
