@@ -1,9 +1,10 @@
 ![WiM](wimlogo.png)
 
+## Update, 2024-12-03: Deprecated 
+
+### This repository has moved to a different hosting platform and is no longer being actively maintained. [Please see [https://code.usgs.gov/WiM/nawqa-sw-trends](https://code.usgs.gov/WiM/nawqa-sw-trends) for latest updates related to this effort.]
 
 # [National Water-Quality Assessment (NAWQA) Project](https://water.usgs.gov/nawqa/) Water-quality trends in the nation's streams and rivers
-
-# (Archived) This project repository is now located at [https://code.usgs.gov/WiM/nawqa-sw-trends](https://code.usgs.gov/WiM/nawqa-sw-trends)
 
 This mapper provides results from the largest-ever assessment of water-quality changes in the Nation's streams and rivers.
 
