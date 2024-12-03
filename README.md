@@ -3,7 +3,7 @@
 
 # [National Water-Quality Assessment (NAWQA) Project](https://water.usgs.gov/nawqa/) Water-quality trends in the nation's streams and rivers
 
-# This project repository is now located at [https://code.usgs.gov/WiM/nawqa-sw-trends](https://code.usgs.gov/WiM/nawqa-sw-trends)
+# (Archived) This project repository is now located at [https://code.usgs.gov/WiM/nawqa-sw-trends](https://code.usgs.gov/WiM/nawqa-sw-trends)
 
 This mapper provides results from the largest-ever assessment of water-quality changes in the Nation's streams and rivers.
 
